@@ -14,4 +14,18 @@ readme = "README.md"
 exclude = ["generate_coverage.sh"]
 
 [package.metadata.docs.rs]
-all
+all-features = true
+
+[features]
+default = ["std", "rand", "num-traits"]
+
+# Interface with the std library.
+std = []
+
+[dependencies.cfg-if]
+version = "1.0.0"
+
+[dependencies.static_assertions]
+version = "1.1"
+
+[dependencie
