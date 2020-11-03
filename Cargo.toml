@@ -52,4 +52,20 @@ features = ["html_reports"]
 version = "0.8.3"
 
 [dev-dependencies.serde_test]
-version = 
+version = "1.0.130"
+
+[lib]
+bench = false
+
+[[test]]
+name = "random"
+required-features = ["rand"]
+
+[[test]]
+name = "serde"
+required-features = ["serde"]
+
+[[bench]]
+name = "benchmarks"
+required-features = ["rand"]
+harness = fals
