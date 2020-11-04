@@ -68,4 +68,7 @@ required-features = ["serde"]
 [[bench]]
 name = "benchmarks"
 required-features = ["rand"]
-harness = fals
+harness = false
+
+[workspace]
+members = ["dev-tools"]
