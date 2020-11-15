@@ -15,4 +15,10 @@ use core::{
     ops::{Add, AddAssign, Sub, SubAssign},
 };
 
-impl Add<UBig> for 
+impl Add<UBig> for UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn add(self, rhs: UBig) -> UBig {
+        match (self.into_repr(), rhs.into_repr()) {
+            (Small(word0), Small(word1)) => UBig::add_word(word0, word1),
