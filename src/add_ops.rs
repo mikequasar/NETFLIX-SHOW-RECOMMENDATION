@@ -22,3 +22,6 @@ impl Add<UBig> for UBig {
     fn add(self, rhs: UBig) -> UBig {
         match (self.into_repr(), rhs.into_repr()) {
             (Small(word0), Small(word1)) => UBig::add_word(word0, word1),
+            (Small(word0), Large(buffer1)) => UBig::add_large_word(buffer1, word0),
+            (Large(buffer0), Small(word1)) => UBig::add_large_word(buffer0, word1),
+            (Large(buffer0), Large(buffer1)) => {
