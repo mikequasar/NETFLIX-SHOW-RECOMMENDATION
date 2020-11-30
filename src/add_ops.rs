@@ -29,4 +29,16 @@ impl Add<UBig> for UBig {
                     UBig::add_large(buffer0, &buffer1)
                 } else {
                     UBig::add_large(buffer1, &buffer0)
-     
+                }
+            }
+        }
+    }
+}
+
+impl Add<&UBig> for UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn add(self, rhs: &UBig) -> UBig {
+        match (self.into_repr(), rhs.repr()) {
+            
