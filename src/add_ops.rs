@@ -71,4 +71,14 @@ impl Add<&UBig> for &UBig {
                 if buffer0.len() >= buffer1.len() {
                     UBig::add_large(buffer0.clone(), buffer1)
                 } else {
-                    UBig::a
+                    UBig::add_large(buffer1.clone(), buffer0)
+                }
+            }
+        }
+    }
+}
+
+impl AddAssign<UBig> for UBig {
+    #[inline]
+    fn add_assign(&mut self, rhs: UBig) {
+        *self = mem::take(self) + rhs
