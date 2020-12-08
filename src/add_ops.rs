@@ -53,4 +53,15 @@ impl Add<UBig> for &UBig {
     type Output = UBig;
 
     #[inline]
-    fn add(self, rhs:
+    fn add(self, rhs: UBig) -> UBig {
+        rhs.add(self)
+    }
+}
+
+impl Add<&UBig> for &UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn add(self, rhs: &UBig) -> UBig {
+        match (self.repr(), rhs.repr()) {
+            (Small(word0), Small(word1)) => UB
