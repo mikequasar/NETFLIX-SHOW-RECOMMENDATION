@@ -64,4 +64,7 @@ impl Add<&UBig> for &UBig {
     #[inline]
     fn add(self, rhs: &UBig) -> UBig {
         match (self.repr(), rhs.repr()) {
-            (Small(word0), Small(word1)) => UB
+            (Small(word0), Small(word1)) => UBig::add_word(*word0, *word1),
+            (Small(word0), Large(buffer1)) => UBig::add_large_word(buffer1.clone(), *word0),
+            (Large(buffer0), Small(word1)) => UBig::add_large_word(buffer0.clone(), *word1),
+     
