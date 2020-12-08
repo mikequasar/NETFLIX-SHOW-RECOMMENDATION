@@ -67,4 +67,8 @@ impl Add<&UBig> for &UBig {
             (Small(word0), Small(word1)) => UBig::add_word(*word0, *word1),
             (Small(word0), Large(buffer1)) => UBig::add_large_word(buffer1.clone(), *word0),
             (Large(buffer0), Small(word1)) => UBig::add_large_word(buffer0.clone(), *word1),
-     
+            (Large(buffer0), Large(buffer1)) => {
+                if buffer0.len() >= buffer1.len() {
+                    UBig::add_large(buffer0.clone(), buffer1)
+                } else {
+                    UBig::a
