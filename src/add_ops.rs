@@ -81,4 +81,16 @@ impl Add<&UBig> for &UBig {
 impl AddAssign<UBig> for UBig {
     #[inline]
     fn add_assign(&mut self, rhs: UBig) {
-        *self = mem::take(self) + rhs
+        *self = mem::take(self) + rhs;
+    }
+}
+
+impl AddAssign<&UBig> for UBig {
+    #[inline]
+    fn add_assign(&mut self, rhs: &UBig) {
+        *self = mem::take(self) + rhs;
+    }
+}
+
+impl Sub<UBig> for UBig {
+    type Output
