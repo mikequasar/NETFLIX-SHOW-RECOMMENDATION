@@ -93,4 +93,10 @@ impl AddAssign<&UBig> for UBig {
 }
 
 impl Sub<UBig> for UBig {
-    type Output
+    type Output = UBig;
+
+    #[inline]
+    fn sub(self, rhs: UBig) -> UBig {
+        match (self.into_repr(), rhs.into_repr()) {
+            (Small(word0), Small(word1)) => UBig::sub_word(word0, word1),
+            (Small(_), Large(_)) => UBig:
