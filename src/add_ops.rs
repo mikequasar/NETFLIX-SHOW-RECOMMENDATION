@@ -99,4 +99,8 @@ impl Sub<UBig> for UBig {
     fn sub(self, rhs: UBig) -> UBig {
         match (self.into_repr(), rhs.into_repr()) {
             (Small(word0), Small(word1)) => UBig::sub_word(word0, word1),
-            (Small(_), Large(_)) => UBig:
+            (Small(_), Large(_)) => UBig::panic_negative(),
+            (Large(buffer0), Small(word1)) => UBig::sub_large_word(buffer0, word1),
+            (Large(buffer0), Large(buffer1)) => UBig::sub_large(buffer0, &buffer1),
+        }
+   
