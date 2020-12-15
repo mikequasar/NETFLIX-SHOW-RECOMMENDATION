@@ -129,3 +129,14 @@ impl Sub<UBig> for &UBig {
             (Small(word0), Small(word1)) => UBig::sub_word(*word0, word1),
             (Small(_), Large(_)) => UBig::panic_negative(),
             (Large(buffer0), Small(word1)) => UBig::sub_large_word(buffer0.clone(), word1),
+            (Large(buffer0), Large(buffer1)) => UBig::sub_large_ref_val(buffer0, buffer1),
+        }
+    }
+}
+
+impl Sub<&UBig> for &UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn sub(self, rhs: &UBig) -> UBig {
+    
