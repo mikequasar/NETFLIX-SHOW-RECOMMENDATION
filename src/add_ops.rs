@@ -142,4 +142,12 @@ impl Sub<&UBig> for &UBig {
         match (self.repr(), rhs.repr()) {
             (Small(word0), Small(word1)) => UBig::sub_word(*word0, *word1),
             (Small(_), Large(_)) => UBig::panic_negative(),
-            (Large(buffer0), Small(word1)) => UBig::sub_large_
+            (Large(buffer0), Small(word1)) => UBig::sub_large_word(buffer0.clone(), *word1),
+            (Large(buffer0), Large(buffer1)) => UBig::sub_large(buffer0.clone(), buffer1),
+        }
+    }
+}
+
+impl SubAssign<UBig> for UBig {
+    #[inline]
+    fn sub_assign(&mut self, r
