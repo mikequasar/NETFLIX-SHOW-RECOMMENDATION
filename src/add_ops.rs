@@ -163,4 +163,11 @@ impl SubAssign<&UBig> for UBig {
 }
 
 impl Add<IBig> for IBig {
-    typ
+    type Output = IBig;
+
+    #[inline]
+    fn add(self, rhs: IBig) -> IBig {
+        let (sign0, mag0) = self.into_sign_magnitude();
+        let (sign1, mag1) = rhs.into_sign_magnitude();
+        match (sign0, sign1) {
+            (Positive
