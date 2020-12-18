@@ -150,4 +150,17 @@ impl Sub<&UBig> for &UBig {
 
 impl SubAssign<UBig> for UBig {
     #[inline]
-    fn sub_assign(&mut self, r
+    fn sub_assign(&mut self, rhs: UBig) {
+        *self = mem::take(self) - rhs;
+    }
+}
+
+impl SubAssign<&UBig> for UBig {
+    #[inline]
+    fn sub_assign(&mut self, rhs: &UBig) {
+        *self = mem::take(self) - rhs;
+    }
+}
+
+impl Add<IBig> for IBig {
+    typ
