@@ -187,4 +187,12 @@ impl Add<&IBig> for IBig {
         let (sign1, mag1) = (rhs.sign(), rhs.magnitude());
         match (sign0, sign1) {
             (Positive, Positive) => IBig::from(mag0 + mag1),
-            (Positive, Negative) => IBig::sub_ubig_val_r
+            (Positive, Negative) => IBig::sub_ubig_val_ref(mag0, mag1),
+            (Negative, Positive) => -IBig::sub_ubig_val_ref(mag0, mag1),
+            (Negative, Negative) => -IBig::from(mag0 + mag1),
+        }
+    }
+}
+
+impl Add<IBig> for &IBig {
+    type Output = IBig;
