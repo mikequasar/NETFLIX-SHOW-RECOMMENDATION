@@ -184,4 +184,7 @@ impl Add<&IBig> for IBig {
     #[inline]
     fn add(self, rhs: &IBig) -> IBig {
         let (sign0, mag0) = self.into_sign_magnitude();
-        let (sign1
+        let (sign1, mag1) = (rhs.sign(), rhs.magnitude());
+        match (sign0, sign1) {
+            (Positive, Positive) => IBig::from(mag0 + mag1),
+            (Positive, Negative) => IBig::sub_ubig_val_r
