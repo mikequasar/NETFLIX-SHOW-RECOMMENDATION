@@ -173,4 +173,15 @@ impl Add<IBig> for IBig {
             (Positive, Positive) => IBig::from(mag0 + mag1),
             (Positive, Negative) => IBig::sub_ubig_val_val(mag0, mag1),
             (Negative, Positive) => IBig::sub_ubig_val_val(mag1, mag0),
-            (Negative, Negative) => -IB
+            (Negative, Negative) => -IBig::from(mag0 + mag1),
+        }
+    }
+}
+
+impl Add<&IBig> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn add(self, rhs: &IBig) -> IBig {
+        let (sign0, mag0) = self.into_sign_magnitude();
+        let (sign1
