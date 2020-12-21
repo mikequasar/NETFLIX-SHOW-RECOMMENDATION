@@ -196,3 +196,16 @@ impl Add<&IBig> for IBig {
 
 impl Add<IBig> for &IBig {
     type Output = IBig;
+
+    #[inline]
+    fn add(self, rhs: IBig) -> IBig {
+        rhs.add(self)
+    }
+}
+
+impl Add<&IBig> for &IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn add(self, rhs: &IBig) -> IBig {
+        let (sign0, m
