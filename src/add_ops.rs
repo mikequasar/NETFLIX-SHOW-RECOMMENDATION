@@ -214,4 +214,18 @@ impl Add<&IBig> for &IBig {
             (Positive, Positive) => IBig::from(mag0 + mag1),
             (Positive, Negative) => IBig::sub_ubig_ref_ref(mag0, mag1),
             (Negative, Positive) => IBig::sub_ubig_ref_ref(mag1, mag0),
-            (Negative, Negative) => -IBig::from(mag0 + ma
+            (Negative, Negative) => -IBig::from(mag0 + mag1),
+        }
+    }
+}
+
+impl AddAssign<IBig> for IBig {
+    #[inline]
+    fn add_assign(&mut self, rhs: IBig) {
+        *self = mem::take(self) + rhs;
+    }
+}
+
+impl AddAssign<&IBig> for IBig {
+    #[inline]
+    fn add_assign(&mu
