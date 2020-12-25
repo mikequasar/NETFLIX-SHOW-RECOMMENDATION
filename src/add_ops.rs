@@ -228,4 +228,14 @@ impl AddAssign<IBig> for IBig {
 
 impl AddAssign<&IBig> for IBig {
     #[inline]
-    fn add_assign(&mu
+    fn add_assign(&mut self, rhs: &IBig) {
+        *self = mem::take(self) + rhs;
+    }
+}
+
+impl Sub<IBig> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn sub(self, rhs: IBig) -> IBig {
+        self 
