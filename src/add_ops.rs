@@ -254,4 +254,15 @@ impl Sub<&IBig> for IBig {
 impl Sub<IBig> for &IBig {
     type Output = IBig;
 
-    #[in
+    #[inline]
+    fn sub(self, rhs: IBig) -> IBig {
+        self + -rhs
+    }
+}
+
+impl Sub<&IBig> for &IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn sub(self, rhs: &IBig) -> IBig {
+        let (sign0, mag0) = (self.s
