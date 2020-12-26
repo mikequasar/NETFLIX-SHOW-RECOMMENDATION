@@ -265,4 +265,8 @@ impl Sub<&IBig> for &IBig {
 
     #[inline]
     fn sub(self, rhs: &IBig) -> IBig {
-        let (sign0, mag0) = (self.s
+        let (sign0, mag0) = (self.sign(), self.magnitude());
+        let (sign1, mag1) = (rhs.sign(), rhs.magnitude());
+        match (sign0, sign1) {
+            (Positive, Positive) => IBig::sub_ubig_ref_ref(mag0, mag1),
+            (Positive, N
