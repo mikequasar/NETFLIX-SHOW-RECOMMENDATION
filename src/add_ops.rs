@@ -238,4 +238,20 @@ impl Sub<IBig> for IBig {
 
     #[inline]
     fn sub(self, rhs: IBig) -> IBig {
-        self 
+        self + -rhs
+    }
+}
+
+impl Sub<&IBig> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn sub(self, rhs: &IBig) -> IBig {
+        -(-self + rhs)
+    }
+}
+
+impl Sub<IBig> for &IBig {
+    type Output = IBig;
+
+    #[in
