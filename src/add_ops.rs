@@ -276,4 +276,14 @@ impl Sub<&IBig> for &IBig {
     }
 }
 
-impl SubAssign<I
+impl SubAssign<IBig> for IBig {
+    #[inline]
+    fn sub_assign(&mut self, rhs: IBig) {
+        *self = mem::take(self) - rhs;
+    }
+}
+
+impl SubAssign<&IBig> for IBig {
+    #[inline]
+    fn sub_assign(&mut self, rhs: &IBig) {
+        *se
