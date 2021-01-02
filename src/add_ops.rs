@@ -286,4 +286,14 @@ impl SubAssign<IBig> for IBig {
 impl SubAssign<&IBig> for IBig {
     #[inline]
     fn sub_assign(&mut self, rhs: &IBig) {
-        *se
+        *self = mem::take(self) - rhs;
+    }
+}
+
+macro_rules! impl_add_ubig_unsigned {
+    ($t:ty) => {
+        impl Add<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn add(self, rhs: $t) -> UBig
