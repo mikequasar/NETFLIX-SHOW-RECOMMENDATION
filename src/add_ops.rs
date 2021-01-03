@@ -296,4 +296,14 @@ macro_rules! impl_add_ubig_unsigned {
             type Output = UBig;
 
             #[inline]
-            fn add(self, rhs: $t) -> UBig
+            fn add(self, rhs: $t) -> UBig {
+                self.add_unsigned(rhs)
+            }
+        }
+
+        impl Add<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn add(self, rhs: $t) -> UBig {
+            
