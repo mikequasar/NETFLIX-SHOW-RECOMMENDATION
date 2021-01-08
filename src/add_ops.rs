@@ -317,4 +317,13 @@ macro_rules! impl_add_ubig_unsigned {
             #[inline]
             fn add_assign(&mut self, rhs: $t) {
                 self.add_assign_unsigned(rhs)
-    
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl AddAssign<$t> for UBig, add_assign);
+
+        impl Sub<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn sub(
