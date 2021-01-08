@@ -306,4 +306,9 @@ macro_rules! impl_add_ubig_unsigned {
 
             #[inline]
             fn add(self, rhs: $t) -> UBig {
-            
+                self.add_ref_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl Add<$t> for UBig, add);
+        helper_macros::forward_binop_swap_args!(impl Add<
