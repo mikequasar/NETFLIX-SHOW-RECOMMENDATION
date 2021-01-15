@@ -326,4 +326,13 @@ macro_rules! impl_add_ubig_unsigned {
             type Output = UBig;
 
             #[inline]
-            fn sub(
+            fn sub(self, rhs: $t) -> UBig {
+                self.sub_unsigned(rhs)
+            }
+        }
+
+        impl Sub<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+           
