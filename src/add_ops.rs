@@ -335,4 +335,11 @@ macro_rules! impl_add_ubig_unsigned {
             type Output = UBig;
 
             #[inline]
-           
+            fn sub(self, rhs: $t) -> UBig {
+                self.sub_ref_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl Sub<$t> for UBig, sub);
+
+        impl SubAss
