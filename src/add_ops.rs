@@ -342,4 +342,11 @@ macro_rules! impl_add_ubig_unsigned {
 
         helper_macros::forward_binop_second_arg_by_value!(impl Sub<$t> for UBig, sub);
 
-        impl SubAss
+        impl SubAssign<$t> for UBig {
+            #[inline]
+            fn sub_assign(&mut self, rhs: $t) {
+                self.sub_assign_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl SubA
