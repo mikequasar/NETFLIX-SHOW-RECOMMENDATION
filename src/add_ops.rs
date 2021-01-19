@@ -349,4 +349,13 @@ macro_rules! impl_add_ubig_unsigned {
             }
         }
 
-        helper_macros::forward_binop_assign_arg_by_value!(impl SubA
+        helper_macros::forward_binop_assign_arg_by_value!(impl SubAssign<$t> for UBig, sub_assign);
+    };
+}
+
+impl_add_ubig_unsigned!(u8);
+impl_add_ubig_unsigned!(u16);
+impl_add_ubig_unsigned!(u32);
+impl_add_ubig_unsigned!(u64);
+impl_add_ubig_unsigned!(u128);
+impl_add_ubig_unsigned
