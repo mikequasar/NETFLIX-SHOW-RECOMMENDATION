@@ -367,4 +367,15 @@ macro_rules! impl_add_ubig_signed {
 
             #[inline]
             fn add(self, rhs: $t) -> UBig {
-                self
+                self.add_signed(rhs)
+            }
+        }
+
+        impl Add<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn add(self, rhs: $t) -> UBig {
+                self.add_ref_signed(rhs)
+            }
+        
