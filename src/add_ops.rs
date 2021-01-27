@@ -378,4 +378,10 @@ macro_rules! impl_add_ubig_signed {
             fn add(self, rhs: $t) -> UBig {
                 self.add_ref_signed(rhs)
             }
-        
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl Add<$t> for UBig, add);
+        helper_macros::forward_binop_swap_args!(impl Add<UBig> for $t, add);
+
+        impl AddAssign<$t> for UBig {
+  
