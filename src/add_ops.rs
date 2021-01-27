@@ -358,4 +358,13 @@ impl_add_ubig_unsigned!(u16);
 impl_add_ubig_unsigned!(u32);
 impl_add_ubig_unsigned!(u64);
 impl_add_ubig_unsigned!(u128);
-impl_add_ubig_unsigned
+impl_add_ubig_unsigned!(usize);
+
+macro_rules! impl_add_ubig_signed {
+    ($t:ty) => {
+        impl Add<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn add(self, rhs: $t) -> UBig {
+                self
