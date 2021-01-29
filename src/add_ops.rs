@@ -384,4 +384,10 @@ macro_rules! impl_add_ubig_signed {
         helper_macros::forward_binop_swap_args!(impl Add<UBig> for $t, add);
 
         impl AddAssign<$t> for UBig {
-  
+            #[inline]
+            fn add_assign(&mut self, rhs: $t) {
+                self.add_assign_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl A
