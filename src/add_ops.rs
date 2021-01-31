@@ -390,4 +390,12 @@ macro_rules! impl_add_ubig_signed {
             }
         }
 
-        helper_macros::forward_binop_assign_arg_by_value!(impl A
+        helper_macros::forward_binop_assign_arg_by_value!(impl AddAssign<$t> for UBig, add_assign);
+
+        impl Sub<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn sub(self, rhs: $t) -> UBig {
+                self.sub_signed(rhs)
+      
