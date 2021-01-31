@@ -398,4 +398,12 @@ macro_rules! impl_add_ubig_signed {
             #[inline]
             fn sub(self, rhs: $t) -> UBig {
                 self.sub_signed(rhs)
-      
+            }
+        }
+
+        impl Sub<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn sub(self, rhs: $t) -> UBig {
+                self.sub_ref_signed(rh
