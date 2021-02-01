@@ -406,4 +406,12 @@ macro_rules! impl_add_ubig_signed {
 
             #[inline]
             fn sub(self, rhs: $t) -> UBig {
-                self.sub_ref_signed(rh
+                self.sub_ref_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl Sub<$t> for UBig, sub);
+
+        impl SubAssign<$t> for UBig {
+            #[inline]
+            fn
