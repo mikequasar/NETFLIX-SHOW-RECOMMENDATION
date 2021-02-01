@@ -420,4 +420,14 @@ macro_rules! impl_add_ubig_signed {
         }
 
         helper_macros::forward_binop_assign_arg_by_value!(impl SubAssign<$t> for UBig, sub_assign);
-  
+    };
+}
+
+impl_add_ubig_signed!(i8);
+impl_add_ubig_signed!(i16);
+impl_add_ubig_signed!(i32);
+impl_add_ubig_signed!(i64);
+impl_add_ubig_signed!(i128);
+impl_add_ubig_signed!(isize);
+
+macro_ru
