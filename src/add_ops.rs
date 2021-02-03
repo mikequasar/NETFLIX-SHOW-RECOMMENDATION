@@ -430,4 +430,11 @@ impl_add_ubig_signed!(i64);
 impl_add_ubig_signed!(i128);
 impl_add_ubig_signed!(isize);
 
-macro_ru
+macro_rules! impl_add_ibig_primitive {
+    ($t:ty) => {
+        impl Add<$t> for IBig {
+            type Output = IBig;
+
+            #[inline]
+            fn add(self, rhs: $t) -> IBig {
+                self.add_primitive
