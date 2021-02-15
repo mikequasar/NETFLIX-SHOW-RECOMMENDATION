@@ -453,4 +453,11 @@ macro_rules! impl_add_ibig_primitive {
         helper_macros::forward_binop_second_arg_by_value!(impl Add<$t> for IBig, add);
         helper_macros::forward_binop_swap_args!(impl Add<IBig> for $t, add);
 
-        impl AddAssign<$t> for IBig
+        impl AddAssign<$t> for IBig {
+            #[inline]
+            fn add_assign(&mut self, rhs: $t) {
+                self.add_assign_primitive(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl Add
