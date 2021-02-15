@@ -437,4 +437,15 @@ macro_rules! impl_add_ibig_primitive {
 
             #[inline]
             fn add(self, rhs: $t) -> IBig {
-                self.add_primitive
+                self.add_primitive(rhs)
+            }
+        }
+
+        impl Add<$t> for &IBig {
+            type Output = IBig;
+
+            #[inline]
+            fn add(self, rhs: $t) -> IBig {
+                self.add_ref_primitive(rhs)
+            }
+      
