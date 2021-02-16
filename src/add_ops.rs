@@ -476,4 +476,14 @@ macro_rules! impl_add_ibig_primitive {
 
             #[inline]
             fn sub(self, rhs: $t) -> IBig {
-                self.sub_ref_primitive(rhs
+                self.sub_ref_primitive(rhs)
+            }
+        }
+
+        impl Sub<IBig> for $t {
+            type Output = IBig;
+
+            #[inline]
+            fn sub(self, rhs: IBig) -> IBig {
+                rhs.sub_from_primitive(self)
+     
