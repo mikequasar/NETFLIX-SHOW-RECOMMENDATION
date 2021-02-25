@@ -497,3 +497,8 @@ macro_rules! impl_add_ibig_primitive {
                 rhs.sub_ref_from_primitive(self)
             }
         }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl Sub<$t> for IBig, sub);
+        helper_macros::forward_binop_first_arg_by_value!(impl Sub<IBig> for $t, sub);
+
+        impl SubAssign<$t>
