@@ -501,4 +501,11 @@ macro_rules! impl_add_ibig_primitive {
         helper_macros::forward_binop_second_arg_by_value!(impl Sub<$t> for IBig, sub);
         helper_macros::forward_binop_first_arg_by_value!(impl Sub<IBig> for $t, sub);
 
-        impl SubAssign<$t>
+        impl SubAssign<$t> for IBig {
+            #[inline]
+            fn sub_assign(&mut self, rhs: $t) {
+                self.sub_assign_primitive(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl Sub
