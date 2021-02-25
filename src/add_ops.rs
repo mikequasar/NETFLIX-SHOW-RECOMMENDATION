@@ -508,4 +508,13 @@ macro_rules! impl_add_ibig_primitive {
             }
         }
 
-        helper_macros::forward_binop_assign_arg_by_value!(impl Sub
+        helper_macros::forward_binop_assign_arg_by_value!(impl SubAssign<$t> for IBig, sub_assign);
+    };
+}
+
+impl_add_ibig_primitive!(u8);
+impl_add_ibig_primitive!(u16);
+impl_add_ibig_primitive!(u32);
+impl_add_ibig_primitive!(u64);
+impl_add_ibig_primitive!(u128);
+impl_add_ibig_primitive
