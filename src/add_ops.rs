@@ -517,4 +517,12 @@ impl_add_ibig_primitive!(u16);
 impl_add_ibig_primitive!(u32);
 impl_add_ibig_primitive!(u64);
 impl_add_ibig_primitive!(u128);
-impl_add_ibig_primitive
+impl_add_ibig_primitive!(usize);
+impl_add_ibig_primitive!(i8);
+impl_add_ibig_primitive!(i16);
+impl_add_ibig_primitive!(i32);
+impl_add_ibig_primitive!(i64);
+impl_add_ibig_primitive!(i128);
+impl_add_ibig_primitive!(isize);
+
+impl UBig {
