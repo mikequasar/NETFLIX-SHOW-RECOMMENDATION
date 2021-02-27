@@ -526,3 +526,10 @@ impl_add_ibig_primitive!(i128);
 impl_add_ibig_primitive!(isize);
 
 impl UBig {
+    /// Add two `Word`s.
+    #[inline]
+    fn add_word(a: Word, b: Word) -> UBig {
+        let (res, overflow) = a.overflowing_add(b);
+        if overflow {
+            let mut buffer = Buffer::allocate(2);
+        
