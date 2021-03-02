@@ -532,4 +532,13 @@ impl UBig {
         let (res, overflow) = a.overflowing_add(b);
         if overflow {
             let mut buffer = Buffer::allocate(2);
-        
+            buffer.push(res);
+            buffer.push(1);
+            buffer.into()
+        } else {
+            UBig::from_word(res)
+        }
+    }
+
+    /// Add a large number to a `Word`.
+    fn add_large_word(mut buffer:
