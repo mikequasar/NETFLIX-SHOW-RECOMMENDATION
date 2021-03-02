@@ -541,4 +541,12 @@ impl UBig {
     }
 
     /// Add a large number to a `Word`.
-    fn add_large_word(mut buffer:
+    fn add_large_word(mut buffer: Buffer, rhs: Word) -> UBig {
+        debug_assert!(buffer.len() >= 2);
+        if add::add_word_in_place(&mut buffer, rhs) {
+            buffer.push_may_reallocate(1);
+        }
+        buffer.into()
+    }
+
+    /// Add two large numb
