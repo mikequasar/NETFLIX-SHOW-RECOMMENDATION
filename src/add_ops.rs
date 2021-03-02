@@ -549,4 +549,8 @@ impl UBig {
         buffer.into()
     }
 
-    /// Add two large numb
+    /// Add two large numbers.
+    fn add_large(mut buffer: Buffer, rhs: &[Word]) -> UBig {
+        let n = buffer.len().min(rhs.len());
+        let overflow = add::add_same_len_in_place(&mut buffer[..n], &rhs[..n]);
+        i
