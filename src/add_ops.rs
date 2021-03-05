@@ -558,4 +558,13 @@ impl UBig {
             buffer.extend(&rhs[n..]);
         }
         if overflow && add::add_one_in_place(&mut buffer[n..]) {
-            buffer.push_may_real
+            buffer.push_may_reallocate(1);
+        }
+        buffer.into()
+    }
+
+    /// Subtract two `Word`s.
+    #[inline]
+    fn sub_word(a: Word, b: Word) -> UBig {
+        match a.checked_sub(b) {
+            Some(res) => U
