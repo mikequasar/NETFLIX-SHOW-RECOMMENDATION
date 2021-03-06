@@ -567,4 +567,10 @@ impl UBig {
     #[inline]
     fn sub_word(a: Word, b: Word) -> UBig {
         match a.checked_sub(b) {
-            Some(res) => U
+            Some(res) => UBig::from_word(res),
+            None => UBig::panic_negative(),
+        }
+    }
+
+    fn sub_large_word(mut lhs: Buffer, rhs: Word) -> UBig {
+        let overflow = add::sub_word_in_place(&mut lhs, rhs)
