@@ -573,4 +573,11 @@ impl UBig {
     }
 
     fn sub_large_word(mut lhs: Buffer, rhs: Word) -> UBig {
-        let overflow = add::sub_word_in_place(&mut lhs, rhs)
+        let overflow = add::sub_word_in_place(&mut lhs, rhs);
+        assert!(!overflow);
+        lhs.into()
+    }
+
+    fn sub_large(mut lhs: Buffer, rhs: &[Word]) -> UBig {
+        if lhs.len() < rhs.len() || add::sub_in_place(&mut lhs, rhs) {
+            UBig::panic_ne
