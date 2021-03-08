@@ -580,4 +580,14 @@ impl UBig {
 
     fn sub_large(mut lhs: Buffer, rhs: &[Word]) -> UBig {
         if lhs.len() < rhs.len() || add::sub_in_place(&mut lhs, rhs) {
-            UBig::panic_ne
+            UBig::panic_negative();
+        }
+        lhs.into()
+    }
+
+    fn sub_large_ref_val(lhs: &[Word], mut rhs: Buffer) -> UBig {
+        let n = rhs.len();
+        if lhs.len() < n {
+            UBig::panic_negative();
+        }
+        let b
