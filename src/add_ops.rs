@@ -594,4 +594,15 @@ impl UBig {
         rhs.ensure_capacity(lhs.len());
         rhs.extend(&lhs[n..]);
         if borrow && add::sub_one_in_place(&mut rhs[n..]) {
-            UBig::panic_neg
+            UBig::panic_negative();
+        }
+        rhs.into()
+    }
+
+    #[inline]
+    fn add_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> UBig {
+        self + UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn add_ref_unsigned<T: Primitive
