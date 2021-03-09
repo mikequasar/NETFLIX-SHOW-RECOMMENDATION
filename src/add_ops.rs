@@ -590,4 +590,8 @@ impl UBig {
         if lhs.len() < n {
             UBig::panic_negative();
         }
-        let b
+        let borrow = add::sub_same_len_in_place_swap(&lhs[..n], &mut rhs);
+        rhs.ensure_capacity(lhs.len());
+        rhs.extend(&lhs[n..]);
+        if borrow && add::sub_one_in_place(&mut rhs[n..]) {
+            UBig::panic_neg
