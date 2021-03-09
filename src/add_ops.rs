@@ -611,4 +611,13 @@ impl UBig {
 
     #[inline]
     fn add_assign_unsigned<T: PrimitiveUnsigned>(&mut self, rhs: T) {
-        *self += UBig::from_unsi
+        *self += UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn sub_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> UBig {
+        self - UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn sub_ref_unsigned<T: PrimitiveUns
