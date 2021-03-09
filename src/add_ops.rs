@@ -605,4 +605,10 @@ impl UBig {
     }
 
     #[inline]
-    fn add_ref_unsigned<T: Primitive
+    fn add_ref_unsigned<T: PrimitiveUnsigned>(&self, rhs: T) -> UBig {
+        self + UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn add_assign_unsigned<T: PrimitiveUnsigned>(&mut self, rhs: T) {
+        *self += UBig::from_unsi
