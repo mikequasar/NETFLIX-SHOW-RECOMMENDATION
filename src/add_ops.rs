@@ -629,4 +629,10 @@ impl UBig {
         *self -= UBig::from_unsigned(rhs)
     }
 
-    #[inl
+    #[inline]
+    fn add_signed<T: PrimitiveSigned>(self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self) + IBig::from_signed(rhs))
+    }
+
+    #[inline]
+    fn add_ref_signed<T: PrimitiveSigned>(&self
