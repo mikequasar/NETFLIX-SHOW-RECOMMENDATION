@@ -641,4 +641,13 @@ impl UBig {
 
     #[inline]
     fn add_assign_signed<T: PrimitiveSigned>(&mut self, rhs: T) {
-        *self = mem::take(sel
+        *self = mem::take(self).add_signed(rhs)
+    }
+
+    #[inline]
+    fn sub_signed<T: PrimitiveSigned>(self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self) - IBig::from_signed(rhs))
+    }
+
+    #[inline]
+    fn s
