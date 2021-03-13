@@ -650,4 +650,9 @@ impl UBig {
     }
 
     #[inline]
-    fn s
+    fn sub_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self) - IBig::from_signed(rhs))
+    }
+
+    #[inline]
+    fn sub_assign_signed<T: PrimitiveSi
