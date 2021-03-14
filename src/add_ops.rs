@@ -655,4 +655,13 @@ impl UBig {
     }
 
     #[inline]
-    fn sub_assign_signed<T: PrimitiveSi
+    fn sub_assign_signed<T: PrimitiveSigned>(&mut self, rhs: T) {
+        *self = mem::take(self).sub_signed(rhs)
+    }
+}
+
+impl IBig {
+    #[inline]
+    fn sub_ubig_val_val(lhs: UBig, rhs: UBig) -> IBig {
+        match (lhs.into_repr(), rhs.into_repr()) {
+            (Smal
