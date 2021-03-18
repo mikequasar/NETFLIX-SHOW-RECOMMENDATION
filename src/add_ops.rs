@@ -664,4 +664,6 @@ impl IBig {
     #[inline]
     fn sub_ubig_val_val(lhs: UBig, rhs: UBig) -> IBig {
         match (lhs.into_repr(), rhs.into_repr()) {
-            (Smal
+            (Small(word0), Small(word1)) => IBig::sub_word_word(word0, word1),
+            (Small(word0), Large(buffer1)) => -IBig::sub_large_word(buffer1, word0),
+            (Large(buffer0), Small(word1)) => IBig:
