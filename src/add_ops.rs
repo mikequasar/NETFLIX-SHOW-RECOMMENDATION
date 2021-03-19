@@ -666,4 +666,9 @@ impl IBig {
         match (lhs.into_repr(), rhs.into_repr()) {
             (Small(word0), Small(word1)) => IBig::sub_word_word(word0, word1),
             (Small(word0), Large(buffer1)) => -IBig::sub_large_word(buffer1, word0),
-            (Large(buffer0), Small(word1)) => IBig:
+            (Large(buffer0), Small(word1)) => IBig::sub_large_word(buffer0, word1),
+            (Large(buffer0), Large(buffer1)) => {
+                if buffer0.len() >= buffer1.len() {
+                    IBig::sub_large(buffer0, &buffer1)
+                } else {
+                    -IBi
