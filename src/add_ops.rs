@@ -682,4 +682,10 @@ impl IBig {
         match (lhs.into_repr(), rhs.repr()) {
             (Small(word0), Small(word1)) => IBig::sub_word_word(word0, *word1),
             (Small(word0), Large(buffer1)) => -IBig::sub_large_word(buffer1.clone(), word0),
-            (Large(buffer0), Small(wo
+            (Large(buffer0), Small(word1)) => IBig::sub_large_word(buffer0, *word1),
+            (Large(buffer0), Large(buffer1)) => IBig::sub_large(buffer0, buffer1),
+        }
+    }
+
+    #[inline]
+    fn sub_ubig_ref_ref(lhs: &UBig, 
