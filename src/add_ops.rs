@@ -671,4 +671,13 @@ impl IBig {
                 if buffer0.len() >= buffer1.len() {
                     IBig::sub_large(buffer0, &buffer1)
                 } else {
-                    -IBi
+                    -IBig::sub_large(buffer1, &buffer0)
+                }
+            }
+        }
+    }
+
+    #[inline]
+    fn sub_ubig_val_ref(lhs: UBig, rhs: &UBig) -> IBig {
+        match (lhs.into_repr(), rhs.repr()) {
+       
