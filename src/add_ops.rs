@@ -688,4 +688,7 @@ impl IBig {
     }
 
     #[inline]
-    fn sub_ubig_ref_ref(lhs: &UBig, 
+    fn sub_ubig_ref_ref(lhs: &UBig, rhs: &UBig) -> IBig {
+        match (lhs.repr(), rhs.repr()) {
+            (Small(word0), Small(word1)) => IBig::sub_word_word(*word0, *word1),
+            (Small(word0), Large(buffer1)) => -IBig::sub_large_word(buffer1.c
