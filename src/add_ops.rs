@@ -695,3 +695,12 @@ impl IBig {
             (Large(buffer0), Small(word1)) => IBig::sub_large_word(buffer0.clone(), *word1),
             (Large(buffer0), Large(buffer1)) => {
                 if buffer0.len() >= buffer1.len() {
+                    IBig::sub_large(buffer0.clone(), buffer1)
+                } else {
+                    -IBig::sub_large(buffer1.clone(), buffer0)
+                }
+            }
+        }
+    }
+
+    #[inline]
