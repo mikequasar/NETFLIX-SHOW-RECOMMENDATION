@@ -710,4 +710,13 @@ impl IBig {
             IBig::from(val)
         } else {
             -IBig::from(val.wrapping_neg())
-       
+        }
+    }
+
+    fn sub_large_word(lhs: Buffer, rhs: Word) -> IBig {
+        UBig::sub_large_word(lhs, rhs).into()
+    }
+
+    fn sub_large(mut lhs: Buffer, rhs: &[Word]) -> IBig {
+        if lhs.len() >= rhs.len() {
+            let 
