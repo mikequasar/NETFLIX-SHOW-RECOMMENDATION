@@ -747,4 +747,16 @@ impl IBig {
     fn add_assign_primitive<T>(&mut self, rhs: T)
     where
         IBig: From<T>,
- 
+    {
+        *self += IBig::from(rhs)
+    }
+
+    #[inline]
+    fn sub_primitive<T>(self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self - IBig::from(rhs)
+    }
+
+    #[inline]
