@@ -723,4 +723,17 @@ impl IBig {
             IBig::from_sign_magnitude(sign, lhs.into())
         } else {
             let res = UBig::sub_large_ref_val(rhs, lhs);
-            IBig::from_
+            IBig::from_sign_magnitude(Negative, res)
+        }
+    }
+
+    #[inline]
+    fn add_primitive<T>(self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self + IBig::from(rhs)
+    }
+
+    #[inline]
+    
