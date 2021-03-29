@@ -719,4 +719,8 @@ impl IBig {
 
     fn sub_large(mut lhs: Buffer, rhs: &[Word]) -> IBig {
         if lhs.len() >= rhs.len() {
-            let 
+            let sign = add::sub_in_place_with_sign(&mut lhs, rhs);
+            IBig::from_sign_magnitude(sign, lhs.into())
+        } else {
+            let res = UBig::sub_large_ref_val(rhs, lhs);
+            IBig::from_
