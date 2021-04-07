@@ -780,4 +780,14 @@ impl IBig {
     where
         IBig: From<T>,
     {
-        IBig::from(rhs)
+        IBig::from(rhs) - self
+    }
+
+    #[inline]
+    fn sub_ref_from_primitive<T>(&self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        IBig::from(rhs) - self
+    }
+}
