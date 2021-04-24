@@ -11,4 +11,12 @@ pub(crate) const PRIMES: [Prime; NUM_PRIMES] = [
         prime: 0xbe00000000000001,
         max_order_root: 0x37,
     },
-    Prime 
+    Prime {
+        prime: 0xd800000000000001,
+        max_order_root: 0x40,
+    },
+    Prime {
+        prime: 0xf600000000000001,
+        max_order_root: 0x1ed,
+    },
+];
