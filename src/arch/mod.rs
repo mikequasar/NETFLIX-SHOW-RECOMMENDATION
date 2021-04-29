@@ -17,4 +17,11 @@ cfg_if! {
     if #[cfg(force_bits = "16")] {
         #[path = "generic_16_bit/mod.rs"]
         mod arch_impl;
-   
+    }
+    else if #[cfg(force_bits = "32")] {
+        #[path = "generic_32_bit/mod.rs"]
+        mod arch_impl;
+    }
+    else if #[cfg(force_bits = "64")] {
+        #[path = "generic_64_bit/mod.rs"]
+        mod arc
