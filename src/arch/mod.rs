@@ -24,4 +24,11 @@ cfg_if! {
     }
     else if #[cfg(force_bits = "64")] {
         #[path = "generic_64_bit/mod.rs"]
-        mod arc
+        mod arch_impl;
+    }
+    // Step 2. Specific architectures.
+    else if #[cfg(target_arch = "x86")] {
+        #[path = "x86/mod.rs"]
+        mod arch_impl;
+    }
+    else if #[cfg(target_arch = "x86
