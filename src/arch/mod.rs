@@ -31,4 +31,12 @@ cfg_if! {
         #[path = "x86/mod.rs"]
         mod arch_impl;
     }
-    else if #[cfg(target_arch = "x86
+    else if #[cfg(target_arch = "x86_64")] {
+        #[path = "x86_64/mod.rs"]
+        mod arch_impl;
+    }
+    else if #[cfg(any(
+            target_arch = "arm",
+            target_arch = "mips",
+            target_arch = "powerpc",
+            ta
