@@ -39,4 +39,11 @@ cfg_if! {
             target_arch = "arm",
             target_arch = "mips",
             target_arch = "powerpc",
-            ta
+            target_arch = "sparc",
+            target_arch = "wasm32"))] {
+        #[path = "generic_32_bit/mod.rs"]
+        mod arch_impl;
+    }
+    else if #[cfg(any(
+            target_arch = "aarch64",
+            target_arch =
