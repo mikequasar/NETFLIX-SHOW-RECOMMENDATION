@@ -46,4 +46,11 @@ cfg_if! {
     }
     else if #[cfg(any(
             target_arch = "aarch64",
-            target_arch =
+            target_arch = "mips64",
+            target_arch = "powerpc64"))] {
+        #[path = "generic_64_bit/mod.rs"]
+        mod arch_impl;
+    }
+    // Step 3. target_pointer_width 16 or 32.
+    else if #[cfg(target_pointer_width = "16")] {
+   
