@@ -53,4 +53,11 @@ cfg_if! {
     }
     // Step 3. target_pointer_width 16 or 32.
     else if #[cfg(target_pointer_width = "16")] {
-   
+        #[path = "generic_16_bit/mod.rs"]
+        mod arch_impl;
+    }
+    else if #[cfg(target_pointer_width = "32")] {
+        #[path = "generic_32_bit/mod.rs"]
+        mod arch_impl;
+    }
+    // Step 4. Fall back on generic_64_bit
