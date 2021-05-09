@@ -60,4 +60,9 @@ cfg_if! {
         #[path = "generic_32_bit/mod.rs"]
         mod arch_impl;
     }
-    // Step 4. Fall back on generic_64_bit
+    // Step 4. Fall back on generic_64_bit.
+    else {
+        #[path = "generic_64_bit/mod.rs"]
+        mod arch_impl;
+    }
+}
