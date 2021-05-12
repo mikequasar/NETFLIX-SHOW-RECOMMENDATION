@@ -10,4 +10,10 @@ pub(crate) fn add_with_carry(a: Word, b: Word, carry: bool) -> (Word, bool) {
     (sum, carry != 0)
 }
 
-/// 
+/// Subtract a - b - borrow.
+///
+/// Returns (result, overflow).
+#[inline]
+pub(crate) fn sub_with_borrow(a: Word, b: Word, borrow: bool) -> (Word, bool) {
+    let mut diff = 0;
+    let borrow = unsafe { core
