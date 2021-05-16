@@ -16,4 +16,6 @@ pub(crate) fn add_with_carry(a: Word, b: Word, carry: bool) -> (Word, bool) {
 #[inline]
 pub(crate) fn sub_with_borrow(a: Word, b: Word, borrow: bool) -> (Word, bool) {
     let mut diff = 0;
-    let borrow = unsafe { core
+    let borrow = unsafe { core::arch::x86::_subborrow_u32(borrow.into(), a, b, &mut diff) };
+    (diff, borrow != 0)
+}
