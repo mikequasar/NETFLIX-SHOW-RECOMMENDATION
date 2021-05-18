@@ -989,3 +989,222 @@ macro_rules! impl_bit_ops_ubig_unsigned {
         }
 
         impl BitOr<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitor(self, rhs: $t) -> UBig {
+                self.bitor_ref_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl BitOr<$t> for UBig, bitor);
+        helper_macros::forward_binop_swap_args!(impl BitOr<UBig> for $t, bitor);
+
+        impl BitOrAssign<$t> for UBig {
+            #[inline]
+            fn bitor_assign(&mut self, rhs: $t) {
+                self.bitor_assign_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl BitOrAssign<$t> for UBig, bitor_assign);
+
+        impl BitXor<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitxor(self, rhs: $t) -> UBig {
+                self.bitxor_unsigned(rhs)
+            }
+        }
+
+        impl BitXor<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitxor(self, rhs: $t) -> UBig {
+                self.bitxor_ref_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl BitXor<$t> for UBig, bitxor);
+        helper_macros::forward_binop_swap_args!(impl BitXor<UBig> for $t, bitxor);
+
+        impl BitXorAssign<$t> for UBig {
+            #[inline]
+            fn bitxor_assign(&mut self, rhs: $t) {
+                self.bitxor_assign_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl BitXorAssign<$t> for UBig, bitxor_assign);
+
+        impl AndNot<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn and_not(self, rhs: $t) -> UBig {
+                self.and_not_unsigned(rhs)
+            }
+        }
+
+        impl AndNot<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn and_not(self, rhs: $t) -> UBig {
+                self.and_not_ref_unsigned(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl AndNot<$t> for UBig, and_not);
+    };
+}
+
+impl_bit_ops_ubig_unsigned!(u8);
+impl_bit_ops_ubig_unsigned!(u16);
+impl_bit_ops_ubig_unsigned!(u32);
+impl_bit_ops_ubig_unsigned!(u64);
+impl_bit_ops_ubig_unsigned!(u128);
+impl_bit_ops_ubig_unsigned!(usize);
+
+macro_rules! impl_bit_ops_ubig_signed {
+    ($t:ty) => {
+        impl BitAnd<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitand(self, rhs: $t) -> UBig {
+                self.bitand_signed(rhs)
+            }
+        }
+
+        impl BitAnd<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitand(self, rhs: $t) -> UBig {
+                self.bitand_ref_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl BitAnd<$t> for UBig, bitand);
+        helper_macros::forward_binop_swap_args!(impl BitAnd<UBig> for $t, bitand);
+
+        impl BitAndAssign<$t> for UBig {
+            #[inline]
+            fn bitand_assign(&mut self, rhs: $t) {
+                self.bitand_assign_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl BitAndAssign<$t> for UBig, bitand_assign);
+
+        impl BitOr<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitor(self, rhs: $t) -> UBig {
+                self.bitor_signed(rhs)
+            }
+        }
+
+        impl BitOr<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitor(self, rhs: $t) -> UBig {
+                self.bitor_ref_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl BitOr<$t> for UBig, bitor);
+        helper_macros::forward_binop_swap_args!(impl BitOr<UBig> for $t, bitor);
+
+        impl BitOrAssign<$t> for UBig {
+            #[inline]
+            fn bitor_assign(&mut self, rhs: $t) {
+                self.bitor_assign_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl BitOrAssign<$t> for UBig, bitor_assign);
+
+        impl BitXor<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitxor(self, rhs: $t) -> UBig {
+                self.bitxor_signed(rhs)
+            }
+        }
+
+        impl BitXor<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn bitxor(self, rhs: $t) -> UBig {
+                self.bitxor_ref_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl BitXor<$t> for UBig, bitxor);
+        helper_macros::forward_binop_swap_args!(impl BitXor<UBig> for $t, bitxor);
+
+        impl BitXorAssign<$t> for UBig {
+            #[inline]
+            fn bitxor_assign(&mut self, rhs: $t) {
+                self.bitxor_assign_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl BitXorAssign<$t> for UBig, bitxor_assign);
+
+        impl AndNot<$t> for UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn and_not(self, rhs: $t) -> UBig {
+                self.and_not_signed(rhs)
+            }
+        }
+
+        impl AndNot<$t> for &UBig {
+            type Output = UBig;
+
+            #[inline]
+            fn and_not(self, rhs: $t) -> UBig {
+                self.and_not_ref_signed(rhs)
+            }
+        }
+
+        helper_macros::forward_binop_second_arg_by_value!(impl AndNot<$t> for UBig, and_not);
+    };
+}
+
+impl_bit_ops_ubig_signed!(i8);
+impl_bit_ops_ubig_signed!(i16);
+impl_bit_ops_ubig_signed!(i32);
+impl_bit_ops_ubig_signed!(i64);
+impl_bit_ops_ubig_signed!(i128);
+impl_bit_ops_ubig_signed!(isize);
+
+macro_rules! impl_bit_ops_ibig_unsigned {
+    ($t:ty) => {
+        impl BitAnd<$t> for IBig {
+            type Output = $t;
+
+            #[inline]
+            fn bitand(self, rhs: $t) -> $t {
+                self.bitand_unsigned(rhs)
+            }
+        }
+
+        impl BitAnd<$t> for &IBig {
+            type Output = $t;
+
+            #[inline]
+            fn bitand(self, rhs: $t) -> $t {
+                self.bitand_ref_unsigned(rhs)
+            }
+        }
