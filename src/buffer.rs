@@ -17,4 +17,9 @@ use core::{
 #[derive(Debug, Eq, Hash, PartialEq)]
 pub(crate) struct Buffer(Vec<Word>);
 
-impl Buffer
+impl Buffer {
+    /// Creates a `Buffer` with at least specified capacity.
+    ///
+    /// It leaves some extra space for future growth.
+    pub(crate) fn allocate(num_words: usize) -> Buffer {
+        if n
