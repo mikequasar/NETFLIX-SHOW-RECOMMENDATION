@@ -28,4 +28,9 @@ impl Buffer {
         Buffer(Vec::with_capacity(Buffer::default_capacity(num_words)))
     }
 
-    /// Ensure there is enough capacity in the buffer
+    /// Ensure there is enough capacity in the buffer for `num_words`. Will reallocate if there is
+    /// not enough.
+    #[inline]
+    pub(crate) fn ensure_capacity(&mut self, num_words: usize) {
+        if num_words > self.capacity() {
+            self.reallocate(num_wor
