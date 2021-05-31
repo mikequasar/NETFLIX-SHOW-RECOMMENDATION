@@ -22,4 +22,10 @@ impl Buffer {
     ///
     /// It leaves some extra space for future growth.
     pub(crate) fn allocate(num_words: usize) -> Buffer {
-        if n
+        if num_words > Buffer::MAX_CAPACITY {
+            UBig::panic_number_too_large();
+        }
+        Buffer(Vec::with_capacity(Buffer::default_capacity(num_words)))
+    }
+
+    /// Ensure there is enough capacity in the buffer
