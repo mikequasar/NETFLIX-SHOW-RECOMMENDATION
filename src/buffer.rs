@@ -41,4 +41,13 @@ impl Buffer {
     #[inline]
     pub(crate) fn shrink(&mut self) {
         if self.capacity() > Buffer::max_compact_capacity(self.len()) {
-            self.reallocate(s
+            self.reallocate(self.len());
+        }
+    }
+
+    /// Change capacity to store `num_words` plus some extra space for future growth.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `num_words < len()`.
+    fn reallocate(&mut se
