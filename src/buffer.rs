@@ -50,4 +50,12 @@ impl Buffer {
     /// # Panics
     ///
     /// Panics if `num_words < len()`.
-    fn reallocate(&mut se
+    fn reallocate(&mut self, num_words: usize) {
+        assert!(num_words >= self.len());
+        let mut new_buffer = Buffer::allocate(num_words);
+        new_buffer.clone_from(self);
+        *self = new_buffer
+    }
+
+    /// Return buffer capacity.
+    #[inli
