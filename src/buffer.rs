@@ -76,4 +76,13 @@ impl Buffer {
 
     /// Append a Word and reallocate if necessary.
     #[inline]
-    pub(crate) fn 
+    pub(crate) fn push_may_reallocate(&mut self, word: Word) {
+        self.ensure_capacity(self.len() + 1);
+        self.push(word);
+    }
+
+    /// Append `n` zeros.
+    ///
+    /// # Panics
+    ///
+    /// Panics if there 
