@@ -58,4 +58,15 @@ impl Buffer {
     }
 
     /// Return buffer capacity.
-    #[inli
+    #[inline]
+    pub(crate) fn capacity(&self) -> usize {
+        self.0.capacity()
+    }
+
+    /// Append a Word to the buffer.
+    ///
+    /// # Panics
+    ///
+    /// Panics if there is not enough capacity.
+    #[inline]
+    p
