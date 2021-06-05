@@ -69,4 +69,11 @@ impl Buffer {
     ///
     /// Panics if there is not enough capacity.
     #[inline]
-    p
+    pub(crate) fn push(&mut self, word: Word) {
+        assert!(self.len() < self.capacity());
+        self.0.push(word);
+    }
+
+    /// Append a Word and reallocate if necessary.
+    #[inline]
+    pub(crate) fn 
