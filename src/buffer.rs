@@ -85,4 +85,12 @@ impl Buffer {
     ///
     /// # Panics
     ///
-    /// Panics if there 
+    /// Panics if there is not enough capacity.
+    pub(crate) fn push_zeros(&mut self, n: usize) {
+        assert!(n <= self.capacity() - self.len());
+        self.0.extend(iter::repeat(0).take(n));
+    }
+
+    /// Insert `n` zeros in front.
+    ///
+    /// # 
