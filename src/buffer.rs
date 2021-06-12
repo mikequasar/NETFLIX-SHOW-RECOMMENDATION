@@ -93,4 +93,9 @@ impl Buffer {
 
     /// Insert `n` zeros in front.
     ///
-    /// # 
+    /// # Panics
+    ///
+    /// Panics if there is not enough capacity.
+    pub(crate) fn push_zeros_front(&mut self, n: usize) {
+        assert!(n <= self.capacity() - self.len());
+        self.0.splice(..0, it
