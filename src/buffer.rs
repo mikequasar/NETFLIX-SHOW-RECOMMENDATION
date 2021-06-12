@@ -98,4 +98,13 @@ impl Buffer {
     /// Panics if there is not enough capacity.
     pub(crate) fn push_zeros_front(&mut self, n: usize) {
         assert!(n <= self.capacity() - self.len());
-        self.0.splice(..0, it
+        self.0.splice(..0, iter::repeat(0).take(n));
+    }
+
+    /// Pop the most significant `Word`.
+    #[inline]
+    pub(crate) fn pop(&mut self) -> Option<Word> {
+        self.0.pop()
+    }
+
+    /// Pop leading zero word
