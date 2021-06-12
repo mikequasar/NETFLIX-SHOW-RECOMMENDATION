@@ -107,4 +107,14 @@ impl Buffer {
         self.0.pop()
     }
 
-    /// Pop leading zero word
+    /// Pop leading zero words.
+    #[inline]
+    pub(crate) fn pop_leading_zeros(&mut self) {
+        while let Some(0) = self.last() {
+            self.pop();
+        }
+    }
+
+    #[inline]
+    /// Truncate length to `len`.
+    pub(crate) fn truncate(&mu
