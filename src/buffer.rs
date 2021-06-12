@@ -117,4 +117,14 @@ impl Buffer {
 
     #[inline]
     /// Truncate length to `len`.
-    pub(crate) fn truncate(&mu
+    pub(crate) fn truncate(&mut self, len: usize) {
+        assert!(self.len() >= len);
+
+        self.0.truncate(len);
+    }
+
+    /// Erase first n elements.
+    pub(crate) fn erase_front(&mut self, n: usize) {
+        assert!(self.len() >= n);
+
+ 
