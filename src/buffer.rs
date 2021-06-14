@@ -142,4 +142,13 @@ impl Buffer {
     pub(crate) fn resizing_clone_from(&mut self, source: &Buffer) {
         let cap = self.capacity();
         let n = source.len();
-        if cap >= n && cap <= Buffer::m
+        if cap >= n && cap <= Buffer::max_compact_capacity(n) {
+            self.clone_from(source);
+        } else {
+            *self = source.clone();
+        }
+    }
+
+    /// Maximum number of `Word`s.
+    ///
+    /// We allow 4 extra words beyond `UBig::MAX_LEN` to
