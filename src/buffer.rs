@@ -136,4 +136,10 @@ impl Buffer {
     ///
     /// ```ignore
     /// buffer.ensure_capacity(source.len());
-    /// buffer.clo
+    /// buffer.clone_from(source);
+    /// buffer.shrink();
+    /// ```
+    pub(crate) fn resizing_clone_from(&mut self, source: &Buffer) {
+        let cap = self.capacity();
+        let n = source.len();
+        if cap >= n && cap <= Buffer::m
