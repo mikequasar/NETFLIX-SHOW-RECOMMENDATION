@@ -127,4 +127,13 @@ impl Buffer {
     pub(crate) fn erase_front(&mut self, n: usize) {
         assert!(self.len() >= n);
 
- 
+        self.0.drain(..n);
+    }
+
+    /// Clone from `other` and resize if necessary.
+    ///
+    /// Equivalent to, but more efficient than:
+    ///
+    /// ```ignore
+    /// buffer.ensure_capacity(source.len());
+    /// buffer.clo
