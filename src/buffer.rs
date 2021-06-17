@@ -155,4 +155,11 @@ impl Buffer {
     pub(crate) const MAX_CAPACITY: usize = UBig::MAX_LEN + 4;
 
     /// Default capacity for a given number of `Word`s.
-    /// It should be between `num_words` and `max_capacity(num_w
+    /// It should be between `num_words` and `max_capacity(num_words).
+    ///
+    /// Requires that `num_words <= MAX_CAPACITY`.
+    ///
+    /// Provides `2 + 0.125 * num_words` extra space.
+    #[inline]
+    fn default_capacity(num_words: usize) -> usize {
+        debug_asse
