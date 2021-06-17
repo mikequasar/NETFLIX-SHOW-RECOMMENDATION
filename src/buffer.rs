@@ -162,4 +162,10 @@ impl Buffer {
     /// Provides `2 + 0.125 * num_words` extra space.
     #[inline]
     fn default_capacity(num_words: usize) -> usize {
-        debug_asse
+        debug_assert!(num_words <= Buffer::MAX_CAPACITY);
+        (num_words + num_words / 8 + 2).min(Buffer::MAX_CAPACITY)
+    }
+
+    /// Maximum compact capacity for a given number of `Word`s.
+    ///
+    /// Requires that `num_wor
