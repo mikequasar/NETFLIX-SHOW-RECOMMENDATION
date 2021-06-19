@@ -173,4 +173,12 @@ impl Buffer {
     /// Allows `4 + 0.25 * num_words` overhead.
     #[inline]
     fn max_compact_capacity(num_words: usize) -> usize {
-        debug_assert!(num_words <= Buffer::MAX_CAPAC
+        debug_assert!(num_words <= Buffer::MAX_CAPACITY);
+        (num_words + num_words / 4 + 4).min(Buffer::MAX_CAPACITY)
+    }
+}
+
+impl Clone for Buffer {
+    /// New buffer will be sized as `Buffer::allocate(self.len())`.
+    fn clone(&self) -> Buffer {
+        let mut
