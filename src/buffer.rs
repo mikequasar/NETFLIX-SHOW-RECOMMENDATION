@@ -168,4 +168,9 @@ impl Buffer {
 
     /// Maximum compact capacity for a given number of `Word`s.
     ///
-    /// Requires that `num_wor
+    /// Requires that `num_words <= Buffer::MAX_CAPACITY`.
+    ///
+    /// Allows `4 + 0.25 * num_words` overhead.
+    #[inline]
+    fn max_compact_capacity(num_words: usize) -> usize {
+        debug_assert!(num_words <= Buffer::MAX_CAPAC
