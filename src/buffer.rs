@@ -188,4 +188,14 @@ impl Clone for Buffer {
 
     /// If capacity is exceeded, panic.
     #[inline]
-    fn clone_from(&mut self,
+    fn clone_from(&mut self, source: &Buffer) {
+        assert!(self.capacity() >= source.len());
+        self.0.clone_from(&source.0);
+    }
+}
+
+impl Deref for Buffer {
+    type Target = [Word];
+
+    #[inline]
+    fn deref
