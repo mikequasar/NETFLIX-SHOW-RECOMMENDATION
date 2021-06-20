@@ -181,4 +181,11 @@ impl Buffer {
 impl Clone for Buffer {
     /// New buffer will be sized as `Buffer::allocate(self.len())`.
     fn clone(&self) -> Buffer {
-        let mut
+        let mut new_buffer = Buffer::allocate(self.len());
+        new_buffer.clone_from(self);
+        new_buffer
+    }
+
+    /// If capacity is exceeded, panic.
+    #[inline]
+    fn clone_from(&mut self,
