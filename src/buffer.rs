@@ -198,4 +198,17 @@ impl Deref for Buffer {
     type Target = [Word];
 
     #[inline]
-    fn deref
+    fn deref(&self) -> &[Word] {
+        &self.0
+    }
+}
+
+impl DerefMut for Buffer {
+    #[inline]
+    fn deref_mut(&mut self) -> &mut [Word] {
+        &mut self.0
+    }
+}
+
+impl Extend<Word> for Buffer {
+    fn extend<T>(&mut self,
