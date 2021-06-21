@@ -211,4 +211,16 @@ impl DerefMut for Buffer {
 }
 
 impl Extend<Word> for Buffer {
-    fn extend<T>(&mut self,
+    fn extend<T>(&mut self, iter: T)
+    where
+        T: IntoIterator<Item = Word>,
+    {
+        for word in iter {
+            self.push(word);
+        }
+    }
+}
+
+impl<'a> Extend<&'a Word> for Buffer {
+    fn extend<T>(&mut self, iter: T)
+    where
