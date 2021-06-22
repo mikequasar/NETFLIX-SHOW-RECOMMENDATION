@@ -238,4 +238,11 @@ mod tests {
 
     #[test]
     fn test_default_capacity() {
-        assert_eq!(Bu
+        assert_eq!(Buffer::default_capacity(2), 4);
+        assert_eq!(Buffer::default_capacity(1000), 1127);
+    }
+
+    #[test]
+    fn test_max_compact_capacity() {
+        assert_eq!(Buffer::max_compact_capacity(2), 6);
+        asse
