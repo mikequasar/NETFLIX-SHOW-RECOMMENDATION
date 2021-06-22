@@ -224,3 +224,18 @@ impl Extend<Word> for Buffer {
 impl<'a> Extend<&'a Word> for Buffer {
     fn extend<T>(&mut self, iter: T)
     where
+        T: IntoIterator<Item = &'a Word>,
+    {
+        for word in iter {
+            self.push(*word);
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_default_capacity() {
+        assert_eq!(Bu
