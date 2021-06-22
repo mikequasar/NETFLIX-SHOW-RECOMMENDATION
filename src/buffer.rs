@@ -245,4 +245,11 @@ mod tests {
     #[test]
     fn test_max_compact_capacity() {
         assert_eq!(Buffer::max_compact_capacity(2), 6);
-        asse
+        assert_eq!(Buffer::max_compact_capacity(1000), 1254);
+    }
+
+    #[test]
+    fn test_allocate() {
+        let buffer = Buffer::allocate(1000);
+        assert_eq!(buffer.len(), 0);
+        assert_eq!(buffer
