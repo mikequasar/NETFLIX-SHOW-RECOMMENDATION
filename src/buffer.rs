@@ -268,4 +268,13 @@ mod tests {
         assert_eq!(buffer.capacity(), 4);
         buffer.ensure_capacity(4);
         assert_eq!(buffer.capacity(), 4);
-   
+        buffer.ensure_capacity(5);
+        assert_eq!(buffer.capacity(), 7);
+        assert_eq!(&buffer[..], [7]);
+    }
+
+    #[test]
+    fn test_shrink() {
+        let mut buffer = Buffer::allocate(100);
+        buffer.push(7);
+      
