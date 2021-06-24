@@ -277,4 +277,11 @@ mod tests {
     fn test_shrink() {
         let mut buffer = Buffer::allocate(100);
         buffer.push(7);
-      
+        buffer.push(8);
+        buffer.shrink();
+        assert_eq!(buffer.capacity(), Buffer::default_capacity(2));
+        assert_eq!(&buffer[..], [7, 8]);
+    }
+
+    #[test]
+    fn test_push_pop() 
