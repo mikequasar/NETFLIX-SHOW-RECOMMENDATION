@@ -262,4 +262,10 @@ mod tests {
     }
 
     #[test]
-    fn test_ens
+    fn test_ensure_capacity() {
+        let mut buffer = Buffer::allocate(2);
+        buffer.push(7);
+        assert_eq!(buffer.capacity(), 4);
+        buffer.ensure_capacity(4);
+        assert_eq!(buffer.capacity(), 4);
+   
