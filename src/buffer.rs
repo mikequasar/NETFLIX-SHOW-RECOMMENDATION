@@ -252,4 +252,14 @@ mod tests {
     fn test_allocate() {
         let buffer = Buffer::allocate(1000);
         assert_eq!(buffer.len(), 0);
-        assert_eq!(buffer
+        assert_eq!(buffer.capacity(), Buffer::default_capacity(1000));
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_allocate_too_large() {
+        let _ = Buffer::allocate(Buffer::MAX_CAPACITY + 1);
+    }
+
+    #[test]
+    fn test_ens
