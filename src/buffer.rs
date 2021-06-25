@@ -290,4 +290,12 @@ mod tests {
         buffer.push(2);
         assert_eq!(&buffer[..], [1, 2]);
         assert_eq!(buffer.pop(), Some(2));
-        
+        assert_eq!(buffer.pop(), Some(1));
+        assert_eq!(buffer.pop(), None);
+    }
+
+    #[test]
+    fn test_pop_leading_zeros() {
+        let mut buffer = Buffer::allocate(5);
+        buffer.push(1);
+        buffer
