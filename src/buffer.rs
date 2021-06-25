@@ -284,4 +284,10 @@ mod tests {
     }
 
     #[test]
-    fn test_push_pop() 
+    fn test_push_pop() {
+        let mut buffer = Buffer::allocate(5);
+        buffer.push(1);
+        buffer.push(2);
+        assert_eq!(&buffer[..], [1, 2]);
+        assert_eq!(buffer.pop(), Some(2));
+        
