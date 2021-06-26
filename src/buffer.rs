@@ -323,4 +323,13 @@ mod tests {
     }
 
     #[test]
-    fn
+    fn test_push_zeros_front() {
+        let mut buffer = Buffer::allocate(5);
+        buffer.push(1);
+        buffer.push_zeros_front(2);
+        assert_eq!(&buffer[..], [0, 0, 1]);
+    }
+
+    #[test]
+    fn test_truncate() {
+        let mut buf
