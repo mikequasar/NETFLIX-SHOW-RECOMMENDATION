@@ -315,4 +315,12 @@ mod tests {
     }
 
     #[test]
-    fn tes
+    fn test_push_zeros() {
+        let mut buffer = Buffer::allocate(5);
+        buffer.push(1);
+        buffer.push_zeros(2);
+        assert_eq!(&buffer[..], [1, 0, 0]);
+    }
+
+    #[test]
+    fn
