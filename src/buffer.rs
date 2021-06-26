@@ -298,4 +298,13 @@ mod tests {
     fn test_pop_leading_zeros() {
         let mut buffer = Buffer::allocate(5);
         buffer.push(1);
-        buffer
+        buffer.push(2);
+        buffer.push(0);
+        buffer.push(0);
+        buffer.pop_leading_zeros();
+        assert_eq!(&buffer[..], [1, 2]);
+    }
+
+    #[test]
+    fn test_extend() {
+        let mut buffe
