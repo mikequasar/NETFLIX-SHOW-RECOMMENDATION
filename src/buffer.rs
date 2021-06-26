@@ -307,4 +307,12 @@ mod tests {
 
     #[test]
     fn test_extend() {
-        let mut buffe
+        let mut buffer = Buffer::allocate(5);
+        buffer.push(1);
+        let list: [Word; 2] = [2, 3];
+        buffer.extend(&list);
+        assert_eq!(&buffer[..], [1, 2, 3]);
+    }
+
+    #[test]
+    fn tes
