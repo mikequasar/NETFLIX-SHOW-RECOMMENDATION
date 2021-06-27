@@ -342,4 +342,9 @@ mod tests {
 
     #[test]
     fn test_erase_front() {
-   
+        let mut buffer = Buffer::allocate(5);
+        buffer.push(1);
+        buffer.push(2);
+        buffer.push(3);
+        buffer.erase_front(2);
+        assert_eq!(&buffer[..], [
