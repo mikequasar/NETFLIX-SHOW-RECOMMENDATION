@@ -332,4 +332,14 @@ mod tests {
 
     #[test]
     fn test_truncate() {
-        let mut buf
+        let mut buffer = Buffer::allocate(5);
+        buffer.push(1);
+        buffer.push(2);
+        buffer.push(3);
+        buffer.truncate(1);
+        assert_eq!(&buffer[..], [1]);
+    }
+
+    #[test]
+    fn test_erase_front() {
+   
