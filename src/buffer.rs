@@ -360,4 +360,14 @@ mod tests {
     }
 
     #[test]
-    fn test_push_
+    fn test_push_may_reallocate() {
+        let mut buffer = Buffer::allocate(2);
+        for _ in 0..10 {
+            buffer.push_may_reallocate(7);
+        }
+        assert_eq!(buffer.len(), 10);
+    }
+
+    #[test]
+    fn test_clone() {
+       
