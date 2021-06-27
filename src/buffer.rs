@@ -347,4 +347,17 @@ mod tests {
         buffer.push(2);
         buffer.push(3);
         buffer.erase_front(2);
-        assert_eq!(&buffer[..], [
+        assert_eq!(&buffer[..], [3]);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_push_failed() {
+        let mut buffer = Buffer::allocate(2);
+        for _ in 0..10 {
+            buffer.push(7);
+        }
+    }
+
+    #[test]
+    fn test_push_
