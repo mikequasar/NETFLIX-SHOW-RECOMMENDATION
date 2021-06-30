@@ -384,4 +384,11 @@ mod tests {
         buffer.push(7);
         buffer.push(8);
         let mut buffer2 = Buffer::allocate(50);
-        buffer2.clon
+        buffer2.clone_from(&buffer);
+        assert_eq!(buffer, buffer2);
+        assert_eq!(buffer2.capacity(), Buffer::default_capacity(50));
+    }
+
+    #[test]
+    fn test_resizing_clone_from() {
+   
