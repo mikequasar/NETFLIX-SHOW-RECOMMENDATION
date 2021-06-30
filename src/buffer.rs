@@ -370,4 +370,9 @@ mod tests {
 
     #[test]
     fn test_clone() {
-       
+        let mut buffer = Buffer::allocate(100);
+        buffer.push(7);
+        buffer.push(8);
+        let buffer2 = buffer.clone();
+        assert_eq!(buffer, buffer2);
+        assert_eq!(buffer2.capacity(), Buffer::
