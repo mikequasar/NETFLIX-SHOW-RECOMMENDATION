@@ -391,4 +391,12 @@ mod tests {
 
     #[test]
     fn test_resizing_clone_from() {
-   
+        let mut buf = Buffer::allocate(5);
+        assert_eq!(buf.capacity(), 7);
+
+        let mut buf2 = Buffer::allocate(4);
+        assert_eq!(buf2.capacity(), 6);
+        for i in 0..4 {
+            buf2.push(i);
+        }
+     
