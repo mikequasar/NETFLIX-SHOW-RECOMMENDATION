@@ -406,3 +406,10 @@ mod tests {
         let mut buf3 = Buffer::allocate(100);
         for i in 0..100 {
             buf3.push(i);
+        }
+        buf.resizing_clone_from(&buf3);
+        assert_eq!(buf.capacity(), Buffer::default_capacity(100));
+        assert_eq!(buf.len(), 100);
+
+        buf.resizing_clone_from(&buf2);
+       
