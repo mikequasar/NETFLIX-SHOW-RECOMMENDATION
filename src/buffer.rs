@@ -412,4 +412,7 @@ mod tests {
         assert_eq!(buf.len(), 100);
 
         buf.resizing_clone_from(&buf2);
-       
+        assert_eq!(buf.capacity(), 6);
+        assert_eq!(&buf[..], [0, 1, 2, 3]);
+    }
+}
