@@ -399,4 +399,10 @@ mod tests {
         for i in 0..4 {
             buf2.push(i);
         }
-     
+        buf.resizing_clone_from(&buf2);
+        assert_eq!(buf.capacity(), 7);
+        assert_eq!(&buf[..], [0, 1, 2, 3]);
+
+        let mut buf3 = Buffer::allocate(100);
+        for i in 0..100 {
+            buf3.push(i);
