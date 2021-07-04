@@ -16,4 +16,13 @@ impl Ord for UBig {
             (Small(_), Large(_)) => Ordering::Less,
             (Large(_), Small(_)) => Ordering::Greater,
             (Large(buffer), Large(other_buffer)) => buffer
-                .le
+                .len()
+                .cmp(&other_buffer.len())
+                .then_with(|| cmp_same_len(buffer, other_buffer)),
+        }
+    }
+}
+
+impl PartialOrd for UBig {
+    #[inline]
+    fn partial_cmp(&self, other: &UBig) -> Op
