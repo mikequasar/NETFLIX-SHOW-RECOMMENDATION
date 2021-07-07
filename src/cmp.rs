@@ -25,4 +25,13 @@ impl Ord for UBig {
 
 impl PartialOrd for UBig {
     #[inline]
-    fn partial_cmp(&self, other: &UBig) -> Op
+    fn partial_cmp(&self, other: &UBig) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for IBig {
+    #[inline]
+    fn cmp(&self, other: &IBig) -> Ordering {
+        match (self.sign(), other.sign()) {
+           
