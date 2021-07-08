@@ -34,4 +34,7 @@ impl Ord for IBig {
     #[inline]
     fn cmp(&self, other: &IBig) -> Ordering {
         match (self.sign(), other.sign()) {
-           
+            (Positive, Positive) => self.magnitude().cmp(other.magnitude()),
+            (Positive, Negative) => Ordering::Greater,
+            (Negative, Positive) => Ordering::Less,
+            (Negative, Negative)
