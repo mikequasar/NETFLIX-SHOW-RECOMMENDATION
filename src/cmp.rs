@@ -37,4 +37,14 @@ impl Ord for IBig {
             (Positive, Positive) => self.magnitude().cmp(other.magnitude()),
             (Positive, Negative) => Ordering::Greater,
             (Negative, Positive) => Ordering::Less,
-            (Negative, Negative)
+            (Negative, Negative) => other.magnitude().cmp(self.magnitude()),
+        }
+    }
+}
+
+impl PartialOrd for IBig {
+    #[inline]
+    fn partial_cmp(&self, other: &IBig) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
