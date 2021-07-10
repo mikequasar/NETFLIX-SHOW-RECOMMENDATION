@@ -48,3 +48,9 @@ impl PartialOrd for IBig {
         Some(self.cmp(other))
     }
 }
+
+/// Compare lhs with rhs as numbers.
+pub(crate) fn cmp_same_len(lhs: &[Word], rhs: &[Word]) -> Ordering {
+    assert!(lhs.len() == rhs.len());
+    lhs.iter().rev().cmp(rhs.iter().rev())
+}
