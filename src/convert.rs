@@ -34,3 +34,10 @@ impl UBig {
     /// # Examples
     ///
     /// ```
+    /// # use ibig::{ubig, UBig};
+    /// assert_eq!(UBig::from_le_bytes(&[3, 2, 1]), ubig!(0x010203));
+    /// ```
+    #[inline]
+    pub fn from_le_bytes(bytes: &[u8]) -> UBig {
+        if bytes.len() <= WORD_BYTES {
+            
