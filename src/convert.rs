@@ -19,3 +19,18 @@ impl Default for UBig {
         UBig::from_word(0)
     }
 }
+
+impl Default for IBig {
+    /// Default value: 0.
+    #[inline]
+    fn default() -> IBig {
+        IBig::from(0u8)
+    }
+}
+
+impl UBig {
+    /// Construct from little-endian bytes.
+    ///
+    /// # Examples
+    ///
+    /// ```
