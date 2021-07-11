@@ -40,4 +40,12 @@ impl UBig {
     #[inline]
     pub fn from_le_bytes(bytes: &[u8]) -> UBig {
         if bytes.len() <= WORD_BYTES {
-            
+            // fast path
+            UBig::from_word(primitive::word_from_le_bytes_partial(bytes))
+        } else {
+            UBig::from_le_bytes_large(bytes)
+        }
+    }
+
+    fn from_le_bytes_large(bytes: &[u8]) -> UBig {
+        debug_
