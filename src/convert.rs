@@ -48,4 +48,8 @@ impl UBig {
     }
 
     fn from_le_bytes_large(bytes: &[u8]) -> UBig {
-        debug_
+        debug_assert!(bytes.len() > WORD_BYTES);
+        let mut buffer = Buffer::allocate((bytes.len() - 1) / WORD_BYTES + 1);
+        let mut chunks = bytes.chunks_exact(WORD_BYTES);
+        for chunk in &mut chunks {
+            buff
