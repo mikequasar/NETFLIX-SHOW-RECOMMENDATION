@@ -80,4 +80,7 @@ impl UBig {
 
     fn from_be_bytes_large(bytes: &[u8]) -> UBig {
         debug_assert!(bytes.len() > WORD_BYTES);
-        let mut 
+        let mut buffer = Buffer::allocate((bytes.len() - 1) / WORD_BYTES + 1);
+        let mut chunks = bytes.rchunks_exact(WORD_BYTES);
+        for chunk in &mut chunks {
+            buffer.push(Word::from_be
