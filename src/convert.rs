@@ -72,4 +72,12 @@ impl UBig {
     pub fn from_be_bytes(bytes: &[u8]) -> UBig {
         if bytes.len() <= WORD_BYTES {
             // fast path
-            UBig::from_word(primitive::w
+            UBig::from_word(primitive::word_from_be_bytes_partial(bytes))
+        } else {
+            UBig::from_be_bytes_large(bytes)
+        }
+    }
+
+    fn from_be_bytes_large(bytes: &[u8]) -> UBig {
+        debug_assert!(bytes.len() > WORD_BYTES);
+        let mut 
