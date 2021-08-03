@@ -83,4 +83,9 @@ impl UBig {
         let mut buffer = Buffer::allocate((bytes.len() - 1) / WORD_BYTES + 1);
         let mut chunks = bytes.rchunks_exact(WORD_BYTES);
         for chunk in &mut chunks {
-            buffer.push(Word::from_be
+            buffer.push(Word::from_be_bytes(chunk.try_into().unwrap()));
+        }
+        if !chunks.remainder().is_empty() {
+            buffer.push(primitive::word_from_be_bytes_partial(chunks.remainder()));
+        }
+        buffer.in
