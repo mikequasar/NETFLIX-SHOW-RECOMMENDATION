@@ -88,4 +88,14 @@ impl UBig {
         if !chunks.remainder().is_empty() {
             buffer.push(primitive::word_from_be_bytes_partial(chunks.remainder()));
         }
-        buffer.in
+        buffer.into()
+    }
+
+    /// Return little-endian bytes.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::ubig;
+    /// assert!(ubig!(0).to_le_bytes().is_empty());
+    /// assert_eq!(ubig!(0x010203).to_le_by
