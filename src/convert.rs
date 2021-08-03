@@ -98,4 +98,10 @@ impl UBig {
     /// ```
     /// # use ibig::ubig;
     /// assert!(ubig!(0).to_le_bytes().is_empty());
-    /// assert_eq!(ubig!(0x010203).to_le_by
+    /// assert_eq!(ubig!(0x010203).to_le_bytes(), [3, 2, 1]);
+    /// ```
+    pub fn to_le_bytes(&self) -> Vec<u8> {
+        match self.repr() {
+            Small(x) => {
+                let bytes = x.to_le_bytes();
+                let skip_by
