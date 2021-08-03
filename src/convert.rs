@@ -104,4 +104,9 @@ impl UBig {
         match self.repr() {
             Small(x) => {
                 let bytes = x.to_le_bytes();
-                let skip_by
+                let skip_bytes = x.leading_zeros() as usize / 8;
+                bytes[..WORD_BYTES - skip_bytes].to_vec()
+            }
+            Large(buffer) => {
+                let n = buffer.len();
+                let
