@@ -66,4 +66,10 @@ impl UBig {
     ///
     /// ```
     /// # use ibig::{ubig, UBig};
-    /// assert_eq!(UBig::from_be_bytes(&[1, 2, 
+    /// assert_eq!(UBig::from_be_bytes(&[1, 2, 3]), ubig!(0x010203));
+    /// ```
+    #[inline]
+    pub fn from_be_bytes(bytes: &[u8]) -> UBig {
+        if bytes.len() <= WORD_BYTES {
+            // fast path
+            UBig::from_word(primitive::w
