@@ -57,4 +57,13 @@ impl UBig {
         if !chunks.remainder().is_empty() {
             buffer.push(primitive::word_from_le_bytes_partial(chunks.remainder()));
         }
- 
+        buffer.into()
+    }
+
+    /// Construct from big-endian bytes.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::{ubig, UBig};
+    /// assert_eq!(UBig::from_be_bytes(&[1, 2, 
