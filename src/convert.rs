@@ -112,4 +112,8 @@ impl UBig {
                 let last = buffer[n - 1];
                 let skip_last_bytes = last.leading_zeros() as usize / 8;
                 let mut bytes = Vec::with_capacity(n * WORD_BYTES - skip_last_bytes);
-                for word in &buffer[..n
+                for word in &buffer[..n - 1] {
+                    bytes.extend_from_slice(&word.to_le_bytes());
+                }
+                let last_bytes = last.to_le_bytes();
+                bytes.extend_from_slice(&last_bytes[..WORD_BYTES
