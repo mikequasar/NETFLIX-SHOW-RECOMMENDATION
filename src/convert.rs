@@ -116,4 +116,16 @@ impl UBig {
                     bytes.extend_from_slice(&word.to_le_bytes());
                 }
                 let last_bytes = last.to_le_bytes();
-                bytes.extend_from_slice(&last_bytes[..WORD_BYTES
+                bytes.extend_from_slice(&last_bytes[..WORD_BYTES - skip_last_bytes]);
+                bytes
+            }
+        }
+    }
+
+    /// Return big-endian bytes.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::ubig;
+    /// assert!(ubig!(0)
