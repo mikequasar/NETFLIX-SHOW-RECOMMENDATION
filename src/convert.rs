@@ -134,4 +134,10 @@ impl UBig {
     pub fn to_be_bytes(&self) -> Vec<u8> {
         match self.repr() {
             Small(x) => {
-                let bytes =
+                let bytes = x.to_be_bytes();
+                let skip_bytes = x.leading_zeros() as usize / 8;
+                bytes[skip_bytes..].to_vec()
+            }
+            Large(buffer) => {
+                let n = buffer.len();
+                l
