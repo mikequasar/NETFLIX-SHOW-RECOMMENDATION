@@ -140,4 +140,7 @@ impl UBig {
             }
             Large(buffer) => {
                 let n = buffer.len();
-                l
+                let last = buffer[n - 1];
+                let skip_last_bytes = last.leading_zeros() as usize / 8;
+                let mut bytes = Vec::with_capacity(n * WORD_BYTES - skip_last_bytes);
+                let last_bytes = last.
