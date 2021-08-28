@@ -186,4 +186,9 @@ impl UBig {
             let mantissa25 = u32::try_from(self >> (n - 25)).unwrap();
             let mantissa = mantissa25 >> 1;
 
-            // value = [8 bits: exponent + 127][23 bits: mantissa w
+            // value = [8 bits: exponent + 127][23 bits: mantissa without the top bit]
+            let value = ((exponent + 126) << 23) + mantissa;
+
+            // Calculate round-to-even adjustment.
+            let extra_bit = self.are_low_bits_nonzero(n - 25);
+    
