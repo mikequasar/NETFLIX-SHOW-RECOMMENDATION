@@ -182,4 +182,8 @@ impl UBig {
             f32::INFINITY
         } else {
             let exponent = (n - 1) as u32;
-            debug_assert!((32..128).
+            debug_assert!((32..128).contains(&exponent));
+            let mantissa25 = u32::try_from(self >> (n - 25)).unwrap();
+            let mantissa = mantissa25 >> 1;
+
+            // value = [8 bits: exponent + 127][23 bits: mantissa w
