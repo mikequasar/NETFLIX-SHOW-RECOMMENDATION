@@ -146,4 +146,16 @@ impl UBig {
                 let last_bytes = last.to_be_bytes();
                 bytes.extend_from_slice(&last_bytes[skip_last_bytes..]);
                 for word in buffer[..n - 1].iter().rev() {
-                    bytes.extend_from_s
+                    bytes.extend_from_slice(&word.to_be_bytes());
+                }
+                bytes
+            }
+        }
+    }
+
+    /// Convert to f32.
+    ///
+    /// Round to nearest, breaking ties to even last bit.
+    ///
+    /// # Examples
+    
