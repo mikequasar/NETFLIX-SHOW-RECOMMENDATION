@@ -191,4 +191,8 @@ impl UBig {
 
             // Calculate round-to-even adjustment.
             let extra_bit = self.are_low_bits_nonzero(n - 25);
-    
+            // low bit of mantissa and two extra bits
+            let low_bits = ((mantissa25 & 0b11) << 1) | u32::from(extra_bit);
+            let adjustment = round_to_even_adjustment(low_bits);
+
+            // If ad
