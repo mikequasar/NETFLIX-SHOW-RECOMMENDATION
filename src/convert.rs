@@ -174,4 +174,12 @@ impl UBig {
         }
     }
 
-    fn to_f32_slow
+    fn to_f32_slow(&self) -> f32 {
+        let n = self.bit_len();
+        debug_assert!(n > 32);
+
+        if n > 128 {
+            f32::INFINITY
+        } else {
+            let exponent = (n - 1) as u32;
+            debug_assert!((32..128).
