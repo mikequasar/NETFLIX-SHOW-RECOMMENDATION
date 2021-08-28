@@ -166,4 +166,12 @@ impl UBig {
     #[inline]
     pub fn to_f32(&self) -> f32 {
         match self.repr() {
-            Small(wor
+            Small(word) => *word as f32,
+            Large(_) => match u32::try_from(self) {
+                Ok(val) => val as f32,
+                Err(_) => self.to_f32_slow(),
+            },
+        }
+    }
+
+    fn to_f32_slow
