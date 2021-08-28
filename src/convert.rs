@@ -158,4 +158,12 @@ impl UBig {
     /// Round to nearest, breaking ties to even last bit.
     ///
     /// # Examples
-    
+    ///
+    /// ```
+    /// # use ibig::ubig;
+    /// assert_eq!(ubig!(134).to_f32(), 134.0f32);
+    /// ```
+    #[inline]
+    pub fn to_f32(&self) -> f32 {
+        match self.repr() {
+            Small(wor
