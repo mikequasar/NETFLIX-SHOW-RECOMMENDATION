@@ -206,4 +206,13 @@ impl UBig {
 
     /// Convert to f64.
     ///
-    /// Round to ne
+    /// Round to nearest, breaking ties to even last bit.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::ubig;
+    /// assert_eq!(ubig!(134).to_f64(), 134.0f64);
+    /// ```
+    #[inline]
+    pub fn to_f64
