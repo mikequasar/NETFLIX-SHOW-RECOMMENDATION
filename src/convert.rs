@@ -215,4 +215,14 @@ impl UBig {
     /// assert_eq!(ubig!(134).to_f64(), 134.0f64);
     /// ```
     #[inline]
-    pub fn to_f64
+    pub fn to_f64(&self) -> f64 {
+        match self.repr() {
+            Small(word) => *word as f64,
+            Large(_) => match u64::try_from(self) {
+                Ok(val) => val as f64,
+                Err(_) => self.to_f64_slow(),
+            },
+        }
+    }
+
+   
