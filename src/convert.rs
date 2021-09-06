@@ -225,4 +225,12 @@ impl UBig {
         }
     }
 
-   
+    fn to_f64_slow(&self) -> f64 {
+        let n = self.bit_len();
+        debug_assert!(n > 64);
+
+        if n > 1024 {
+            f64::INFINITY
+        } else {
+            let exponent = (n - 1) as u64;
+            debu
