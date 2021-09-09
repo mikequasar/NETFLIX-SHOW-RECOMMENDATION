@@ -233,4 +233,8 @@ impl UBig {
             f64::INFINITY
         } else {
             let exponent = (n - 1) as u64;
-            debu
+            debug_assert!((64..1024).contains(&exponent));
+            let mantissa54 = u64::try_from(self >> (n - 54)).unwrap();
+            let mantissa = mantissa54 >> 1;
+
+            // value = [11-bits: exponent +
