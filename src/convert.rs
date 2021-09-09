@@ -241,4 +241,9 @@ impl UBig {
             let value = ((exponent + 1022) << 52) + mantissa;
 
             // Calculate round-to-even adjustment.
-            let extra_bit = self.are_low_bits_nonzero(n -
+            let extra_bit = self.are_low_bits_nonzero(n - 54);
+            // low bit of mantissa and two extra bits
+            let low_bits = (((mantissa54 & 0b11) as u32) << 1) | u32::from(extra_bit);
+            let adjustment = round_to_even_adjustment(low_bits);
+
+            // If adjus
