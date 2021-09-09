@@ -237,4 +237,8 @@ impl UBig {
             let mantissa54 = u64::try_from(self >> (n - 54)).unwrap();
             let mantissa = mantissa54 >> 1;
 
-            // value = [11-bits: exponent +
+            // value = [11-bits: exponent + 1023][52 bit: mantissa without the top bit]
+            let value = ((exponent + 1022) << 52) + mantissa;
+
+            // Calculate round-to-even adjustment.
+            let extra_bit = self.are_low_bits_nonzero(n -
