@@ -246,4 +246,7 @@ impl UBig {
             let low_bits = (((mantissa54 & 0b11) as u32) << 1) | u32::from(extra_bit);
             let adjustment = round_to_even_adjustment(low_bits);
 
-            // If adjus
+            // If adjustment is true, increase the mantissa.
+            // If the mantissa overflows, this correctly increases the exponent and
+            // sets the mantissa to 0.
+            // If the exponent overflo
