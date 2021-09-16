@@ -249,4 +249,14 @@ impl UBig {
             // If adjustment is true, increase the mantissa.
             // If the mantissa overflows, this correctly increases the exponent and
             // sets the mantissa to 0.
-            // If the exponent overflo
+            // If the exponent overflows, we correctly get the representation of infinity.
+            let value = value + u64::from(adjustment);
+            f64::from_bits(value)
+        }
+    }
+}
+
+impl IBig {
+    /// Convert to f32.
+    ///
+    /// Round 
