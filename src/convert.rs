@@ -259,4 +259,12 @@ impl UBig {
 impl IBig {
     /// Convert to f32.
     ///
-    /// Round 
+    /// Round to nearest, breaking ties to even last bit.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::ibig;
+    /// assert_eq!(ibig!(-134).to_f32(), -134.0f32);
+    /// ```
+    #[inli
