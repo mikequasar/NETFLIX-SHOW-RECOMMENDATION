@@ -267,4 +267,13 @@ impl IBig {
     /// # use ibig::ibig;
     /// assert_eq!(ibig!(-134).to_f32(), -134.0f32);
     /// ```
-    #[inli
+    #[inline]
+    pub fn to_f32(&self) -> f32 {
+        let val = self.magnitude().to_f32();
+        match self.sign() {
+            Positive => val,
+            Negative => -val,
+        }
+    }
+
+  
