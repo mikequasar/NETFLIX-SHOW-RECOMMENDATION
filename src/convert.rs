@@ -276,4 +276,13 @@ impl IBig {
         }
     }
 
-  
+    /// Convert to f64.
+    ///
+    /// Round to nearest, breaking ties to even last bit.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::ibig;
+    /// assert_eq!(ibig!(-134).to_f64(), -134.0f64);
+   
