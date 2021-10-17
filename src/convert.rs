@@ -285,4 +285,15 @@ impl IBig {
     /// ```
     /// # use ibig::ibig;
     /// assert_eq!(ibig!(-134).to_f64(), -134.0f64);
-   
+    /// ```
+    #[inline]
+    pub fn to_f64(&self) -> f64 {
+        let val = self.magnitude().to_f64();
+        match self.sign() {
+            Positive => val,
+            Negative => -val,
+        }
+    }
+}
+
+///
