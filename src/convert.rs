@@ -300,4 +300,20 @@ impl IBig {
 /// bit of mantissa and additional 2 bits (i.e. 3 bits in units of ULP/4).
 #[inline]
 fn round_to_even_adjustment(bits: u32) -> bool {
-    bits >= 0b11
+    bits >= 0b110 || bits == 0b011
+}
+
+macro_rules! ubig_unsigned_conversions {
+    ($t:ty) => {
+        impl From<$t> for UBig {
+            #[inline]
+            fn from(value: $t) -> UBig {
+                UBig::from_unsigned(value)
+            }
+        }
+
+        impl TryFrom<UBig> for $t {
+            type Error = OutOfBoundsError;
+
+            #[inline]
+            fn try_from(value: UBig) -> Result<$t, OutOfBoundsError> 
