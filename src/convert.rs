@@ -341,4 +341,15 @@ ubig_unsigned_conversions!(usize);
 
 impl From<bool> for UBig {
     #[inline]
-    fn from(b: bool) -> U
+    fn from(b: bool) -> UBig {
+        u8::from(b).into()
+    }
+}
+
+macro_rules! ubig_signed_conversions {
+    ($t:ty) => {
+        impl TryFrom<$t> for UBig {
+            type Error = OutOfBoundsError;
+
+            #[inline]
+            fn try_from(v
