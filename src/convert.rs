@@ -333,4 +333,12 @@ macro_rules! ubig_unsigned_conversions {
 }
 
 ubig_unsigned_conversions!(u8);
-ubig_unsigned_conversions!(u1
+ubig_unsigned_conversions!(u16);
+ubig_unsigned_conversions!(u32);
+ubig_unsigned_conversions!(u64);
+ubig_unsigned_conversions!(u128);
+ubig_unsigned_conversions!(usize);
+
+impl From<bool> for UBig {
+    #[inline]
+    fn from(b: bool) -> U
