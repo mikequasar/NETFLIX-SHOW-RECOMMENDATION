@@ -296,4 +296,8 @@ impl IBig {
     }
 }
 
-///
+/// Round to even floating point adjustment, based on the bottom
+/// bit of mantissa and additional 2 bits (i.e. 3 bits in units of ULP/4).
+#[inline]
+fn round_to_even_adjustment(bits: u32) -> bool {
+    bits >= 0b11
