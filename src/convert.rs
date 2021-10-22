@@ -352,4 +352,13 @@ macro_rules! ubig_signed_conversions {
             type Error = OutOfBoundsError;
 
             #[inline]
-            fn try_from(v
+            fn try_from(value: $t) -> Result<UBig, OutOfBoundsError> {
+                UBig::try_from_signed(value)
+            }
+        }
+
+        impl TryFrom<UBig> for $t {
+            type Error = OutOfBoundsError;
+
+            #[inline]
+         
