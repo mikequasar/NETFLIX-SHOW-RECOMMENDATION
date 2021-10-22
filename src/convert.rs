@@ -325,4 +325,12 @@ macro_rules! ubig_unsigned_conversions {
             type Error = OutOfBoundsError;
 
             #[inline]
-           
+            fn try_from(value: &UBig) -> Result<$t, OutOfBoundsError> {
+                value.try_to_unsigned()
+            }
+        }
+    };
+}
+
+ubig_unsigned_conversions!(u8);
+ubig_unsigned_conversions!(u1
