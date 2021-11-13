@@ -377,4 +377,11 @@ macro_rules! ubig_signed_conversions {
     };
 }
 
-ubig_signed
+ubig_signed_conversions!(i8);
+ubig_signed_conversions!(i16);
+ubig_signed_conversions!(i32);
+ubig_signed_conversions!(i64);
+ubig_signed_conversions!(i128);
+ubig_signed_conversions!(isize);
+
+macro_rules!
