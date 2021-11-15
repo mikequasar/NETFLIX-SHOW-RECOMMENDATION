@@ -384,4 +384,10 @@ ubig_signed_conversions!(i64);
 ubig_signed_conversions!(i128);
 ubig_signed_conversions!(isize);
 
-macro_rules!
+macro_rules! ibig_unsigned_conversions {
+    ($t:ty) => {
+        impl From<$t> for IBig {
+            #[inline]
+            fn from(value: $t) -> IBig {
+                IBig::from_unsigned(value)
+            }
