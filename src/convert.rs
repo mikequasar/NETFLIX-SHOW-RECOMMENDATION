@@ -391,3 +391,11 @@ macro_rules! ibig_unsigned_conversions {
             fn from(value: $t) -> IBig {
                 IBig::from_unsigned(value)
             }
+        }
+
+        impl TryFrom<IBig> for $t {
+            type Error = OutOfBoundsError;
+
+            #[inline]
+            fn try_from(value: IBig) -> Result<$t, OutOfBoundsError> {
+                value.try_to_u
