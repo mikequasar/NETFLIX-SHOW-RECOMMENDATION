@@ -407,4 +407,15 @@ macro_rules! ibig_unsigned_conversions {
 
             #[inline]
             fn try_from(value: &IBig) -> Result<$t, OutOfBoundsError> {
-                value.t
+                value.try_to_unsigned()
+            }
+        }
+    };
+}
+
+ibig_unsigned_conversions!(u8);
+ibig_unsigned_conversions!(u16);
+ibig_unsigned_conversions!(u32);
+ibig_unsigned_conversions!(u64);
+ibig_unsigned_conversions!(u128);
+ibi
