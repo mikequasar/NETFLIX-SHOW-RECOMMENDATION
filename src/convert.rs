@@ -418,4 +418,15 @@ ibig_unsigned_conversions!(u16);
 ibig_unsigned_conversions!(u32);
 ibig_unsigned_conversions!(u64);
 ibig_unsigned_conversions!(u128);
-ibi
+ibig_unsigned_conversions!(usize);
+
+impl From<bool> for IBig {
+    #[inline]
+    fn from(b: bool) -> IBig {
+        u8::from(b).into()
+    }
+}
+
+macro_rules! ibig_signed_conversions {
+    ($t:ty) => {
+        impl Fro
