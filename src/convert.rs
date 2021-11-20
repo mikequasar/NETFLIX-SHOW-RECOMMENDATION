@@ -429,4 +429,12 @@ impl From<bool> for IBig {
 
 macro_rules! ibig_signed_conversions {
     ($t:ty) => {
-        impl Fro
+        impl From<$t> for IBig {
+            #[inline]
+            fn from(value: $t) -> IBig {
+                IBig::from_signed(value)
+            }
+        }
+
+        impl TryFrom<IBig> for $t {
+            type E
