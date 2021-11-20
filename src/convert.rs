@@ -437,4 +437,12 @@ macro_rules! ibig_signed_conversions {
         }
 
         impl TryFrom<IBig> for $t {
-            type E
+            type Error = OutOfBoundsError;
+
+            #[inline]
+            fn try_from(value: IBig) -> Result<$t, OutOfBoundsError> {
+                value.try_to_signed()
+            }
+        }
+
+        impl TryFrom<&IBig> fo
