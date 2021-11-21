@@ -456,4 +456,12 @@ macro_rules! ibig_signed_conversions {
     };
 }
 
-i
+ibig_signed_conversions!(i8);
+ibig_signed_conversions!(i16);
+ibig_signed_conversions!(i32);
+ibig_signed_conversions!(i64);
+ibig_signed_conversions!(i128);
+ibig_signed_conversions!(isize);
+
+impl From<UBig> for IBig {
+    #
