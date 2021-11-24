@@ -464,4 +464,13 @@ ibig_signed_conversions!(i128);
 ibig_signed_conversions!(isize);
 
 impl From<UBig> for IBig {
-    #
+    #[inline]
+    fn from(x: UBig) -> IBig {
+        IBig::from_sign_magnitude(Positive, x)
+    }
+}
+
+impl From<&UBig> for IBig {
+    #[inline]
+    fn from(x: &UBig) -> IBig {
+        IBig::from(x.clone
