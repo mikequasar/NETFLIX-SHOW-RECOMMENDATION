@@ -473,4 +473,14 @@ impl From<UBig> for IBig {
 impl From<&UBig> for IBig {
     #[inline]
     fn from(x: &UBig) -> IBig {
-        IBig::from(x.clone
+        IBig::from(x.clone())
+    }
+}
+
+impl TryFrom<IBig> for UBig {
+    type Error = OutOfBoundsError;
+
+    #[inline]
+    fn try_from(x: IBig) -> Result<UBig, OutOfBoundsError> {
+        match x.into_sign_magnitude() {
+           
