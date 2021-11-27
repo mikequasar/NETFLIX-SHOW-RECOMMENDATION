@@ -493,4 +493,13 @@ impl TryFrom<&IBig> for UBig {
     type Error = OutOfBoundsError;
 
     #[inline]
-    fn try_from(x: &IBig) -> Re
+    fn try_from(x: &IBig) -> Result<UBig, OutOfBoundsError> {
+        match x.sign() {
+            Positive => Ok(x.magnitude().clone()),
+            Negative => Err(OutOfBoundsError),
+        }
+    }
+}
+
+impl UBig {
+    /// Convert an unsigned primitive to [UBig
