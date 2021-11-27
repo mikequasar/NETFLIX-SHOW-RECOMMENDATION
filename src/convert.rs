@@ -511,4 +511,12 @@ impl UBig {
         match x.try_into() {
             Ok(w) => UBig::from_word(w),
             Err(_) => {
-                l
+                let repr = x.to_le_bytes();
+                UBig::from_le_bytes(repr.as_ref())
+            }
+        }
+    }
+
+    /// Try to convert a signed primitive to [UBig].
+    #[inline]
+    fn try_from_signed<T>(x: T) -> R
