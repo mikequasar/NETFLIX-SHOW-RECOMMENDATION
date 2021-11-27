@@ -502,4 +502,13 @@ impl TryFrom<&IBig> for UBig {
 }
 
 impl UBig {
-    /// Convert an unsigned primitive to [UBig
+    /// Convert an unsigned primitive to [UBig].
+    #[inline]
+    pub(crate) fn from_unsigned<T>(x: T) -> UBig
+    where
+        T: PrimitiveUnsigned,
+    {
+        match x.try_into() {
+            Ok(w) => UBig::from_word(w),
+            Err(_) => {
+                l
