@@ -519,4 +519,14 @@ impl UBig {
 
     /// Try to convert a signed primitive to [UBig].
     #[inline]
-    fn try_from_signed<T>(x: T) -> R
+    fn try_from_signed<T>(x: T) -> Result<UBig, OutOfBoundsError>
+    where
+        T: PrimitiveSigned,
+    {
+        match T::Unsigned::try_from(x) {
+            Ok(u) => Ok(UBig::from_unsigned(u)),
+            Err(_) => Err(OutOfBoundsError),
+        }
+    }
+
+    //
