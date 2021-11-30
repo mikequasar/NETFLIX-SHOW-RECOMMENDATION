@@ -536,4 +536,10 @@ impl UBig {
         T: PrimitiveUnsigned,
     {
         match self.repr() {
-            S
+            Small(w) => match T::try_from(*w) {
+                Ok(val) => Ok(val),
+                Err(_) => Err(OutOfBoundsError),
+            },
+            Large(buffer) => unsigned_from_words(buffer),
+        }
+   
