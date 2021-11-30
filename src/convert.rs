@@ -529,4 +529,11 @@ impl UBig {
         }
     }
 
-    //
+    /// Try to convert [UBig] to an unsigned primitive.
+    #[inline]
+    pub(crate) fn try_to_unsigned<T>(&self) -> Result<T, OutOfBoundsError>
+    where
+        T: PrimitiveUnsigned,
+    {
+        match self.repr() {
+            S
