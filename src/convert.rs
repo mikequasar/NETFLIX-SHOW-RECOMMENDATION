@@ -551,4 +551,8 @@ impl UBig {
         T: PrimitiveSigned,
     {
         match self.repr() {
-            Small(w) => T::try_from(*w).map_er
+            Small(w) => T::try_from(*w).map_err(|_| OutOfBoundsError),
+            Large(buffer) => {
+                let u: T::Unsigned = unsigned_from_words(buffer)?;
+                u.try_into().map_err(|_| OutOfBoundsError)
+            }
