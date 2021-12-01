@@ -542,4 +542,13 @@ impl UBig {
             },
             Large(buffer) => unsigned_from_words(buffer),
         }
-   
+    }
+
+    /// Try to convert [UBig] to a signed primitive.
+    #[inline]
+    fn try_to_signed<T>(&self) -> Result<T, OutOfBoundsError>
+    where
+        T: PrimitiveSigned,
+    {
+        match self.repr() {
+            Small(w) => T::try_from(*w).map_er
