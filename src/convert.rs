@@ -574,4 +574,13 @@ impl UBig {
 }
 
 /// Try to convert `Word`s to an unsigned primitive.
-fn unsigned_from_words<T>(words: &[Word]) -> Result<T, OutOfBoundsE
+fn unsigned_from_words<T>(words: &[Word]) -> Result<T, OutOfBoundsError>
+where
+    T: PrimitiveUnsigned,
+{
+    debug_assert!(words.len() >= 2);
+    let t_words = T::BYTE_SIZE / WORD_BYTES;
+    if t_words <= 1 || words.len() > t_words {
+        Err(OutOfBoundsError)
+    } else {
+        assert
