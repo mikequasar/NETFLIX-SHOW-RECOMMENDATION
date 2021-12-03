@@ -556,3 +556,15 @@ impl UBig {
                 let u: T::Unsigned = unsigned_from_words(buffer)?;
                 u.try_into().map_err(|_| OutOfBoundsError)
             }
+        }
+    }
+
+    #[inline]
+    pub(crate) fn from_ibig_panic_on_overflow(x: IBig) -> UBig {
+        match UBig::try_from(x) {
+            Ok(v) => v,
+            Err(_) => UBig::panic_negative(),
+        }
+    }
+
+   
