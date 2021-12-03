@@ -567,4 +567,11 @@ impl UBig {
         }
     }
 
-   
+    #[inline]
+    pub(crate) fn panic_negative() -> ! {
+        panic!("negative UBig")
+    }
+}
+
+/// Try to convert `Word`s to an unsigned primitive.
+fn unsigned_from_words<T>(words: &[Word]) -> Result<T, OutOfBoundsE
