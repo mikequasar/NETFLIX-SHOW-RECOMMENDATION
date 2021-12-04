@@ -588,4 +588,9 @@ where
             "A large primitive type not a multiple of word size."
         );
         let mut repr = T::default().to_le_bytes();
-        let bytes: &mut [u8] = repr.as_mut
+        let bytes: &mut [u8] = repr.as_mut();
+        for (idx, w) in words.iter().enumerate() {
+            let pos = idx * WORD_BYTES;
+            bytes[pos..pos + WORD_BYTES].copy_from_slice(&w.to_le_bytes());
+        }
+        Ok(T::from_le_bytes(
