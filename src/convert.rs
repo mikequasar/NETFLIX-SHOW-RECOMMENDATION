@@ -583,4 +583,9 @@ where
     if t_words <= 1 || words.len() > t_words {
         Err(OutOfBoundsError)
     } else {
-        assert
+        assert!(
+            T::BIT_SIZE % WORD_BITS == 0,
+            "A large primitive type not a multiple of word size."
+        );
+        let mut repr = T::default().to_le_bytes();
+        let bytes: &mut [u8] = repr.as_mut
