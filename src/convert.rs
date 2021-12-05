@@ -593,4 +593,15 @@ where
             let pos = idx * WORD_BYTES;
             bytes[pos..pos + WORD_BYTES].copy_from_slice(&w.to_le_bytes());
         }
-        Ok(T::from_le_bytes(
+        Ok(T::from_le_bytes(repr))
+    }
+}
+
+impl IBig {
+    /// Convert an unsigned primitive to [IBig].
+    #[inline]
+    pub(crate) fn from_unsigned<T: PrimitiveUnsigned>(x: T) -> IBig {
+        IBig::from(UBig::from_unsigned(x))
+    }
+
+    /// Conv
