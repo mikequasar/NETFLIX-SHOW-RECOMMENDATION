@@ -604,4 +604,8 @@ impl IBig {
         IBig::from(UBig::from_unsigned(x))
     }
 
-    /// Conv
+    /// Convert a signed primitive to [IBig].
+    #[inline]
+    pub(crate) fn from_signed<T: PrimitiveSigned>(x: T) -> IBig {
+        let (sign, mag) = x.to_sign_magnitude();
+        IBig::from_sign_magnitude(sign, UBig::from_unsigned(
