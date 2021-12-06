@@ -262,3 +262,222 @@ impl DivRem<UBig> for &UBig {
             (Small(word0), Small(word1)) => UBig::div_rem_word(*word0, word1),
             (Small(word0), Large(_)) => (UBig::from_word(0), UBig::from_word(*word0)),
             (Large(buffer0), Small(word1)) => UBig::div_rem_large_word(buffer0.clone(), word1),
+            (Large(buffer0), Large(mut buffer1)) => {
+                if buffer0.len() >= buffer1.len() {
+                    UBig::div_rem_large(buffer0.clone(), buffer1)
+                } else {
+                    // Reuse buffer1 for the remainder.
+                    buffer1.resizing_clone_from(buffer0);
+                    (UBig::from_word(0), buffer1.into())
+                }
+            }
+        }
+    }
+}
+
+impl DivRem<&UBig> for &UBig {
+    type OutputDiv = UBig;
+    type OutputRem = UBig;
+
+    #[inline]
+    fn div_rem(self, rhs: &UBig) -> (UBig, UBig) {
+        match (self.repr(), rhs.repr()) {
+            (Small(word0), Small(word1)) => UBig::div_rem_word(*word0, *word1),
+            (Small(word0), Large(_)) => (UBig::from_word(0), UBig::from_word(*word0)),
+            (Large(buffer0), Small(word1)) => UBig::div_rem_large_word(buffer0.clone(), *word1),
+            (Large(buffer0), Large(buffer1)) => {
+                if buffer0.len() >= buffer1.len() {
+                    UBig::div_rem_large(buffer0.clone(), buffer1.clone())
+                } else {
+                    (UBig::from_word(0), self.clone())
+                }
+            }
+        }
+    }
+}
+
+impl DivEuclid<UBig> for UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn div_euclid(self, rhs: UBig) -> UBig {
+        self / rhs
+    }
+}
+
+impl DivEuclid<&UBig> for UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn div_euclid(self, rhs: &UBig) -> UBig {
+        self / rhs
+    }
+}
+
+impl DivEuclid<UBig> for &UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn div_euclid(self, rhs: UBig) -> UBig {
+        self / rhs
+    }
+}
+
+impl DivEuclid<&UBig> for &UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn div_euclid(self, rhs: &UBig) -> UBig {
+        self / rhs
+    }
+}
+
+impl RemEuclid<UBig> for UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn rem_euclid(self, rhs: UBig) -> UBig {
+        self % rhs
+    }
+}
+
+impl RemEuclid<&UBig> for UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn rem_euclid(self, rhs: &UBig) -> UBig {
+        self % rhs
+    }
+}
+
+impl RemEuclid<UBig> for &UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn rem_euclid(self, rhs: UBig) -> UBig {
+        self % rhs
+    }
+}
+
+impl RemEuclid<&UBig> for &UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn rem_euclid(self, rhs: &UBig) -> UBig {
+        self % rhs
+    }
+}
+
+impl DivRemEuclid<UBig> for UBig {
+    type OutputDiv = UBig;
+    type OutputRem = UBig;
+
+    #[inline]
+    fn div_rem_euclid(self, rhs: UBig) -> (UBig, UBig) {
+        self.div_rem(rhs)
+    }
+}
+
+impl DivRemEuclid<&UBig> for UBig {
+    type OutputDiv = UBig;
+    type OutputRem = UBig;
+
+    #[inline]
+    fn div_rem_euclid(self, rhs: &UBig) -> (UBig, UBig) {
+        self.div_rem(rhs)
+    }
+}
+
+impl DivRemEuclid<UBig> for &UBig {
+    type OutputDiv = UBig;
+    type OutputRem = UBig;
+
+    #[inline]
+    fn div_rem_euclid(self, rhs: UBig) -> (UBig, UBig) {
+        self.div_rem(rhs)
+    }
+}
+
+impl DivRemEuclid<&UBig> for &UBig {
+    type OutputDiv = UBig;
+    type OutputRem = UBig;
+
+    #[inline]
+    fn div_rem_euclid(self, rhs: &UBig) -> (UBig, UBig) {
+        self.div_rem(rhs)
+    }
+}
+
+impl Div<IBig> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn div(self, rhs: IBig) -> IBig {
+        // Truncate towards 0.
+        let (sign0, mag0) = self.into_sign_magnitude();
+        let (sign1, mag1) = rhs.into_sign_magnitude();
+        IBig::from_sign_magnitude(sign0 * sign1, mag0 / mag1)
+    }
+}
+
+impl Div<&IBig> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn div(self, rhs: &IBig) -> IBig {
+        // Truncate towards 0.
+        let (sign0, mag0) = self.into_sign_magnitude();
+        let (sign1, mag1) = (rhs.sign(), rhs.magnitude());
+        IBig::from_sign_magnitude(sign0 * sign1, mag0 / mag1)
+    }
+}
+
+impl Div<IBig> for &IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn div(self, rhs: IBig) -> IBig {
+        // Truncate towards 0.
+        let (sign0, mag0) = (self.sign(), self.magnitude());
+        let (sign1, mag1) = rhs.into_sign_magnitude();
+        IBig::from_sign_magnitude(sign0 * sign1, mag0 / mag1)
+    }
+}
+
+impl Div<&IBig> for &IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn div(self, rhs: &IBig) -> IBig {
+        // Truncate towards 0.
+        let (sign0, mag0) = (self.sign(), self.magnitude());
+        let (sign1, mag1) = (rhs.sign(), rhs.magnitude());
+        IBig::from_sign_magnitude(sign0 * sign1, mag0 / mag1)
+    }
+}
+
+impl DivAssign<IBig> for IBig {
+    #[inline]
+    fn div_assign(&mut self, rhs: IBig) {
+        *self = mem::take(self) / rhs;
+    }
+}
+
+impl DivAssign<&IBig> for IBig {
+    #[inline]
+    fn div_assign(&mut self, rhs: &IBig) {
+        *self = mem::take(self) / rhs;
+    }
+}
+
+impl Rem<IBig> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn rem(self, rhs: IBig) -> IBig {
+        // Remainder with truncating division has same sign as lhs.
+        let (sign0, mag0) = self.into_sign_magnitude();
+        let (_, mag1) = rhs.into_sign_magnitude();
+        IBig::from_sign_magnitude(sign0, mag0 % mag1)
+    }
+}
