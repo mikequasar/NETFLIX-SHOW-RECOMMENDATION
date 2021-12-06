@@ -608,4 +608,10 @@ impl IBig {
     #[inline]
     pub(crate) fn from_signed<T: PrimitiveSigned>(x: T) -> IBig {
         let (sign, mag) = x.to_sign_magnitude();
-        IBig::from_sign_magnitude(sign, UBig::from_unsigned(
+        IBig::from_sign_magnitude(sign, UBig::from_unsigned(mag))
+    }
+
+    /// Try to convert [IBig] to an unsigned primitive.
+    #[inline]
+    pub(crate) fn try_to_unsigned<T: PrimitiveUnsigned>(&self) -> Result<T, OutOfBoundsError> {
+        match self.sign
