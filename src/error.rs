@@ -34,4 +34,4 @@ impl Display for ParseError {
 }
 
 #[cfg(feature = "std")]
-impl
+impl std::error::Error for ParseError {}
