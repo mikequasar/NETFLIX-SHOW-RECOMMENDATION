@@ -16,4 +16,13 @@ impl Display for OutOfBoundsError {
 impl std::error::Error for OutOfBoundsError {}
 
 /// Error parsing a number.
-#[derive(Clone, Copy, Debug, Eq
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ParseError {
+    /// No digits in the string.
+    NoDigits,
+    /// Invalid digit for a given radix.
+    InvalidDigit,
+}
+
+impl Display for ParseError {
+    fn fmt(&self, f: &mut Formatte
