@@ -1283,3 +1283,200 @@ impl UBig {
     #[inline]
     fn div_word(lhs: Word, rhs: Word) -> UBig {
         match lhs.checked_div(rhs) {
+            Some(res) => UBig::from_word(res),
+            None => panic_divide_by_0(),
+        }
+    }
+
+    /// `lhs % rhs`
+    #[inline]
+    fn rem_word(lhs: Word, rhs: Word) -> UBig {
+        match lhs.checked_rem(rhs) {
+            Some(res) => UBig::from_word(res),
+            None => panic_divide_by_0(),
+        }
+    }
+
+    /// (lhs / rhs, lhs % rhs)
+    #[inline]
+    fn div_rem_word(lhs: Word, rhs: Word) -> (UBig, UBig) {
+        // If division works, remainder also works.
+        match lhs.checked_div(rhs) {
+            Some(res) => (UBig::from_word(res), UBig::from_word(lhs % rhs)),
+            None => panic_divide_by_0(),
+        }
+    }
+
+    /// `lhs / rhs`
+    fn div_large_word(lhs: Buffer, rhs: Word) -> UBig {
+        let (q, _) = UBig::div_rem_large_word(lhs, rhs);
+        q
+    }
+
+    /// `lhs % rhs`
+    fn rem_large_word(lhs: &[Word], rhs: Word) -> UBig {
+        if rhs == 0 {
+            panic_divide_by_0();
+        }
+        UBig::from_word(div::rem_by_word(lhs, rhs))
+    }
+
+    /// (buffer / rhs, buffer % rhs)
+    fn div_rem_large_word(mut buffer: Buffer, rhs: Word) -> (UBig, UBig) {
+        if rhs == 0 {
+            panic_divide_by_0();
+        }
+        let rem = div::div_by_word_in_place(&mut buffer, rhs);
+        (buffer.into(), UBig::from_word(rem))
+    }
+
+    /// `lhs / rhs`
+    fn div_large(mut lhs: Buffer, mut rhs: Buffer) -> UBig {
+        let _shift = UBig::div_rem_in_lhs(&mut lhs, &mut rhs);
+        lhs.erase_front(rhs.len());
+        lhs.into()
+    }
+
+    /// `lhs % rhs`
+    fn rem_large(mut lhs: Buffer, mut rhs: Buffer) -> UBig {
+        let shift = UBig::div_rem_in_lhs(&mut lhs, &mut rhs);
+        let n = rhs.len();
+        rhs.copy_from_slice(&lhs[..n]);
+        let low_bits = shift::shr_in_place(&mut rhs, shift);
+        debug_assert!(low_bits == 0);
+        rhs.into()
+    }
+
+    /// `(lhs / rhs, lhs % rhs)`
+    fn div_rem_large(mut lhs: Buffer, mut rhs: Buffer) -> (UBig, UBig) {
+        let shift = UBig::div_rem_in_lhs(&mut lhs, &mut rhs);
+        let n = rhs.len();
+        rhs.copy_from_slice(&lhs[..n]);
+        let low_bits = shift::shr_in_place(&mut rhs, shift);
+        debug_assert!(low_bits == 0);
+        lhs.erase_front(n);
+        (lhs.into(), rhs.into())
+    }
+
+    /// lhs = (lhs / rhs, lhs % rhs)
+    ///
+    /// Returns shift.
+    fn div_rem_in_lhs(lhs: &mut Buffer, rhs: &mut Buffer) -> u32 {
+        let (shift, fast_div_rhs_top) = div::normalize_large(rhs);
+        let lhs_carry = shift::shl_in_place(lhs, shift);
+        if lhs_carry != 0 {
+            lhs.push_may_reallocate(lhs_carry);
+        }
+        let mut allocation =
+            MemoryAllocation::new(div::memory_requirement_exact(lhs.len(), rhs.len()));
+        let mut memory = allocation.memory();
+        let overflow = div::div_rem_in_place(lhs, rhs, fast_div_rhs_top, &mut memory);
+        if overflow {
+            lhs.push_may_reallocate(1);
+        }
+        shift
+    }
+
+    #[inline]
+    fn div_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> UBig {
+        self / UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn div_ref_unsigned<T: PrimitiveUnsigned>(&self, rhs: T) -> UBig {
+        self / UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn div_assign_unsigned<T: PrimitiveUnsigned>(&mut self, rhs: T) {
+        self.div_assign(UBig::from_unsigned(rhs))
+    }
+
+    #[inline]
+    fn rem_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> T {
+        (self % UBig::from_unsigned(rhs)).try_to_unsigned().unwrap()
+    }
+
+    #[inline]
+    fn rem_ref_unsigned<T: PrimitiveUnsigned>(&self, rhs: T) -> T {
+        (self % UBig::from_unsigned(rhs)).try_to_unsigned().unwrap()
+    }
+
+    #[inline]
+    fn rem_assign_unsigned<T: PrimitiveUnsigned>(&mut self, rhs: T) {
+        self.rem_assign(UBig::from_unsigned(rhs))
+    }
+
+    #[inline]
+    fn div_rem_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> (UBig, T) {
+        let (q, r) = self.div_rem(UBig::from_unsigned(rhs));
+        (q, r.try_to_unsigned().unwrap())
+    }
+
+    #[inline]
+    fn div_rem_ref_unsigned<T: PrimitiveUnsigned>(&self, rhs: T) -> (UBig, T) {
+        let (q, r) = self.div_rem(UBig::from_unsigned(rhs));
+        (q, r.try_to_unsigned().unwrap())
+    }
+
+    #[inline]
+    fn div_signed<T: PrimitiveSigned>(self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self) / IBig::from_signed(rhs))
+    }
+
+    #[inline]
+    fn div_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self) / IBig::from_signed(rhs))
+    }
+
+    #[inline]
+    fn div_assign_signed<T: PrimitiveSigned>(&mut self, rhs: T) {
+        *self = mem::take(self).div_signed(rhs)
+    }
+
+    #[inline]
+    fn rem_signed<T: PrimitiveSigned>(self, rhs: T) -> T {
+        let (_, rhs_unsigned) = rhs.to_sign_magnitude();
+        let res = self.rem_unsigned(rhs_unsigned);
+        T::try_from_sign_magnitude(Positive, res).unwrap()
+    }
+
+    #[inline]
+    fn rem_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> T {
+        let (_, rhs_unsigned) = rhs.to_sign_magnitude();
+        let res = self.rem_ref_unsigned(rhs_unsigned);
+        T::try_from_sign_magnitude(Positive, res).unwrap()
+    }
+
+    #[inline]
+    fn rem_assign_signed<T: PrimitiveSigned>(&mut self, rhs: T) {
+        let res = IBig::from(mem::take(self)) % IBig::from_signed(rhs);
+        *self = UBig::from_ibig_panic_on_overflow(res);
+    }
+
+    #[inline]
+    fn div_rem_signed<T: PrimitiveSigned>(self, rhs: T) -> (UBig, T) {
+        let (q, r) = IBig::from(self).div_rem(IBig::from_signed(rhs));
+        (
+            UBig::from_ibig_panic_on_overflow(q),
+            r.try_to_signed().unwrap(),
+        )
+    }
+
+    #[inline]
+    fn div_rem_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> (UBig, T) {
+        let (q, r) = IBig::from(self).div_rem(IBig::from_signed(rhs));
+        (
+            UBig::from_ibig_panic_on_overflow(q),
+            r.try_to_signed().unwrap(),
+        )
+    }
+
+    #[inline]
+    fn div_euclid_signed<T: PrimitiveSigned>(self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self).div_euclid(IBig::from_signed(rhs)))
+    }
+
+    #[inline]
+    fn div_euclid_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self).div_euclid(IBig::from_signed(rhs)))
