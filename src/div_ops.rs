@@ -1480,3 +1480,171 @@ impl UBig {
     #[inline]
     fn div_euclid_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> UBig {
         UBig::from_ibig_panic_on_overflow(IBig::from(self).div_euclid(IBig::from_signed(rhs)))
+    }
+
+    #[inline]
+    fn rem_euclid_signed<T: PrimitiveSigned>(self, rhs: T) -> T {
+        self.rem_signed(rhs)
+    }
+
+    #[inline]
+    fn rem_euclid_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> T {
+        self.rem_ref_signed(rhs)
+    }
+
+    #[inline]
+    fn div_rem_euclid_signed<T: PrimitiveSigned>(self, rhs: T) -> (UBig, T) {
+        let (q, r) = IBig::from(self).div_rem_euclid(IBig::from_signed(rhs));
+        (
+            UBig::from_ibig_panic_on_overflow(q),
+            r.try_to_signed().unwrap(),
+        )
+    }
+
+    #[inline]
+    fn div_rem_euclid_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> (UBig, T) {
+        let (q, r) = IBig::from(self).div_rem_euclid(IBig::from_signed(rhs));
+        (
+            UBig::from_ibig_panic_on_overflow(q),
+            r.try_to_signed().unwrap(),
+        )
+    }
+}
+
+impl IBig {
+    #[inline]
+    fn div_primitive<T>(self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self.div(IBig::from(rhs))
+    }
+
+    #[inline]
+    fn div_ref_primitive<T>(&self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self.div(IBig::from(rhs))
+    }
+
+    #[inline]
+    fn div_assign_primitive<T>(&mut self, rhs: T)
+    where
+        IBig: From<T>,
+    {
+        self.div_assign(IBig::from(rhs))
+    }
+
+    #[inline]
+    fn rem_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> IBig {
+        self % IBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn rem_ref_unsigned<T: PrimitiveUnsigned>(&self, rhs: T) -> IBig {
+        self % IBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn rem_signed<T: PrimitiveSigned>(self, rhs: T) -> T {
+        (self % IBig::from_signed(rhs)).try_to_signed().unwrap()
+    }
+
+    #[inline]
+    fn rem_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> T {
+        (self % IBig::from_signed(rhs)).try_to_signed().unwrap()
+    }
+
+    #[inline]
+    fn rem_assign_primitive<T>(&mut self, rhs: T)
+    where
+        IBig: From<T>,
+    {
+        self.rem_assign(IBig::from(rhs))
+    }
+
+    #[inline]
+    fn div_rem_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> (IBig, IBig) {
+        self.div_rem(IBig::from_unsigned(rhs))
+    }
+
+    #[inline]
+    fn div_rem_ref_unsigned<T: PrimitiveUnsigned>(&self, rhs: T) -> (IBig, IBig) {
+        self.div_rem(IBig::from_unsigned(rhs))
+    }
+
+    #[inline]
+    fn div_rem_signed<T: PrimitiveSigned>(self, rhs: T) -> (IBig, T) {
+        let (q, r) = self.div_rem(IBig::from_signed(rhs));
+        (q, r.try_to_signed().unwrap())
+    }
+
+    #[inline]
+    fn div_rem_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> (IBig, T) {
+        let (q, r) = self.div_rem(IBig::from_signed(rhs));
+        (q, r.try_to_signed().unwrap())
+    }
+
+    #[inline]
+    fn div_euclid_primitive<T>(self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self.div_euclid(IBig::from(rhs))
+    }
+
+    #[inline]
+    fn div_euclid_ref_primitive<T>(&self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self.div_euclid(IBig::from(rhs))
+    }
+
+    #[inline]
+    fn rem_euclid_primitive<T>(self, rhs: T) -> T
+    where
+        IBig: From<T>,
+        T: TryFrom<IBig>,
+        <T as TryFrom<IBig>>::Error: Debug,
+    {
+        T::try_from(self.rem_euclid(IBig::from(rhs))).unwrap()
+    }
+
+    #[inline]
+    fn rem_euclid_ref_primitive<T>(&self, rhs: T) -> T
+    where
+        IBig: From<T>,
+        T: TryFrom<IBig>,
+        <T as TryFrom<IBig>>::Error: Debug,
+    {
+        T::try_from(self.rem_euclid(IBig::from(rhs))).unwrap()
+    }
+
+    #[inline]
+    fn div_rem_euclid_primitive<T>(self, rhs: T) -> (IBig, T)
+    where
+        IBig: From<T>,
+        T: TryFrom<IBig>,
+        <T as TryFrom<IBig>>::Error: Debug,
+    {
+        let (q, r) = self.div_rem_euclid(IBig::from(rhs));
+        (q, T::try_from(r).unwrap())
+    }
+
+    #[inline]
+    fn div_rem_euclid_ref_primitive<T>(&self, rhs: T) -> (IBig, T)
+    where
+        IBig: From<T>,
+        T: TryFrom<IBig>,
+        <T as TryFrom<IBig>>::Error: Debug,
+    {
+        let (q, r) = self.div_rem_euclid(IBig::from(rhs));
+        (q, T::try_from(r).unwrap())
+    }
+}
+
+fn panic_divide_by_0() -> ! {
+    panic!("divide by 0")
+}
