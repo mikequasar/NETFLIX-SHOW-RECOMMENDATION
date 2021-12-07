@@ -25,4 +25,13 @@ pub enum ParseError {
 }
 
 impl Display for ParseError {
-    fn fmt(&self, f: &mut Formatte
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        match self {
+            ParseError::NoDigits => f.write_str("no digits"),
+            ParseError::InvalidDigit => f.write_str("invalid digit"),
+        }
+    }
+}
+
+#[cfg(feature = "std")]
+impl
