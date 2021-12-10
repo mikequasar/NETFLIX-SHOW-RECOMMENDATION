@@ -11,4 +11,12 @@ use crate::{
 ///
 /// Granlund, Montgomerry "Division by Invariant Integers using Multiplication"
 /// Algorithm 4.1.
-#[de
+#[derive(Clone, Copy)]
+pub(crate) struct FastDivideSmall {
+    // 2 <= divisor < 2^N, N = WORD_BITS
+    divisor: Word,
+
+    // Let n = ceil(log_2(divisor))
+    // 2^(n-1) < divisor <= 2^n
+    // shift = n - 1
+    shif
