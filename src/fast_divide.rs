@@ -29,4 +29,10 @@ impl FastDivideSmall {
     #[inline]
     pub(crate) const fn new(divisor: Word) -> Self {
         assert_in_const_fn(divisor > 1);
-        l
+        let n = math::ceil_log_2_word(divisor);
+
+        // Calculate:
+        // m = floor(B * 2^n / divisor) + 1 - B
+        // m >= B + 1 - B >= 1
+        // m <= B * 2^n / (2^(n-1) + 1) + 1 - B
+        /
