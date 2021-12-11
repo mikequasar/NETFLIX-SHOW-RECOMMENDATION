@@ -19,4 +19,14 @@ pub(crate) struct FastDivideSmall {
     // Let n = ceil(log_2(divisor))
     // 2^(n-1) < divisor <= 2^n
     // shift = n - 1
-    shif
+    shift: u32,
+
+    // m = floor(B * 2^n / divisor) + 1 - B, where B = 2^N
+    m: Word,
+}
+
+impl FastDivideSmall {
+    #[inline]
+    pub(crate) const fn new(divisor: Word) -> Self {
+        assert_in_const_fn(divisor > 1);
+        l
