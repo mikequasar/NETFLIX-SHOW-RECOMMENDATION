@@ -45,4 +45,11 @@ impl FastDivideSmall {
         // divisor * (B + m) = divisor * floor(B * 2^n / divisor + 1)
         // = B * 2^n + k, 1 <= k <= divisor
 
-        // m = floor(B * (2^n-1 - (divisor-1)) / divisor
+        // m = floor(B * (2^n-1 - (divisor-1)) / divisor) + 1
+        let (lo, _hi) = split_double_word(
+            double_word(0, math::ones_word(n) - (divisor - 1)) / extend_word(divisor),
+        );
+        // assert!(_hi == 0);
+        FastDivideSmall {
+            divisor,
+            shif
