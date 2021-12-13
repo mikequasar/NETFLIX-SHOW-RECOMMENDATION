@@ -62,4 +62,8 @@ impl FastDivideSmall {
     pub(crate) fn div_rem(&self, a: Word) -> (Word, Word) {
         // q = floor( (B + m) * a / (B * 2^n) )
         //
-        // Remember th
+        // Remember that divisor * (B + m) = B * 2^n + k, 1 <= k <= 2^n
+        //
+        // (B + m) * a / (B * 2^n)
+        // = a / divisor * (B * 2^n + k) / (B * 2^n)
+        // = a / divisor + k * a / (divisor * B * 2^n)
