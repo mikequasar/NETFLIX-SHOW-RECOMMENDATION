@@ -52,4 +52,14 @@ impl FastDivideSmall {
         // assert!(_hi == 0);
         FastDivideSmall {
             divisor,
-            shif
+            shift: n - 1,
+            m: lo + 1,
+        }
+    }
+
+    /// ( a / divisor, a % divisor)
+    #[inline]
+    pub(crate) fn div_rem(&self, a: Word) -> (Word, Word) {
+        // q = floor( (B + m) * a / (B * 2^n) )
+        //
+        // Remember th
