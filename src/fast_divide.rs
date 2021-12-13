@@ -40,4 +40,9 @@ impl FastDivideSmall {
         //    < B * (2^n + 2^1) / (2^(n-1)+1) - B
         //    = B
         // So m fits in a Word.
-  
+        //
+        // Note:
+        // divisor * (B + m) = divisor * floor(B * 2^n / divisor + 1)
+        // = B * 2^n + k, 1 <= k <= divisor
+
+        // m = floor(B * (2^n-1 - (divisor-1)) / divisor
