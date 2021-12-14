@@ -67,3 +67,9 @@ impl FastDivideSmall {
         // (B + m) * a / (B * 2^n)
         // = a / divisor * (B * 2^n + k) / (B * 2^n)
         // = a / divisor + k * a / (divisor * B * 2^n)
+        // On one hand, this is >= a / divisor
+        // On the other hand, this is:
+        // <= a / divisor + 2^n * (B-1) / (2^n * B) / divisor
+        // < (a + 1) / divisor
+        //
+        // Therefore the floor is al
