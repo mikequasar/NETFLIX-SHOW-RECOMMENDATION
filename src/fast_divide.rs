@@ -113,4 +113,10 @@ impl FastDivideNormalized {
     /// divisor must have top bit of 1
     #[inline]
     pub(crate) const fn new(divisor: Word) -> Self {
-        assert_in_const_fn
+        assert_in_const_fn(divisor.leading_zeros() == 0);
+        let (m, _hi) = split_double_word(DoubleWord::MAX / extend_word(divisor));
+        assert_in_const_fn(_hi == 1);
+
+        // Note:
+        // m > 0
+        // (m + B
