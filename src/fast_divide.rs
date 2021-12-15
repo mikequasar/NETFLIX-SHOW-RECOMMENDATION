@@ -87,4 +87,13 @@ impl FastDivideSmall {
         FastDivideSmall {
             divisor: 0,
             shift: 0,
-      
+            m: 0,
+        }
+    }
+}
+
+/// Divide a DoubleWord by a prearranged divisor.
+///
+/// Assumes quotient fits in a Word.
+///
+/// Möller, Granlund, "Improved division by invariant intege
