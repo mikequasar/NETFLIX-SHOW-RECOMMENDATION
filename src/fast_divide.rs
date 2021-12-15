@@ -72,4 +72,9 @@ impl FastDivideSmall {
         // <= a / divisor + 2^n * (B-1) / (2^n * B) / divisor
         // < (a + 1) / divisor
         //
-        // Therefore the floor is al
+        // Therefore the floor is always the exact quotient.
+
+        // t = m * n / B
+        let (_, t) = split_double_word(extend_word(self.m) * extend_word(a));
+        // q = (t + a) / 2^n = (t + (a - t)/2) / 2^(n-1)
+        let q = (t + ((a - t) >> 1)) >
