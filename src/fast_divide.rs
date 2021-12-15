@@ -108,4 +108,9 @@ pub(crate) struct FastDivideNormalized {
 }
 
 impl FastDivideNormalized {
-   
+    /// Initialize from a given normalized divisor.
+    ///
+    /// divisor must have top bit of 1
+    #[inline]
+    pub(crate) const fn new(divisor: Word) -> Self {
+        assert_in_const_fn
