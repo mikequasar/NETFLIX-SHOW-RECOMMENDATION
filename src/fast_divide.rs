@@ -119,4 +119,11 @@ impl FastDivideNormalized {
 
         // Note:
         // m > 0
-        // (m + B
+        // (m + B) * divisor = B^2 - k for some 1 <= k <= divisor
+
+        FastDivideNormalized { divisor, m }
+    }
+
+    #[inline]
+    pub(crate) const fn div_rem_word(&self, a: Word) -> (Word, Word) {
+        if a < self.div
