@@ -96,4 +96,16 @@ impl FastDivideSmall {
 ///
 /// Assumes quotient fits in a Word.
 ///
-/// Möller, Granlund, "Improved division by invariant intege
+/// Möller, Granlund, "Improved division by invariant integers"
+/// Algorithm 4.
+#[derive(Clone, Copy)]
+pub(crate) struct FastDivideNormalized {
+    // Top bit must be 1.
+    divisor: Word,
+
+    // floor ((B^2 - 1) / divisor) - B, where B = 2^WORD_BITS
+    m: Word,
+}
+
+impl FastDivideNormalized {
+   
