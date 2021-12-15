@@ -77,4 +77,14 @@ impl FastDivideSmall {
         // t = m * n / B
         let (_, t) = split_double_word(extend_word(self.m) * extend_word(a));
         // q = (t + a) / 2^n = (t + (a - t)/2) / 2^(n-1)
-        let q = (t + ((a - t) >> 1)) >
+        let q = (t + ((a - t) >> 1)) >> self.shift;
+        let r = a - q * self.divisor;
+        (q, r)
+    }
+
+    #[inline]
+    pub(crate) const fn dummy() -> Self {
+        FastDivideSmall {
+            divisor: 0,
+            shift: 0,
+      
