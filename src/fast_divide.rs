@@ -126,4 +126,14 @@ impl FastDivideNormalized {
 
     #[inline]
     pub(crate) const fn div_rem_word(&self, a: Word) -> (Word, Word) {
-        if a < self.div
+        if a < self.divisor {
+            (0, a)
+        } else {
+            (1, a - self.divisor)
+        }
+    }
+
+    /// (a / divisor, a % divisor)
+    /// The result must fit in a single word.
+    #[inline]
+ 
