@@ -136,4 +136,8 @@ impl FastDivideNormalized {
     /// (a / divisor, a % divisor)
     /// The result must fit in a single word.
     #[inline]
- 
+    pub(crate) const fn div_rem(&self, a: DoubleWord) -> (Word, Word) {
+        let (a_lo, a_hi) = split_double_word(a);
+        debug_assert_in_const_fn!(a_hi < self.divisor);
+
+        // Approximate q
