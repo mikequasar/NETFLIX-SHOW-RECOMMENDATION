@@ -143,4 +143,9 @@ impl FastDivideNormalized {
         // Approximate quotient is (m + B) * a / B^2 ~= (m * a/B + a)/B.
         // This is q1 below.
         // This doesn't overflow because a_hi < Word::MAX.
-        let (q0, q1) = split_double_word(extend_word(self.m) 
+        let (q0, q1) = split_double_word(extend_word(self.m) * extend_word(a_hi) + a);
+
+        // q = q1 + 1 is our first approximation, but calculate mod B.
+        // r = a - q * d
+        let q = q1.wrapping_add(1);
+        let r = a_lo.wrapping_sub(q.wrapping_mul(self.div
