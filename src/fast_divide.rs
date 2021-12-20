@@ -140,4 +140,7 @@ impl FastDivideNormalized {
         let (a_lo, a_hi) = split_double_word(a);
         debug_assert_in_const_fn!(a_hi < self.divisor);
 
-        // Approximate q
+        // Approximate quotient is (m + B) * a / B^2 ~= (m * a/B + a)/B.
+        // This is q1 below.
+        // This doesn't overflow because a_hi < Word::MAX.
+        let (q0, q1) = split_double_word(extend_word(self.m) 
