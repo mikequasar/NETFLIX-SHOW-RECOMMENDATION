@@ -148,4 +148,10 @@ impl FastDivideNormalized {
         // q = q1 + 1 is our first approximation, but calculate mod B.
         // r = a - q * d
         let q = q1.wrapping_add(1);
-        let r = a_lo.wrapping_sub(q.wrapping_mul(self.div
+        let r = a_lo.wrapping_sub(q.wrapping_mul(self.divisor));
+
+        // Theorem: max(-d, q0+1-B) <= r < max(B-d, q0)
+        // Proof:
+        // r = a - q * d = a - q1 * d - d
+        // = a - (q1 * B + q0 - q0) * d/B - d
+        // = a - (m * a_hi + a - q0) * d/B -
