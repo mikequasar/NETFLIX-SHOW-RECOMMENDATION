@@ -154,4 +154,8 @@ impl FastDivideNormalized {
         // Proof:
         // r = a - q * d = a - q1 * d - d
         // = a - (q1 * B + q0 - q0) * d/B - d
-        // = a - (m * a_hi + a - q0) * d/B -
+        // = a - (m * a_hi + a - q0) * d/B - d
+        // = a - ((m+B) * a_hi + a_lo - q0) * d/B - d
+        // = a - ((B^2-k)/d * a_hi + a_lo - q0) * d/B - d
+        // = a - B * a_hi + (a_hi * k - a_lo * d + q0 * d) / B - d
+        // = (a_hi * k + a_lo * (B - d) + q0
