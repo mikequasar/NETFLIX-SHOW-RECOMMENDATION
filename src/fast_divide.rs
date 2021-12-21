@@ -166,4 +166,12 @@ impl FastDivideNormalized {
         // r >= max(-d, q0+1-B)
         //
         // r < (d * d + B * (B-d) + q0 * d) / B - d
-        // = (
+        // = (B-d)^2 / B + q0 * d / B
+        // = (1 - d/B) * (B-d) + (d/B) * q0
+        // <= max(B-d, q0)
+        // QED
+
+        // if r mod B > q0 { q -= 1; r += d; }
+        //
+        // Consider two cases:
+ 
