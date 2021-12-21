@@ -158,4 +158,12 @@ impl FastDivideNormalized {
         // = a - ((m+B) * a_hi + a_lo - q0) * d/B - d
         // = a - ((B^2-k)/d * a_hi + a_lo - q0) * d/B - d
         // = a - B * a_hi + (a_hi * k - a_lo * d + q0 * d) / B - d
-        // = (a_hi * k + a_lo * (B - d) + q0
+        // = (a_hi * k + a_lo * (B - d) + q0 * d) / B - d
+        //
+        // r >= q0 * d / B - d
+        // r >= -d
+        // r >= d/B (q0 - B) > q0-B
+        // r >= max(-d, q0+1-B)
+        //
+        // r < (d * d + B * (B-d) + q0 * d) / B - d
+        // = (
