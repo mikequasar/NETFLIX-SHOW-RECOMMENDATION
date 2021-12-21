@@ -174,4 +174,8 @@ impl FastDivideNormalized {
         // if r mod B > q0 { q -= 1; r += d; }
         //
         // Consider two cases:
- 
+        // a) r >= 0:
+        // Then r = r mod B > q0, hence r < B-d. Adding d will not overflow r.
+        // b) r < 0:
+        // Then r mod B = r-B > q0, and r >= -d, so adding d will make r non-negative.
+        /
