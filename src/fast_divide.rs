@@ -178,4 +178,8 @@ impl FastDivideNormalized {
         // Then r = r mod B > q0, hence r < B-d. Adding d will not overflow r.
         // b) r < 0:
         // Then r mod B = r-B > q0, and r >= -d, so adding d will make r non-negative.
-        /
+        // In either case, this will result in 0 <= r < B.
+
+        // In a branch-free way:
+        // decrease = 0xffff.fff = -1 if r mod B > q0, 0 otherwise.
+        let (_, decrease) = split_double_word(extend_w
