@@ -187,4 +187,8 @@ impl FastDivideNormalized {
         let r = r.wrapping_add(decrease & self.divisor);
 
         // At this point 0 <= r < B, i.e. 0 <= r < 2d.
-        // if r
+        // if r >= d { q += 1; r -= d; }
+        // In a branch-free way:
+        // increase = 0xffff.fff = -1 if r >= d, 0 otherwise
+        let (_, increase) =
+            split_double_word(extend_word(r).wrapping_
