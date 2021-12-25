@@ -200,4 +200,16 @@ impl FastDivideNormalized {
     }
 
     #[inline]
-    pub(crate) const
+    pub(crate) const fn dummy() -> Self {
+        FastDivideNormalized { divisor: 0, m: 0 }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::primitive::WORD_BITS;
+    use rand::prelude::*;
+
+    #[test]
+    fn tes
