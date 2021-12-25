@@ -191,4 +191,13 @@ impl FastDivideNormalized {
         // In a branch-free way:
         // increase = 0xffff.fff = -1 if r >= d, 0 otherwise
         let (_, increase) =
-            split_double_word(extend_word(r).wrapping_
+            split_double_word(extend_word(r).wrapping_sub(extend_word(self.divisor)));
+        let increase = !increase;
+        let q = q.wrapping_sub(increase);
+        let r = r.wrapping_sub(increase & self.divisor);
+
+        (q, r)
+    }
+
+    #[inline]
+    pub(crate) const
