@@ -212,4 +212,8 @@ mod tests {
     use rand::prelude::*;
 
     #[test]
-    fn tes
+    fn test_fast_divide_small() {
+        let mut rng = StdRng::seed_from_u64(1);
+        for _ in 0..1000000 {
+            let d_bits = rng.gen_range(2..=WORD_BITS);
+            let max_d = math::ones(d_
