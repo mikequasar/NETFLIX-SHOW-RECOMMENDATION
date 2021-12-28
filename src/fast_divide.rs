@@ -216,4 +216,8 @@ mod tests {
         let mut rng = StdRng::seed_from_u64(1);
         for _ in 0..1000000 {
             let d_bits = rng.gen_range(2..=WORD_BITS);
-            let max_d = math::ones(d_
+            let max_d = math::ones(d_bits);
+            let d = rng.gen_range(max_d / 2 + 1..=max_d);
+            let fast_div = FastDivideSmall::new(d);
+            let n = rng.gen();
+            let (q, r) = fast_div.div_rem(n)
