@@ -220,4 +220,13 @@ mod tests {
             let d = rng.gen_range(max_d / 2 + 1..=max_d);
             let fast_div = FastDivideSmall::new(d);
             let n = rng.gen();
-            let (q, r) = fast_div.div_rem(n)
+            let (q, r) = fast_div.div_rem(n);
+            assert_eq!(q, n / d);
+            assert_eq!(r, n % d);
+        }
+    }
+
+    #[test]
+    fn test_fast_divide_normalized() {
+        let mut rng = StdRng::seed_from_u64(1);
+        for _ in 0..1000000 {
