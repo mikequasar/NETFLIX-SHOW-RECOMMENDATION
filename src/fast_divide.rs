@@ -230,3 +230,7 @@ mod tests {
     fn test_fast_divide_normalized() {
         let mut rng = StdRng::seed_from_u64(1);
         for _ in 0..1000000 {
+            let d = rng.gen_range(Word::MAX / 2 + 1..=Word::MAX);
+            let q = rng.gen();
+            let r = rng.gen_range(0..d);
+            let a = extend_word(q) * extend_word(d) + extend_
