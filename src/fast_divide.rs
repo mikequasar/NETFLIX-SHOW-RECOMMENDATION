@@ -233,4 +233,9 @@ mod tests {
             let d = rng.gen_range(Word::MAX / 2 + 1..=Word::MAX);
             let q = rng.gen();
             let r = rng.gen_range(0..d);
-            let a = extend_word(q) * extend_word(d) + extend_
+            let a = extend_word(q) * extend_word(d) + extend_word(r);
+            let fast_div = FastDivideNormalized::new(d);
+            assert_eq!(fast_div.div_rem(a), (q, r));
+        }
+    }
+}
