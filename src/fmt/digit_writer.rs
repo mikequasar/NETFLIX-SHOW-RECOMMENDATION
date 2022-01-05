@@ -59,3 +59,6 @@ impl<'a> DigitWriter<'a> {
         let s = unsafe { str::from_utf8_unchecked(b) };
         self.writer.write_str(s)?;
         self.buffer_len = 0;
+        Ok(())
+    }
+}
