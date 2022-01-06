@@ -24,3 +24,16 @@ impl Display for UBig {
             prefix: "",
             digit_case: DigitCase::NoLetters,
         }
+        .fmt(f)
+    }
+}
+
+impl Debug for UBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        Display::fmt(self, f)
+    }
+}
+
+impl Binary for UBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+      
