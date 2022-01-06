@@ -16,4 +16,11 @@ mod non_power_two;
 mod power_two;
 
 impl Display for UBig {
-    fn fmt(&self, f: &mut Formatter) -> fm
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: Positive,
+            magnitude: self,
+            radix: 10,
+            prefix: "",
+            digit_case: DigitCase::NoLetters,
+        }
