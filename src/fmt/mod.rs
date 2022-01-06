@@ -36,4 +36,11 @@ impl Debug for UBig {
 
 impl Binary for UBig {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-      
+        InRadixFull {
+            sign: Positive,
+            magnitude: self,
+            radix: 2,
+            prefix: if f.alternate() { "0b" } else { "" },
+            digit_case: DigitCase::NoLetters,
+        }
+        .fmt(f)
