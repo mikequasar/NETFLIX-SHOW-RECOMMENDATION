@@ -53,4 +53,13 @@ impl Octal for UBig {
             sign: Positive,
             magnitude: self,
             radix: 8,
-            prefix: if f.alternate() { "
+            prefix: if f.alternate() { "0o" } else { "" },
+            digit_case: DigitCase::NoLetters,
+        }
+        .fmt(f)
+    }
+}
+
+impl LowerHex for UBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
