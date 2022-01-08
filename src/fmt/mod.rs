@@ -44,3 +44,13 @@ impl Binary for UBig {
             digit_case: DigitCase::NoLetters,
         }
         .fmt(f)
+    }
+}
+
+impl Octal for UBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: Positive,
+            magnitude: self,
+            radix: 8,
+            prefix: if f.alternate() { "
