@@ -73,4 +73,10 @@ impl LowerHex for UBig {
     }
 }
 
-impl
+impl UpperHex for UBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: Positive,
+            magnitude: self,
+            radix: 16,
+            prefix: if f.alternate() { "0x
