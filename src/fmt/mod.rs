@@ -63,3 +63,14 @@ impl Octal for UBig {
 impl LowerHex for UBig {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         InRadixFull {
+            sign: Positive,
+            magnitude: self,
+            radix: 16,
+            prefix: if f.alternate() { "0x" } else { "" },
+            digit_case: DigitCase::Lower,
+        }
+        .fmt(f)
+    }
+}
+
+impl
