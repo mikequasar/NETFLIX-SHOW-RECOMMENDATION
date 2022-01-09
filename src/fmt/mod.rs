@@ -79,4 +79,14 @@ impl UpperHex for UBig {
             sign: Positive,
             magnitude: self,
             radix: 16,
-            prefix: if f.alternate() { "0x
+            prefix: if f.alternate() { "0x" } else { "" },
+            digit_case: DigitCase::Upper,
+        }
+        .fmt(f)
+    }
+}
+
+impl Display for IBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: self.sign(
