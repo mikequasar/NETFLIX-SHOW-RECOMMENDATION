@@ -89,4 +89,15 @@ impl UpperHex for UBig {
 impl Display for IBig {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         InRadixFull {
-            sign: self.sign(
+            sign: self.sign(),
+            magnitude: self.magnitude(),
+            radix: 10,
+            prefix: "",
+            digit_case: DigitCase::NoLetters,
+        }
+        .fmt(f)
+    }
+}
+
+impl Debug for IBig {
+    fn fmt(&self,
