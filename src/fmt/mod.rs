@@ -100,4 +100,12 @@ impl Display for IBig {
 }
 
 impl Debug for IBig {
-    fn fmt(&self,
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        Display::fmt(self, f)
+    }
+}
+
+impl Binary for IBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: self.sign
