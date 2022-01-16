@@ -108,4 +108,15 @@ impl Debug for IBig {
 impl Binary for IBig {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         InRadixFull {
-            sign: self.sign
+            sign: self.sign(),
+            magnitude: self.magnitude(),
+            radix: 2,
+            prefix: if f.alternate() { "0b" } else { "" },
+            digit_case: DigitCase::NoLetters,
+        }
+        .fmt(f)
+    }
+}
+
+impl Octal for IBig {
+   
