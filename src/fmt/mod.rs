@@ -124,4 +124,14 @@ impl Octal for IBig {
             sign: self.sign(),
             magnitude: self.magnitude(),
             radix: 8,
-            prefix: if f.alternate() { "0o" } else { "" }
+            prefix: if f.alternate() { "0o" } else { "" },
+            digit_case: DigitCase::NoLetters,
+        }
+        .fmt(f)
+    }
+}
+
+impl LowerHex for IBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: s
