@@ -119,4 +119,9 @@ impl Binary for IBig {
 }
 
 impl Octal for IBig {
-   
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: self.sign(),
+            magnitude: self.magnitude(),
+            radix: 8,
+            prefix: if f.alternate() { "0o" } else { "" }
