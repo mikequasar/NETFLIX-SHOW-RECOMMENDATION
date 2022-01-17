@@ -134,4 +134,14 @@ impl Octal for IBig {
 impl LowerHex for IBig {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         InRadixFull {
-            sign: s
+            sign: self.sign(),
+            magnitude: self.magnitude(),
+            radix: 16,
+            prefix: if f.alternate() { "0x" } else { "" },
+            digit_case: DigitCase::Lower,
+        }
+        .fmt(f)
+    }
+}
+
+impl UpperHex
