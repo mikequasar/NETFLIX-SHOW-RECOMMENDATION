@@ -150,4 +150,16 @@ impl UpperHex for IBig {
             sign: self.sign(),
             magnitude: self.magnitude(),
             radix: 16,
-            prefix: if f.alternat
+            prefix: if f.alternate() { "0x" } else { "" },
+            digit_case: DigitCase::Upper,
+        }
+        .fmt(f)
+    }
+}
+
+impl UBig {
+    /// Representation in a given radix.
+    ///
+    /// # Panics
+    ///
+    /// P
