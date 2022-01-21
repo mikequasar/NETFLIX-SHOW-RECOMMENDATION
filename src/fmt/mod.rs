@@ -144,4 +144,10 @@ impl LowerHex for IBig {
     }
 }
 
-impl UpperHex
+impl UpperHex for IBig {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        InRadixFull {
+            sign: self.sign(),
+            magnitude: self.magnitude(),
+            radix: 16,
+            prefix: if f.alternat
