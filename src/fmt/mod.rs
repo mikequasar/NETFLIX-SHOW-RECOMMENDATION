@@ -162,4 +162,11 @@ impl UBig {
     ///
     /// # Panics
     ///
-    /// P
+    /// Panics if `radix` is not between 2 and 36 inclusive.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::ubig;
+    /// assert_eq!(format!("{}", ubig!(83).in_radix(3)), "10002");
+    /// assert_eq!(forma
