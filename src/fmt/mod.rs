@@ -187,4 +187,11 @@ impl IBig {
     ///
     /// # Panics
     ///
-    /// Panics if `radix` is not bet
+    /// Panics if `radix` is not between 2 and 36 inclusive.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::ibig;
+    /// assert_eq!(format!("{}", ibig!(-83).in_radix(3)), "-10002");
+    /// assert_eq!(format!("{:010}", ibig
