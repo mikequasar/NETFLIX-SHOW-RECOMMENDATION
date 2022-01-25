@@ -221,4 +221,13 @@ impl IBig {
 /// assert_eq!(format!("{}", ubig!(83).in_radix(3)), "10002");
 /// assert_eq!(format!("{:+010}", ubig!(35).in_radix(36)), "+00000000z");
 /// // For bases 2, 8, 10, 16 we don't have to use `InRadix`:
-/// assert_eq!(f
+/// assert_eq!(format!("{:x}", ubig!(3000)), "bb8");
+/// assert_eq!(format!("{:x}", ibig!(-3000)), "-bb8");
+/// ```
+pub struct InRadix<'a> {
+    sign: Sign,
+    magnitude: &'a UBig,
+    radix: Digit,
+}
+
+/// Representation in a given
