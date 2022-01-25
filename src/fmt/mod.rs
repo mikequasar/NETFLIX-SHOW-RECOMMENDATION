@@ -175,4 +175,16 @@ impl UBig {
     pub fn in_radix(&self, radix: u32) -> InRadix {
         radix::check_radix_valid(radix);
         InRadix {
-            sign:
+            sign: Positive,
+            magnitude: self,
+            radix,
+        }
+    }
+}
+
+impl IBig {
+    /// Representation in a given radix.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `radix` is not bet
