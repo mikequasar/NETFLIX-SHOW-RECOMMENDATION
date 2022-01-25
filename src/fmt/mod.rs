@@ -201,4 +201,12 @@ impl IBig {
         radix::check_radix_valid(radix);
         InRadix {
             sign: self.sign(),
-  
+            magnitude: self.magnitude(),
+            radix,
+        }
+    }
+}
+
+/// Representation of a [UBig] or [IBig] in any radix between 2 and 36 inclusive.
+///
+/// This can be used to format a number in a non-standar
