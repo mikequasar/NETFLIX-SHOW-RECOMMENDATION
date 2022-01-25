@@ -209,4 +209,13 @@ impl IBig {
 
 /// Representation of a [UBig] or [IBig] in any radix between 2 and 36 inclusive.
 ///
-/// This can be used to format a number in a non-standar
+/// This can be used to format a number in a non-standard radix.
+///
+/// The default format uses lower-case letters a-z for digits 10-35.
+/// The "alternative" format (`{:#}`) uses upper-case letters.
+///
+/// # Examples
+///
+/// ```
+/// # use ibig::{ibig, ubig};
+/// ass
