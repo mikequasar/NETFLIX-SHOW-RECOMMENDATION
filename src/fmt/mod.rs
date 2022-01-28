@@ -239,4 +239,9 @@ struct InRadixFull<'a> {
     digit_case: DigitCase,
 }
 
-impl Display for InRad
+impl Display for InRadix<'_> {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        let digit_case = if self.radix <= 10 {
+            DigitCase::NoLetters
+        } else if f.alternate() {
+            DigitCase::Upp
