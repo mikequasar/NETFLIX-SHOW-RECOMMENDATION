@@ -230,4 +230,13 @@ pub struct InRadix<'a> {
     radix: Digit,
 }
 
-/// Representation in a given
+/// Representation in a given radix with a prefix and digit case.
+struct InRadixFull<'a> {
+    sign: Sign,
+    magnitude: &'a UBig,
+    radix: Digit,
+    prefix: &'static str,
+    digit_case: DigitCase,
+}
+
+impl Display for InRad
