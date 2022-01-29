@@ -244,4 +244,14 @@ impl Display for InRadix<'_> {
         let digit_case = if self.radix <= 10 {
             DigitCase::NoLetters
         } else if f.alternate() {
-            DigitCase::Upp
+            DigitCase::Upper
+        } else {
+            DigitCase::Lower
+        };
+
+        InRadixFull {
+            sign: self.sign,
+            magnitude: self.magnitude,
+            radix: self.radix,
+            prefix: "",
+            d
