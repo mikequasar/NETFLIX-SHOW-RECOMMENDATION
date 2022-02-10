@@ -254,4 +254,13 @@ impl Display for InRadix<'_> {
             magnitude: self.magnitude,
             radix: self.radix,
             prefix: "",
-            d
+            digit_case,
+        }
+        .fmt(f)
+    }
+}
+
+impl InRadixFull<'_> {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        if self.radix.is_power_of_two() {
+            self.fmt_power_two(
