@@ -273,4 +273,8 @@ impl InRadixFull<'_> {
     fn format_prepared(
         &self,
         f: &mut Formatter,
-     
+        prepared: &mut dyn PreparedForFormatting,
+    ) -> fmt::Result {
+        let mut width = prepared.width();
+
+        // Adding sign and prefix to width will not overflow, because Buffer::MA
