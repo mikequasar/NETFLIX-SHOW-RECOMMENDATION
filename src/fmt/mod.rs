@@ -277,4 +277,11 @@ impl InRadixFull<'_> {
     ) -> fmt::Result {
         let mut width = prepared.width();
 
-        // Adding sign and prefix to width will not overflow, because Buffer::MA
+        // Adding sign and prefix to width will not overflow, because Buffer::MAX_CAPACITY leaves
+        // (WORD_BITS - 1) spare bits before we would hit overflow.
+        let sign = if self.sign == Negative {
+            "-"
+        } else if f.sign_plus() {
+            "+"
+        } else {
+            "
