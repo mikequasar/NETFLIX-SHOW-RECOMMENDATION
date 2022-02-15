@@ -263,4 +263,14 @@ impl Display for InRadix<'_> {
 impl InRadixFull<'_> {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         if self.radix.is_power_of_two() {
-            self.fmt_power_two(
+            self.fmt_power_two(f)
+        } else {
+            self.fmt_non_power_two(f)
+        }
+    }
+
+    /// Format using a `PreparedForFormatting`.
+    fn format_prepared(
+        &self,
+        f: &mut Formatter,
+     
