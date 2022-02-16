@@ -290,4 +290,12 @@ impl InRadixFull<'_> {
         width += sign.len() + self.prefix.len();
 
         let mut write_digits = |f| {
-            let mut digit_writer = DigitWriter::new(f
+            let mut digit_writer = DigitWriter::new(f, self.digit_case);
+            prepared.write(&mut digit_writer)?;
+            digit_writer.flush()
+        };
+
+        match f.width() {
+            None => {
+                f.write_str(sign)?;
+                f.write_s
