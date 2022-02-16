@@ -298,4 +298,10 @@ impl InRadixFull<'_> {
         match f.width() {
             None => {
                 f.write_str(sign)?;
-                f.write_s
+                f.write_str(self.prefix)?;
+                write_digits(f)?
+            }
+            Some(min_width) => {
+                if width >= min_width {
+                    f.write_str(sign)?;
+                    f.write_str(self
