@@ -284,4 +284,10 @@ impl InRadixFull<'_> {
         } else if f.sign_plus() {
             "+"
         } else {
-            "
+            ""
+        };
+        // In bytes, but it's OK because everything is ASCII.
+        width += sign.len() + self.prefix.len();
+
+        let mut write_digits = |f| {
+            let mut digit_writer = DigitWriter::new(f
