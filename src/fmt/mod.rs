@@ -304,4 +304,9 @@ impl InRadixFull<'_> {
             Some(min_width) => {
                 if width >= min_width {
                     f.write_str(sign)?;
-                    f.write_str(self
+                    f.write_str(self.prefix)?;
+                    write_digits(f)?;
+                } else if f.sign_aware_zero_pad() {
+                    f.write_str(sign)?;
+                    f.write_str(self.prefix)?;
+                    fo
