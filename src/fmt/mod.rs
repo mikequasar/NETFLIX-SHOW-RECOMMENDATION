@@ -315,4 +315,8 @@ impl InRadixFull<'_> {
                     write_digits(f)?;
                 } else {
                     let left = match f.align() {
-             
+                        Some(Alignment::Left) => 0,
+                        Some(Alignment::Right) | None => min_width - width,
+                        Some(Alignment::Center) => (min_width - width) / 2,
+                    };
+  
