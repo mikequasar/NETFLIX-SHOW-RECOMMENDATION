@@ -319,4 +319,9 @@ impl InRadixFull<'_> {
                         Some(Alignment::Right) | None => min_width - width,
                         Some(Alignment::Center) => (min_width - width) / 2,
                     };
-  
+                    let fill = f.fill();
+                    for _ in 0..left {
+                        f.write_char(fill)?;
+                    }
+                    f.write_str(sign)?;
+                    f.write_str(self.
