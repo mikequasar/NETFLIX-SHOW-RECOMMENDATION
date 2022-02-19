@@ -333,4 +333,12 @@ impl InRadixFull<'_> {
             }
         }
 
-        Ok((
+        Ok(())
+    }
+}
+
+/// Trait for state of a partially-formatted [UBig].
+///
+/// The state must be such the width (number of digits) is already known.
+trait PreparedForFormatting {
+    /// Returns the number of characters that
