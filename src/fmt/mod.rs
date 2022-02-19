@@ -324,4 +324,13 @@ impl InRadixFull<'_> {
                         f.write_char(fill)?;
                     }
                     f.write_str(sign)?;
-                    f.write_str(self.
+                    f.write_str(self.prefix)?;
+                    write_digits(f)?;
+                    for _ in left..min_width - width {
+                        f.write_char(fill)?;
+                    }
+                }
+            }
+        }
+
+        Ok((
