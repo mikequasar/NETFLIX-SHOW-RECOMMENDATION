@@ -341,4 +341,9 @@ impl InRadixFull<'_> {
 ///
 /// The state must be such the width (number of digits) is already known.
 trait PreparedForFormatting {
-    /// Returns the number of characters that
+    /// Returns the number of characters that will be written.
+    fn width(&self) -> usize;
+
+    /// Write to a stream.
+    fn write(&mut self, digit_writer: &mut DigitWriter) -> fmt::Result;
+}
