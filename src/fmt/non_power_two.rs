@@ -244,3 +244,41 @@ impl PreparedLarge {
             }
         }
         assert_eq!(buffer_len, 0);
+
+        for group in groups.iter().rev() {
+            let mut prepared = PreparedWord::new(*group, self.radix, radix_info.digits_per_word);
+            prepared.write(digit_writer)?;
+        }
+
+        Ok(())
+    }
+}
+
+impl PreparedForFormatting for PreparedLarge {
+    fn width(&self) -> usize {
+        let mut num_digits = self.top_chunk.width();
+        let radix_info = radix::radix_info(self.radix);
+        for (i, _) in &self.big_chunks {
+            num_digits += (radix_info.digits_per_word * CHUNK_LEN) << i;
+        }
+        num_digits
+    }
+
+    fn write(&mut self, digit_writer: &mut DigitWriter) -> fmt::Result {
+        self.top_chunk.write(digit_writer)?;
+
+        let mut big_chunks = mem::take(&mut self.big_chunks);
+        for (i, val) in big_chunks.drain(..).rev() {
+            self.write_big_chunk(digit_writer, i, val)?;
+        }
+        Ok(())
+    }
+}
+
+fn ubig_to_chunk_buffer(x: &UBig) -> ([Word; CHUNK_LEN], usize) {
+    let mut buffer = [0; CHUNK_LEN];
+    let words = x.as_words();
+    let buffer_len = words.len();
+    buffer[..buffer_len].copy_from_slice(words);
+    (buffer, buffer_len)
+}
