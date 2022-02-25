@@ -102,3 +102,42 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_bit_len() {
+        assert_eq!(bit_len(0u32), 0);
+        assert_eq!(bit_len(0b10011101u32), 8);
+        assert_eq!(bit_len(0b10000000u32), 8);
+        assert_eq!(bit_len(0b1111111u32), 7);
+    }
+
+    #[test]
+    fn test_ceil_log_2() {
+        assert_eq!(ceil_log_2(1u32), 0);
+        assert_eq!(ceil_log_2(7u32), 3);
+        assert_eq!(ceil_log_2(8u32), 3);
+        assert_eq!(ceil_log_2(9u32), 4);
+        assert_eq!(ceil_log_2(u32::MAX), 32);
+    }
+
+    #[test]
+    fn test_ceil_div() {
+        assert_eq!(ceil_div(0u32, 10u32), 0);
+        assert_eq!(ceil_div(9u32, 10u32), 1);
+        assert_eq!(ceil_div(10u32, 10u32), 1);
+        assert_eq!(ceil_div(11u32, 10u32), 2);
+    }
+
+    #[test]
+    fn test_round_up() {
+        assert_eq!(round_up(0u32, 10u32), 0);
+        assert_eq!(round_up(9u32, 10u32), 10);
+        assert_eq!(round_up(10u32, 10u32), 10);
+        assert_eq!(round_up(11u32, 10u32), 20);
+    }
+
+    #[test]
+    fn test_ones() {
+        assert_eq!(ones::<u32>(0), 0);
+        assert_eq!(ones::<u32>(5), 0b11111);
+        assert_eq!(ones::<u32>(32), u32::MAX);
+    }
+}
