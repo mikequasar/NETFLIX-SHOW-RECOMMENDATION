@@ -165,3 +165,84 @@ impl Memory<'_> {
         }
     }
 }
+
+#[inline]
+pub(crate) fn zero_layout() -> Layout {
+    Layout::from_size_align(0, 1).unwrap()
+}
+
+pub(crate) fn array_layout<T>(n: usize) -> Layout {
+    Layout::array::<T>(n).unwrap_or_else(|_| panic_out_of_memory())
+}
+
+pub(crate) fn add_layout(a: Layout, b: Layout) -> Layout {
+    let (layout, _padding) = a.extend(b).unwrap_or_else(|_| panic_out_of_memory());
+    layout
+}
+
+pub(crate) fn max_layout(a: Layout, b: Layout) -> Layout {
+    Layout::from_size_align(a.size().max(b.size()), a.align().max(b.align()))
+        .unwrap_or_else(|_| panic_out_of_memory())
+}
+
+pub(crate) fn panic_out_of_memory() -> ! {
+    panic!("out of memory")
+}
+
+fn panic_allocated_too_little() -> ! {
+    panic!("internal error: not enough memory allocated")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_memory() {
+        let mut scratchpad = MemoryAllocation::new(Layout::from_size_align(8, 4).unwrap());
+        let mut memory = scratchpad.memory();
+        let (a, mut new_memory) = memory.allocate_slice_fill::<u32>(1, 3);
+        assert_eq!(a, &[3]);
+        // Neither of these should compile:
+        // let _ = scratchpad.memory();
+        // let _ = memory.allocate_slice::<u32>(1, 3);
+        let (b, _) = new_memory.allocate_slice_fill::<u32>(1, 4);
+        assert_eq!(b, &[4]);
+        // Now we can reuse the memory.
+        let (c, _) = memory.allocate_slice_copy::<u32>(&[4, 5]);
+        assert_eq!(c, &[4, 5]);
+        // Reuse the memory again.
+        let (c, _) = memory.allocate_slice_copy_fill::<u32>(2, &[4], 7);
+        assert_eq!(c, &[4, 7]);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_memory_ran_out() {
+        let mut scratchpad = MemoryAllocation::new(Layout::from_size_align(8, 4).unwrap());
+        let mut memory = scratchpad.memory();
+        let (a, mut new_memory) = memory.allocate_slice_fill::<u32>(1, 3);
+        assert_eq!(a, &[3]);
+        let _ = new_memory.allocate_slice_fill::<u32>(2, 4);
+    }
+
+    #[test]
+    fn test_add_layout() {
+        let layout = add_layout(
+            Layout::from_size_align(1, 1).unwrap(),
+            Layout::from_size_align(8, 4).unwrap(),
+        );
+        assert_eq!(layout.size(), 12);
+        assert_eq!(layout.align(), 4);
+    }
+
+    #[test]
+    fn test_max_layout() {
+        let layout = max_layout(
+            Layout::from_size_align(100, 1).unwrap(),
+            Layout::from_size_align(8, 4).unwrap(),
+        );
+        assert_eq!(layout.size(), 100);
+        assert_eq!(layout.align(), 4);
+    }
+}
