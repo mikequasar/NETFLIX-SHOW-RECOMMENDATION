@@ -241,3 +241,27 @@ macro_rules! impl_into_modulo_for_unsigned {
 }
 
 /// Implement `IntoModulo` for signed primitives.
+macro_rules! impl_into_modulo_for_signed {
+    ($t:ty) => {
+        impl IntoModulo for $t {
+            #[inline]
+            fn into_modulo<'a>(self, ring: &'a ModuloRing) -> Modulo<'a> {
+                IBig::from(self).into_modulo(ring)
+            }
+        }
+    };
+}
+
+impl_into_modulo_for_unsigned!(bool);
+impl_into_modulo_for_unsigned!(u8);
+impl_into_modulo_for_unsigned!(u16);
+impl_into_modulo_for_unsigned!(u32);
+impl_into_modulo_for_unsigned!(u64);
+impl_into_modulo_for_unsigned!(u128);
+impl_into_modulo_for_unsigned!(usize);
+impl_into_modulo_for_signed!(i8);
+impl_into_modulo_for_signed!(i16);
+impl_into_modulo_for_signed!(i32);
+impl_into_modulo_for_signed!(i64);
+impl_into_modulo_for_signed!(i128);
+impl_into_modulo_for_signed!(isize);
