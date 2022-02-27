@@ -206,3 +206,17 @@ impl Clone for ModuloLarge<'_> {
         ModuloLarge {
             ring: self.ring,
             normalized_value: self.normalized_value.clone(),
+        }
+    }
+
+    fn clone_from(&mut self, source: &Self) {
+        self.ring = source.ring;
+        if self.normalized_value.len() == source.normalized_value.len() {
+            self.normalized_value
+                .copy_from_slice(&source.normalized_value)
+        } else {
+            // We don't want to have spare capacity, so do not clone_from.
+            self.normalized_value = source.normalized_value.clone();
+        }
+    }
+}
