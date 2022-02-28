@@ -16,4 +16,16 @@ use alloc::alloc::Layout;
 use core::ops::{Mul, MulAssign};
 
 impl<'a> Mul<Modulo<'a>> for Modulo<'a> {
-    type Output =
+    type Output = Modulo<'a>;
+
+    #[inline]
+    fn mul(self, rhs: Modulo<'a>) -> Modulo<'a> {
+        self.mul(&rhs)
+    }
+}
+
+impl<'a> Mul<&Modulo<'a>> for Modulo<'a> {
+    type Output = Modulo<'a>;
+
+    #[inline]
+    fn mul(mut
