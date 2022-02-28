@@ -7,4 +7,13 @@ use crate::{
         modulo::{Modulo, ModuloLarge, ModuloRepr, ModuloSmall, ModuloSmallRaw},
         modulo_ring::{ModuloRingLarge, ModuloRingSmall},
     },
-    
+    mul,
+    primitive::extend_word,
+    shift,
+    sign::Sign::Positive,
+};
+use alloc::alloc::Layout;
+use core::ops::{Mul, MulAssign};
+
+impl<'a> Mul<Modulo<'a>> for Modulo<'a> {
+    type Output =
