@@ -38,4 +38,14 @@ impl<'a> Mul<Modulo<'a>> for &Modulo<'a> {
     type Output = Modulo<'a>;
 
     #[inline]
-    fn mul(self, rhs: Modulo<'a>) -> Modulo
+    fn mul(self, rhs: Modulo<'a>) -> Modulo<'a> {
+        rhs.mul(self)
+    }
+}
+
+impl<'a> Mul<&Modulo<'a>> for &Modulo<'a> {
+    type Output = Modulo<'a>;
+
+    #[inline]
+    fn mul(self, rhs: &Modulo<'a>) -> Modulo<'a> {
+        self.clone().mul(rh
