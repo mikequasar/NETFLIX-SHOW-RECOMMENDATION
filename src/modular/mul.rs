@@ -28,4 +28,14 @@ impl<'a> Mul<&Modulo<'a>> for Modulo<'a> {
     type Output = Modulo<'a>;
 
     #[inline]
-    fn mul(mut
+    fn mul(mut self, rhs: &Modulo<'a>) -> Modulo<'a> {
+        self.mul_assign(rhs);
+        self
+    }
+}
+
+impl<'a> Mul<Modulo<'a>> for &Modulo<'a> {
+    type Output = Modulo<'a>;
+
+    #[inline]
+    fn mul(self, rhs: Modulo<'a>) -> Modulo
