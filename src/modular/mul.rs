@@ -48,4 +48,16 @@ impl<'a> Mul<&Modulo<'a>> for &Modulo<'a> {
 
     #[inline]
     fn mul(self, rhs: &Modulo<'a>) -> Modulo<'a> {
-        self.clone().mul(rh
+        self.clone().mul(rhs)
+    }
+}
+
+impl<'a> MulAssign<Modulo<'a>> for Modulo<'a> {
+    #[inline]
+    fn mul_assign(&mut self, rhs: Modulo<'a>) {
+        self.mul_assign(&rhs)
+    }
+}
+
+impl<'a> MulAssign<&Modulo<'a>> for Modulo<'a> {
+    #[inlin
