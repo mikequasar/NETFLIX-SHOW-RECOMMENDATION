@@ -60,4 +60,8 @@ impl<'a> MulAssign<Modulo<'a>> for Modulo<'a> {
 }
 
 impl<'a> MulAssign<&Modulo<'a>> for Modulo<'a> {
-    #[inlin
+    #[inline]
+    fn mul_assign(&mut self, rhs: &Modulo<'a>) {
+        match (self.repr_mut(), rhs.repr()) {
+            (ModuloRepr::Small(self_small), ModuloRepr::Small(rhs_small)) => {
+                self_small.che
