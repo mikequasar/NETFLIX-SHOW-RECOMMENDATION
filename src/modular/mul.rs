@@ -64,4 +64,8 @@ impl<'a> MulAssign<&Modulo<'a>> for Modulo<'a> {
     fn mul_assign(&mut self, rhs: &Modulo<'a>) {
         match (self.repr_mut(), rhs.repr()) {
             (ModuloRepr::Small(self_small), ModuloRepr::Small(rhs_small)) => {
-                self_small.che
+                self_small.check_same_ring(rhs_small);
+                self_small.mul_in_place(rhs_small);
+            }
+            (ModuloRepr::Large(self_large), ModuloRepr::Large(rhs_large)) => {
+       
