@@ -70,4 +70,9 @@ impl<'a> MulAssign<&Modulo<'a>> for Modulo<'a> {
             (ModuloRepr::Large(self_large), ModuloRepr::Large(rhs_large)) => {
                 self_large.check_same_ring(rhs_large);
                 let memory_requirement = self_large.ring().mul_memory_requirement();
-                let mut allocation = MemoryAllocation::new(mem
+                let mut allocation = MemoryAllocation::new(memory_requirement);
+                let mut memory = allocation.memory();
+                self_large.mul_in_place(rhs_large, &mut memory);
+            }
+            _ => Modulo::panic_different_rings(),
+    
