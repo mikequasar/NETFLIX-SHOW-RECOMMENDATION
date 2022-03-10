@@ -86,4 +86,12 @@ impl ModuloSmallRaw {
         let a = self.normalized();
         let b = other.normalized();
         let product = extend_word(a >> ring.shift()) * extend_word(b);
-        let (_, rem) = ring.fa
+        let (_, rem) = ring.fast_div().div_rem(product);
+        ModuloSmallRaw::from_normalized(rem)
+    }
+}
+
+impl<'a> ModuloSmall<'a> {
+    /// self *= rhs
+    #[inline]
+    pub(crate) fn mul_in_place(&mut self, rhs: &Modulo
