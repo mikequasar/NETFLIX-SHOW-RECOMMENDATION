@@ -75,4 +75,11 @@ impl<'a> MulAssign<&Modulo<'a>> for Modulo<'a> {
                 self_large.mul_in_place(rhs_large, &mut memory);
             }
             _ => Modulo::panic_different_rings(),
-    
+        }
+    }
+}
+
+impl ModuloSmallRaw {
+    #[inline]
+    pub(crate) const fn mul(self, other: ModuloSmallRaw, ring: &ModuloRingSmall) -> ModuloSmallRaw {
+        debug_assert_in_const_fn!(self.is_valid(
