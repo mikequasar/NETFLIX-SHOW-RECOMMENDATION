@@ -94,4 +94,11 @@ impl ModuloSmallRaw {
 impl<'a> ModuloSmall<'a> {
     /// self *= rhs
     #[inline]
-    pub(crate) fn mul_in_place(&mut self, rhs: &Modulo
+    pub(crate) fn mul_in_place(&mut self, rhs: &ModuloSmall<'a>) {
+        self.check_same_ring(rhs);
+        self.set_raw(self.raw().mul(rhs.raw(), self.ring()));
+    }
+}
+
+impl ModuloRingLarge {
+    pub(crate) fn mul_memory_requirement(&self) -> Layou
