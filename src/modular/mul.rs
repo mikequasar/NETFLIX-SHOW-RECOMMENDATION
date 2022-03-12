@@ -123,4 +123,7 @@ impl ModuloRingLarge {
         let n = modulus.len();
         debug_assert!(a.len() == n && b.len() == n);
 
-        let (product, mu
+        let (product, mut memory) = memory.allocate_slice_fill::<Word>(2 * n, 0);
+        let overflow = mul::add_signed_mul_same_len(product, Positive, a, b, &mut memory);
+        assert_eq!(overflow, 0);
+        shift::shr_in_place(product, self.s
