@@ -101,4 +101,9 @@ impl<'a> ModuloSmall<'a> {
 }
 
 impl ModuloRingLarge {
-    pub(crate) fn mul_memory_requirement(&self) -> Layou
+    pub(crate) fn mul_memory_requirement(&self) -> Layout {
+        let n = self.normalized_modulus().len();
+        memory::add_layout(
+            memory::array_layout::<Word>(2 * n),
+            memory::max_layout(
+                mul::memory_requirement_exact(
