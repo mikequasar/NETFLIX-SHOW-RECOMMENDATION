@@ -117,3 +117,10 @@ impl ModuloRingLarge {
         &self,
         a: &[Word],
         b: &[Word],
+        memory: &'a mut Memory,
+    ) -> &'a [Word] {
+        let modulus = self.normalized_modulus();
+        let n = modulus.len();
+        debug_assert!(a.len() == n && b.len() == n);
+
+        let (product, mu
