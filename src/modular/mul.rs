@@ -141,4 +141,11 @@ impl<'a> ModuloLarge<'a> {
 
     /// self *= self
     pub(crate) fn square_in_place(&mut self, memory: &mut Memory) {
-       
+        self.modify_normalized_value(|words, ring| {
+            words.copy_from_slice(ring.mul_normalized(words, words, memory));
+        });
+    }
+
+    /// self *= rhs
+    pub(crate) fn mul_normalized_in_place(
+      
