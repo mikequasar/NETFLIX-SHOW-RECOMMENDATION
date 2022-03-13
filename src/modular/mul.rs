@@ -135,4 +135,10 @@ impl ModuloRingLarge {
 
 impl<'a> ModuloLarge<'a> {
     /// self *= rhs
-    pub(crate) fn mul_in_place(&mut self, rhs: &ModuloLarge<'a
+    pub(crate) fn mul_in_place(&mut self, rhs: &ModuloLarge<'a>, memory: &mut Memory) {
+        self.mul_normalized_in_place(rhs.normalized_value(), memory);
+    }
+
+    /// self *= self
+    pub(crate) fn square_in_place(&mut self, memory: &mut Memory) {
+       
