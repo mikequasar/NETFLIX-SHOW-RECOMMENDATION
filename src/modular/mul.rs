@@ -126,4 +126,13 @@ impl ModuloRingLarge {
         let (product, mut memory) = memory.allocate_slice_fill::<Word>(2 * n, 0);
         let overflow = mul::add_signed_mul_same_len(product, Positive, a, b, &mut memory);
         assert_eq!(overflow, 0);
-        shift::shr_in_place(product, self.s
+        shift::shr_in_place(product, self.shift());
+
+        let _overflow = div::div_rem_in_place(product, modulus, self.fast_div_top(), &mut memory);
+        &product[..n]
+    }
+}
+
+impl<'a> ModuloLarge<'a> {
+    /// self *= rhs
+    pub(crate) fn mul_in_place(&mut self, rhs: &ModuloLarge<'a
