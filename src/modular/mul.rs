@@ -148,4 +148,9 @@ impl<'a> ModuloLarge<'a> {
 
     /// self *= rhs
     pub(crate) fn mul_normalized_in_place(
-      
+        &mut self,
+        normalized_value: &[Word],
+        memory: &mut Memory,
+    ) {
+        self.modify_normalized_value(|words, ring| {
+            words.copy_from_slice(ring.mul_normalized(words, normalized_value, mem
