@@ -153,4 +153,7 @@ impl<'a> ModuloLarge<'a> {
         memory: &mut Memory,
     ) {
         self.modify_normalized_value(|words, ring| {
-            words.copy_from_slice(ring.mul_normalized(words, normalized_value, mem
+            words.copy_from_slice(ring.mul_normalized(words, normalized_value, memory));
+        });
+    }
+}
