@@ -4,4 +4,12 @@ use crate::{
     math,
     memory::{self, MemoryAllocation},
     modular::{
-        modulo::{Modulo, ModuloLarge, ModuloRepr, ModuloSmall, ModuloSmallRaw}
+        modulo::{Modulo, ModuloLarge, ModuloRepr, ModuloSmall, ModuloSmallRaw},
+        modulo_ring::ModuloRingSmall,
+    },
+    primitive::{double_word, split_double_word, PrimitiveUnsigned, WORD_BITS, WORD_BITS_USIZE},
+    sign::Sign::*,
+    ubig::{Repr::*, UBig},
+};
+
+impl<'a> Modulo<'a> {
