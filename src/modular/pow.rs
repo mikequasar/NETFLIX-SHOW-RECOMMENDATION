@@ -13,3 +13,12 @@ use crate::{
 };
 
 impl<'a> Modulo<'a> {
+    /// Exponentiation.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig::{modular::ModuloRing, ubig};
+    /// // A Mersenne prime.
+    /// let p = ubig!(2).pow(607) - ubig!(1);
+    /// let ring = ModuloRing
