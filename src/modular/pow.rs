@@ -21,4 +21,10 @@ impl<'a> Modulo<'a> {
     /// # use ibig::{modular::ModuloRing, ubig};
     /// // A Mersenne prime.
     /// let p = ubig!(2).pow(607) - ubig!(1);
-    /// let ring = ModuloRing
+    /// let ring = ModuloRing::new(&p);
+    /// // Fermat's little theorem: a^(p-1) = 1 (mod p)
+    /// let a = ring.from(123);
+    /// assert_eq!(a.pow(&(p - ubig!(1))), ring.from(1));
+    /// ```
+    #[inline]
+    pub fn pow(&s
