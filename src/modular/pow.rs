@@ -27,4 +27,8 @@ impl<'a> Modulo<'a> {
     /// assert_eq!(a.pow(&(p - ubig!(1))), ring.from(1));
     /// ```
     #[inline]
-    pub fn pow(&s
+    pub fn pow(&self, exp: &UBig) -> Modulo<'a> {
+        match self.repr() {
+            ModuloRepr::Small(self_small) => self_small.pow(exp).into(),
+            ModuloRepr::Large(self_large) => self_large.pow(exp).into(),
+       
