@@ -53,4 +53,14 @@ impl<'a> Modulo<'a> {
         match exp.sign() {
             Positive => self.pow(exp.magnitude()),
             Negative => match self.inverse() {
-           
+                None => panic!("Non-invertible Modulo taken to a negative power"),
+                Some(inv) => inv.pow(exp.magnitude()),
+            },
+        }
+    }
+}
+
+impl ModuloSmallRaw {
+    /// self^exp
+    #[inline]
+    pub(crate) co
