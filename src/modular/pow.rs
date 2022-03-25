@@ -46,4 +46,11 @@ impl<'a> Modulo<'a> {
     /// # use ibig::{modular::ModuloRing, ibig, ubig};
     /// let ring = ModuloRing::new(&ubig!(10));
     /// assert_eq!(ring.from(2).pow_signed(&ibig!(4)), ring.from(6));
-    /// assert_eq!(ring.from(3).pow_signed(&ibig!(-3)), ring.
+    /// assert_eq!(ring.from(3).pow_signed(&ibig!(-3)), ring.from(3));
+    /// ```
+    #[inline]
+    pub fn pow_signed(&self, exp: &IBig) -> Modulo<'a> {
+        match exp.sign() {
+            Positive => self.pow(exp.magnitude()),
+            Negative => match self.inverse() {
+           
