@@ -31,4 +31,16 @@ impl<'a> Modulo<'a> {
         match self.repr() {
             ModuloRepr::Small(self_small) => self_small.pow(exp).into(),
             ModuloRepr::Large(self_large) => self_large.pow(exp).into(),
-       
+        }
+    }
+
+    /// Exponentiation to a signed exponent.
+    ///
+    /// # Panic
+    ///
+    /// Panics if the exponent is negative and the base is not invertible.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use ibig
