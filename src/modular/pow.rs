@@ -63,4 +63,9 @@ impl<'a> Modulo<'a> {
 impl ModuloSmallRaw {
     /// self^exp
     #[inline]
-    pub(crate) co
+    pub(crate) const fn pow_word(self, exp: Word, ring: &ModuloRingSmall) -> ModuloSmallRaw {
+        if exp == 0 {
+            return ModuloSmallRaw::from_word(1, ring);
+        }
+
+        let bits = WORD_BITS - 1 - exp.leading_
