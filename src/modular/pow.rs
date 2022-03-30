@@ -85,4 +85,15 @@ impl ModuloSmallRaw {
         while bits > 0 {
             res = res.mul(res, ring);
             bits -= 1;
-            if exp &
+            if exp & (1 << bits) != 0 {
+                res = res.mul(base, ring);
+            }
+        }
+        res
+    }
+}
+
+impl<'a> ModuloSmall<'a> {
+    /// Exponentiation.
+    #[inline]
+    fn pow(&self, exp: &UBig) -> ModuloSmall<'a>
