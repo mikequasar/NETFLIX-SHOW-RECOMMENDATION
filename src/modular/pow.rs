@@ -77,4 +77,12 @@ impl ModuloSmallRaw {
     const fn pow_helper(
         self,
         mut bits: u32,
-        base: Modul
+        base: ModuloSmallRaw,
+        exp: Word,
+        ring: &ModuloRingSmall,
+    ) -> ModuloSmallRaw {
+        let mut res = self;
+        while bits > 0 {
+            res = res.mul(res, ring);
+            bits -= 1;
+            if exp &
