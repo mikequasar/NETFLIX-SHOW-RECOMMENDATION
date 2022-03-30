@@ -68,4 +68,13 @@ impl ModuloSmallRaw {
             return ModuloSmallRaw::from_word(1, ring);
         }
 
-        let bits = WORD_BITS - 1 - exp.leading_
+        let bits = WORD_BITS - 1 - exp.leading_zeros();
+        self.pow_helper(bits, self, exp, ring)
+    }
+
+    /// self^2^bits * base^exp[..bits]
+    #[inline]
+    const fn pow_helper(
+        self,
+        mut bits: u32,
+        base: Modul
