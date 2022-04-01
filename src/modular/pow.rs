@@ -102,4 +102,9 @@ impl<'a> ModuloSmall<'a> {
             Small(0) => ModuloSmall::from_ubig(&UBig::from_word(1), self.ring()),
             // self^1 == self
             Small(1) => self.clone(),
-            // sel
+            // self^2 == self * self
+            Small(2) => {
+                let res = self.raw().mul(self.raw(), self.ring());
+                ModuloSmall::new(res, self.ring())
+            }
+            _
