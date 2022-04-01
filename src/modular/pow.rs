@@ -107,4 +107,12 @@ impl<'a> ModuloSmall<'a> {
                 let res = self.raw().mul(self.raw(), self.ring());
                 ModuloSmall::new(res, self.ring())
             }
-            _
+            _ => self.pow_nontrivial(exp),
+        }
+    }
+
+    fn pow_nontrivial(&self, exp: &UBig) -> ModuloSmall<'a> {
+        debug_assert!(*exp >= UBig::from_word(3));
+
+        let exp_words = exp.as_words();
+        let mut n
