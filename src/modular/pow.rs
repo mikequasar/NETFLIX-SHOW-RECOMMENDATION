@@ -96,4 +96,10 @@ impl ModuloSmallRaw {
 impl<'a> ModuloSmall<'a> {
     /// Exponentiation.
     #[inline]
-    fn pow(&self, exp: &UBig) -> ModuloSmall<'a>
+    fn pow(&self, exp: &UBig) -> ModuloSmall<'a> {
+        match exp.repr() {
+            // self^0 == 1
+            Small(0) => ModuloSmall::from_ubig(&UBig::from_word(1), self.ring()),
+            // self^1 == self
+            Small(1) => self.clone(),
+            // sel
