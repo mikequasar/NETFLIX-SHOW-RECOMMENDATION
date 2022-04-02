@@ -115,4 +115,8 @@ impl<'a> ModuloSmall<'a> {
         debug_assert!(*exp >= UBig::from_word(3));
 
         let exp_words = exp.as_words();
-        let mut n
+        let mut n = exp_words.len() - 1;
+        let mut val = self.raw().pow_word(exp_words[n], self.ring());
+        while n != 0 {
+            n -= 1;
+            val = val.pow_helper(WORD_BITS, self.raw(), exp_words[n], self.ring(
