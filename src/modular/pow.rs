@@ -119,4 +119,14 @@ impl<'a> ModuloSmall<'a> {
         let mut val = self.raw().pow_word(exp_words[n], self.ring());
         while n != 0 {
             n -= 1;
-            val = val.pow_helper(WORD_BITS, self.raw(), exp_words[n], self.ring(
+            val = val.pow_helper(WORD_BITS, self.raw(), exp_words[n], self.ring());
+        }
+        ModuloSmall::new(val, self.ring())
+    }
+}
+
+impl<'a> ModuloLarge<'a> {
+    fn pow(&self, exp: &UBig) -> ModuloLarge<'a> {
+        match exp.repr() {
+            // self^0 == 1
+            Small(0) => ModuloLarge::from_ub
