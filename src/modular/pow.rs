@@ -144,4 +144,9 @@ impl<'a> ModuloLarge<'a> {
 
         // Precomputed table of small odd powers up to 2^window_len, starting from self^3.
         #[allow(clippy::redundant_closure)]
-        let table_words = ((1usize << (win
+        let table_words = ((1usize << (window_len - 1)) - 1)
+            .checked_mul(n)
+            .unwrap_or_else(|| memory::panic_out_of_memory());
+
+        let memory_requirement = memory::add_layout(
+            memory::array_layout::<Word>(table_wo
