@@ -154,4 +154,10 @@ impl<'a> ModuloLarge<'a> {
         );
         let mut allocation = MemoryAllocation::new(memory_requirement);
         let mut memory = allocation.memory();
-        let (table, mut me
+        let (table, mut memory) = memory.allocate_slice_fill::<Word>(table_words, 0);
+
+        // val = self^2
+        let mut val = self.clone();
+        val.mul_in_place(self, &mut memory);
+
+        // self^(2*i+1) = 
