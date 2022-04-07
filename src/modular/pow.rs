@@ -160,4 +160,9 @@ impl<'a> ModuloLarge<'a> {
         let mut val = self.clone();
         val.mul_in_place(self, &mut memory);
 
-        // self^(2*i+1) = 
+        // self^(2*i+1) = self^(2*i-1) * val
+        for i in 1..(1 << (window_len - 1)) {
+            let (prev, cur) = if i == 1 {
+                (self.normalized_value(), &mut table[0..n])
+            } else {
+                let (prev, cur) = (&mut table[(i
