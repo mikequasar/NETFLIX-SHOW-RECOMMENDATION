@@ -149,4 +149,9 @@ impl<'a> ModuloLarge<'a> {
             .unwrap_or_else(|| memory::panic_out_of_memory());
 
         let memory_requirement = memory::add_layout(
-            memory::array_layout::<Word>(table_wo
+            memory::array_layout::<Word>(table_words),
+            self.ring().mul_memory_requirement(),
+        );
+        let mut allocation = MemoryAllocation::new(memory_requirement);
+        let mut memory = allocation.memory();
+        let (table, mut me
