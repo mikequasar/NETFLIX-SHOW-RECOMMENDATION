@@ -170,4 +170,12 @@ impl<'a> ModuloLarge<'a> {
             };
             cur.copy_from_slice(self.ring().mul_normalized(
                 prev,
-                val.normalized_value()
+                val.normalized_value(),
+                &mut memory,
+            ));
+        }
+
+        let exp_words = exp.as_words();
+        // We already have self^2 in val.
+        // exp.bit_len() >= 2 because exp >= 2.
+   
