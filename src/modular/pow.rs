@@ -165,4 +165,9 @@ impl<'a> ModuloLarge<'a> {
             let (prev, cur) = if i == 1 {
                 (self.normalized_value(), &mut table[0..n])
             } else {
-                let (prev, cur) = (&mut table[(i
+                let (prev, cur) = (&mut table[(i - 2) * n..i * n]).split_at_mut(n);
+                (&*prev, cur)
+            };
+            cur.copy_from_slice(self.ring().mul_normalized(
+                prev,
+                val.normalized_value()
