@@ -178,4 +178,10 @@ impl<'a> ModuloLarge<'a> {
         let exp_words = exp.as_words();
         // We already have self^2 in val.
         // exp.bit_len() >= 2 because exp >= 2.
-   
+        let mut bit = exp.bit_len() - 2;
+
+        loop {
+            // val = self ^ exp[bit..] ignoring the lowest bit
+            let word_idx = bit / WORD_BITS_USIZE;
+            let bit_idx = (bit % WORD_BITS_USIZE) as u32;
+       
