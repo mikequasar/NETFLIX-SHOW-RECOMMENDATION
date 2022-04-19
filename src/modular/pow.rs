@@ -189,4 +189,8 @@ impl<'a> ModuloLarge<'a> {
                 let next_word = if word_idx == 0 {
                     0
                 } else {
- 
+                    exp_words[word_idx - 1]
+                };
+                // Get a window of window_len bits, with top bit of 1.
+                let (mut window, _) = split_double_word(
+     
