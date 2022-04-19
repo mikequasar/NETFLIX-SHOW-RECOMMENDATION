@@ -193,4 +193,8 @@ impl<'a> ModuloLarge<'a> {
                 };
                 // Get a window of window_len bits, with top bit of 1.
                 let (mut window, _) = split_double_word(
-     
+                    double_word(next_word, cur_word) >> (bit_idx + 1 + WORD_BITS - window_len),
+                );
+                window &= math::ones::<Word>(window_len);
+                // Shift right to make the window odd.
+ 
