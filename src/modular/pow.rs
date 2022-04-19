@@ -184,4 +184,9 @@ impl<'a> ModuloLarge<'a> {
             // val = self ^ exp[bit..] ignoring the lowest bit
             let word_idx = bit / WORD_BITS_USIZE;
             let bit_idx = (bit % WORD_BITS_USIZE) as u32;
-       
+            let cur_word = exp_words[word_idx];
+            if cur_word & (1 << bit_idx) != 0 {
+                let next_word = if word_idx == 0 {
+                    0
+                } else {
+ 
