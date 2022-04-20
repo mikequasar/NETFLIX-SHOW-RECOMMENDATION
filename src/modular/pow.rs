@@ -197,4 +197,8 @@ impl<'a> ModuloLarge<'a> {
                 );
                 window &= math::ones::<Word>(window_len);
                 // Shift right to make the window odd.
- 
+                let num_bits = window_len - window.trailing_zeros();
+                window >>= window_len - num_bits;
+                // val := val^2^(num_bits-1)
+                for _ in 0..num_bits - 1 {
+                
