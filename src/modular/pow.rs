@@ -209,4 +209,9 @@ impl<'a> ModuloLarge<'a> {
                 debug_assert!(window & 1 == 1);
                 let entry_idx = (window >> 1) as usize;
                 let entry = if entry_idx == 0 {
-                    self.norm
+                    self.normalized_value()
+                } else {
+                    &table[(entry_idx - 1) * n..entry_idx * n]
+                };
+                val.mul_normalized_in_place(entry, &mut memory);
+  
