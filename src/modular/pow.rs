@@ -201,4 +201,8 @@ impl<'a> ModuloLarge<'a> {
                 window >>= window_len - num_bits;
                 // val := val^2^(num_bits-1)
                 for _ in 0..num_bits - 1 {
-                
+                    val.square_in_place(&mut memory);
+                }
+                bit -= (num_bits as usize) - 1;
+                // Now val = self ^ exp[bit..] ignoring the num_bits lowest bits.
+                /
