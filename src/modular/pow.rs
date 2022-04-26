@@ -205,4 +205,8 @@ impl<'a> ModuloLarge<'a> {
                 }
                 bit -= (num_bits as usize) - 1;
                 // Now val = self ^ exp[bit..] ignoring the num_bits lowest bits.
-                /
+                // val = val * self^window from precomputed table.
+                debug_assert!(window & 1 == 1);
+                let entry_idx = (window >> 1) as usize;
+                let entry = if entry_idx == 0 {
+                    self.norm
