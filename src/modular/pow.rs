@@ -231,4 +231,11 @@ impl<'a> ModuloLarge<'a> {
         // This won't overflow because cost(3) is already approximately usize::MAX / 4
         // and it can only grow by a factor of 2.
         let cost = |window_size| (1usize << (window_size - 1)) - 1 + n / (window_size as usize + 1);
-        let mut window_size = 1
+        let mut window_size = 1;
+        let mut c = cost(window_size);
+        while window_size + 1 < WORD_BITS.min(usize::BIT_SIZE) {
+            let c2 = cost(window_size + 1);
+            if c <= c2 {
+                break;
+            }
+            win
