@@ -214,4 +214,13 @@ impl<'a> ModuloLarge<'a> {
                     &table[(entry_idx - 1) * n..entry_idx * n]
                 };
                 val.mul_normalized_in_place(entry, &mut memory);
-  
+            }
+            // val = self ^ exp[bit..]
+            if bit == 0 {
+                break;
+            }
+            bit -= 1;
+            val.square_in_place(&mut memory);
+        }
+        val
+    }
