@@ -224,3 +224,8 @@ impl<'a> ModuloLarge<'a> {
         }
         val
     }
+
+    /// Choose the optimal window size for n-bit exponents.
+    /// 1 <= window_size < min(WORD_BITS, usize::BIT_SIZE) inclusive.
+    fn choose_pow_window_len(n: usize) -> u32 {
+        // This won't overflow because cost(3
