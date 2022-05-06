@@ -238,4 +238,18 @@ impl<'a> ModuloLarge<'a> {
             if c <= c2 {
                 break;
             }
-            win
+            window_size += 1;
+            c = c2;
+        }
+        window_size
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_pow_word() {
+        let ring = ModuloRingSmall::new(100);
+        let a 
