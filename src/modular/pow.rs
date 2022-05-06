@@ -252,4 +252,8 @@ mod tests {
     #[test]
     fn test_pow_word() {
         let ring = ModuloRingSmall::new(100);
-        let a 
+        let a = ModuloSmallRaw::from_word(17, &ring);
+        assert_eq!(a.pow_word(0, &ring).residue(&ring), 1);
+        assert_eq!(a.pow_word(15, &ring).residue(&ring), 93);
+    }
+}
