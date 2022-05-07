@@ -30,4 +30,8 @@ where
 
     let n = b.len();
     let mut carry_n = 0; // at c[n]
-    while a.len() >= chunk_
+    while a.len() >= chunk_len {
+        let (a_lo, a_hi) = a.split_at(chunk_len);
+        // Propagate carry_n
+        carry_n = add::add_signed_word_in_place(&mut c[n..chunk_len + n], carry_n);
+        carry_n += f_add_signed_mul_
