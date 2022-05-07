@@ -25,4 +25,9 @@ pub(crate) fn add_signed_mul_split_into_chunks<F>(
 where
     F: Fn(&mut [Word], Sign, &[Word], &[Word], &mut Memory) -> SignedWord,
 {
-  
+    debug_assert!(a.len() >= b.len() && c.len() == a.len() + b.len());
+    debug_assert!(b.len() <= chunk_len);
+
+    let n = b.len();
+    let mut carry_n = 0; // at c[n]
+    while a.len() >= chunk_
