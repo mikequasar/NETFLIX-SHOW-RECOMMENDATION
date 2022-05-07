@@ -18,3 +18,11 @@ pub(crate) fn add_signed_mul_split_into_chunks<F>(
     sign: Sign,
     mut a: &[Word],
     b: &[Word],
+    chunk_len: usize,
+    memory: &mut Memory,
+    f_add_signed_mul_chunk: F,
+) -> SignedWord
+where
+    F: Fn(&mut [Word], Sign, &[Word], &[Word], &mut Memory) -> SignedWord,
+{
+  
