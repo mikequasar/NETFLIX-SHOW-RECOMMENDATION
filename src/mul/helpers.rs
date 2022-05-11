@@ -40,4 +40,10 @@ where
     }
     // Propagate carry_n
     let mut carry = add::add_signed_word_in_place(&mut c[n..], carry_n);
-    if a.le
+    if a.len() >= b.len() {
+        carry += mul::add_signed_mul(c, sign, a, b, memory);
+    } else if !a.is_empty() {
+        carry += mul::add_signed_mul(c, sign, b, a, memory);
+    }
+    carry
+}
