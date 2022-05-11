@@ -34,4 +34,10 @@ where
         let (a_lo, a_hi) = a.split_at(chunk_len);
         // Propagate carry_n
         carry_n = add::add_signed_word_in_place(&mut c[n..chunk_len + n], carry_n);
-        carry_n += f_add_signed_mul_
+        carry_n += f_add_signed_mul_chunk(&mut c[..chunk_len + n], sign, a_lo, b, memory);
+        a = a_hi;
+        c = &mut c[chunk_len..];
+    }
+    // Propagate carry_n
+    let mut carry = add::add_signed_word_in_place(&mut c[n..], carry_n);
+    if a.le
