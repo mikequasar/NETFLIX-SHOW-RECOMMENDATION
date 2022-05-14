@@ -23,4 +23,15 @@ const_assert!(MAX_LEN_KARATSUBA + 1 >= toom_3::MIN_LEN);
 mod helpers;
 mod karatsuba;
 pub(crate) mod ntt;
-mod simp
+mod simple;
+mod toom_3;
+
+/// Multiply a word sequence by a `Word` in place.
+///
+/// Returns carry.
+#[must_use]
+pub(crate) fn mul_word_in_place(words: &mut [Word], rhs: Word) -> Word {
+    mul_word_in_place_with_carry(words, rhs, 0)
+}
+
+/// M
