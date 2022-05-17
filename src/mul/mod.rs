@@ -34,4 +34,10 @@ pub(crate) fn mul_word_in_place(words: &mut [Word], rhs: Word) -> Word {
     mul_word_in_place_with_carry(words, rhs, 0)
 }
 
-/// M
+/// Multiply a word sequence by a `Word` in place with carry in.
+///
+/// Returns carry.
+#[must_use]
+pub(crate) fn mul_word_in_place_with_carry(words: &mut [Word], rhs: Word, mut carry: Word) -> Word {
+    for a in words {
+  
