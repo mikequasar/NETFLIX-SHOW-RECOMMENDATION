@@ -40,4 +40,8 @@ pub(crate) fn mul_word_in_place(words: &mut [Word], rhs: Word) -> Word {
 #[must_use]
 pub(crate) fn mul_word_in_place_with_carry(words: &mut [Word], rhs: Word, mut carry: Word) -> Word {
     for a in words {
-  
+        // a * b + carry <= MAX * MAX + MAX < DoubleWord::MAX
+        let (v_lo, v_hi) =
+            split_double_word(extend_word(*a) * extend_word(rhs) + extend_word(carry));
+        *a = v_lo;
+      
