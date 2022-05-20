@@ -59,4 +59,14 @@ fn add_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) 
     for (a, b) in words.iter_mut().zip(rhs.iter()) {
         // a + mult * b + carry <= MAX * MAX + 2 * MAX <= DoubleWord::MAX
         let (v_lo, v_hi) = split_double_word(
-            ext
+            extend_word(*a) + extend_word(carry) + extend_word(mult) * extend_word(*b),
+        );
+        *a = v_lo;
+        carry = v_hi;
+    }
+    carry
+}
+
+/// words += mult * rhs
+///
+/// Returns carr
