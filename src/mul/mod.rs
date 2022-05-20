@@ -44,4 +44,15 @@ pub(crate) fn mul_word_in_place_with_carry(words: &mut [Word], rhs: Word, mut ca
         let (v_lo, v_hi) =
             split_double_word(extend_word(*a) * extend_word(rhs) + extend_word(carry));
         *a = v_lo;
-      
+        carry = v_hi;
+    }
+    carry
+}
+
+/// words += mult * rhs
+///
+/// Returns carry.
+#[must_use]
+fn add_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
+    assert!(words.len() == rhs.len());
+ 
