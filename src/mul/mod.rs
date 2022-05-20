@@ -55,4 +55,8 @@ pub(crate) fn mul_word_in_place_with_carry(words: &mut [Word], rhs: Word, mut ca
 #[must_use]
 fn add_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
     assert!(words.len() == rhs.len());
- 
+    let mut carry: Word = 0;
+    for (a, b) in words.iter_mut().zip(rhs.iter()) {
+        // a + mult * b + carry <= MAX * MAX + 2 * MAX <= DoubleWord::MAX
+        let (v_lo, v_hi) = split_double_word(
+            ext
