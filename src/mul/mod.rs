@@ -69,4 +69,9 @@ fn add_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) 
 
 /// words += mult * rhs
 ///
-/// Returns carr
+/// Returns carry.
+#[must_use]
+fn add_mul_word_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
+    assert!(words.len() >= rhs.len());
+    let n = rhs.len();
+    let mut carry = add_mul_word_s
