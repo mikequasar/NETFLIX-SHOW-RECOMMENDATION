@@ -74,4 +74,12 @@ fn add_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) 
 fn add_mul_word_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
     assert!(words.len() >= rhs.len());
     let n = rhs.len();
-    let mut carry = add_mul_word_s
+    let mut carry = add_mul_word_same_len_in_place(&mut words[..n], mult, rhs);
+    if words.len() > n {
+        carry = Word::from(add::add_word_in_place(&mut words[n..], carry));
+    }
+    carry
+}
+
+/// words -= mult * rhs
+///
