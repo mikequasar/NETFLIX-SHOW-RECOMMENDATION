@@ -88,4 +88,7 @@ fn add_mul_word_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
 pub(crate) fn sub_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
     assert!(words.len() == rhs.len());
     // carry is in -Word::MAX..0
-   
+    // carry_plus_max = carry + Word::MAX
+    let mut carry_plus_max = Word::MAX;
+    for (a, b) in words.iter_mut().zip(rhs.iter()) {
+        // Compute val = a - mult * b + carry_plus_max - MAX + (MA
