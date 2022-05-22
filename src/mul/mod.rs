@@ -83,3 +83,9 @@ fn add_mul_word_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
 
 /// words -= mult * rhs
 ///
+/// Returns borrow.
+#[must_use]
+pub(crate) fn sub_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs: &[Word]) -> Word {
+    assert!(words.len() == rhs.len());
+    // carry is in -Word::MAX..0
+   
