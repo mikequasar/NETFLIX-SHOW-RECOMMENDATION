@@ -99,4 +99,12 @@ pub(crate) fn sub_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs
         let v = extend_word(*a)
             + extend_word(carry_plus_max)
             + (double_word(0, Word::MAX) - extend_word(Word::MAX))
- 
+            - extend_word(mult) * extend_word(*b);
+        let (v_lo, v_hi) = split_double_word(v);
+        *a = v_lo;
+        carry_plus_max = v_hi;
+    }
+    Word::MAX - carry_plus_max
+}
+
+/// Temporary scra
