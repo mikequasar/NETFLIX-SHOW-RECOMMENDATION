@@ -95,4 +95,8 @@ pub(crate) fn sub_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs
         // val >= 0 - MAX * MAX - MAX + MAX*(MAX+1) = 0
         // val <= MAX - 0 + MAX - MAX + (MAX<<BITS) = DoubleWord::MAX
         // This fits exactly in DoubleWord!
-        // We have to be careful t
+        // We have to be careful to calculate in the correct order to avoid overflow.
+        let v = extend_word(*a)
+            + extend_word(carry_plus_max)
+            + (double_word(0, Word::MAX) - extend_word(Word::MAX))
+ 
