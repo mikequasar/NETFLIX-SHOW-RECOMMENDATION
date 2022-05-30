@@ -107,4 +107,8 @@ pub(crate) fn sub_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs
     Word::MAX - carry_plus_max
 }
 
-/// Temporary scra
+/// Temporary scratch space required for multiplication.
+pub(crate) fn memory_requirement_up_to(_total_len: usize, smaller_len: usize) -> Layout {
+    if smaller_len <= MAX_LEN_SIMPLE {
+        simple::memory_requirement_up_to(smaller_len)
+  
