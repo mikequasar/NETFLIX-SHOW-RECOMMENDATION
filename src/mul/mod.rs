@@ -111,4 +111,11 @@ pub(crate) fn sub_mul_word_same_len_in_place(words: &mut [Word], mult: Word, rhs
 pub(crate) fn memory_requirement_up_to(_total_len: usize, smaller_len: usize) -> Layout {
     if smaller_len <= MAX_LEN_SIMPLE {
         simple::memory_requirement_up_to(smaller_len)
-  
+    } else if smaller_len <= MAX_LEN_KARATSUBA {
+        karatsuba::memory_requirement_up_to(smaller_len)
+    } else {
+        toom_3::memory_requirement_up_to(smaller_len)
+    }
+}
+
+/// Temporary scratch space require
