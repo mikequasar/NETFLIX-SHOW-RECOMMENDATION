@@ -142,4 +142,15 @@ pub(crate) fn add_signed_mul<'a>(
 
     if b.len() <= MAX_LEN_SIMPLE {
         simple::add_signed_mul(c, sign, a, b, memory)
-    } else if b.len() <= MAX_LEN_KA
+    } else if b.len() <= MAX_LEN_KARATSUBA {
+        karatsuba::add_signed_mul(c, sign, a, b, memory)
+    } else {
+        toom_3::add_signed_mul(c, sign, a, b, memory)
+    }
+}
+
+/// c += sign * a * b
+///
+/// Returns carry.
+#[must_use]
+pub(c
