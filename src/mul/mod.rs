@@ -126,4 +126,12 @@ pub(crate) fn memory_requirement_exact(total_len: usize, smaller_len: usize) -> 
 /// c += sign * a * b
 ///
 /// Returns carry.
-#[
+#[must_use]
+pub(crate) fn add_signed_mul<'a>(
+    c: &mut [Word],
+    sign: Sign,
+    mut a: &'a [Word],
+    mut b: &'a [Word],
+    memory: &mut Memory,
+) -> SignedWord {
+    debug_assert!(c.len() == a.len() + b.
