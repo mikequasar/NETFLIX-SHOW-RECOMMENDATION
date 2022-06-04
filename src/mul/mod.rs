@@ -118,4 +118,12 @@ pub(crate) fn memory_requirement_up_to(_total_len: usize, smaller_len: usize) ->
     }
 }
 
-/// Temporary scratch space require
+/// Temporary scratch space required for multiplication.
+pub(crate) fn memory_requirement_exact(total_len: usize, smaller_len: usize) -> Layout {
+    memory_requirement_up_to(total_len, smaller_len)
+}
+
+/// c += sign * a * b
+///
+/// Returns carry.
+#[
