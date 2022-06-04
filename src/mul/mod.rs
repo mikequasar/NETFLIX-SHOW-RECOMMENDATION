@@ -134,4 +134,12 @@ pub(crate) fn add_signed_mul<'a>(
     mut b: &'a [Word],
     memory: &mut Memory,
 ) -> SignedWord {
-    debug_assert!(c.len() == a.len() + b.
+    debug_assert!(c.len() == a.len() + b.len());
+
+    if a.len() < b.len() {
+        mem::swap(&mut a, &mut b);
+    }
+
+    if b.len() <= MAX_LEN_SIMPLE {
+        simple::add_signed_mul(c, sign, a, b, memory)
+    } else if b.len() <= MAX_LEN_KA
