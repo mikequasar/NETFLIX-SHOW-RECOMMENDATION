@@ -153,4 +153,12 @@ pub(crate) fn add_signed_mul<'a>(
 ///
 /// Returns carry.
 #[must_use]
-pub(c
+pub(crate) fn add_signed_mul_same_len(
+    c: &mut [Word],
+    sign: Sign,
+    a: &[Word],
+    b: &[Word],
+    memory: &mut Memory,
+) -> SignedWord {
+    let n = a.len();
+    debug_assert!(b.len() == n && c.len() == 2 * n)
