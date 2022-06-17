@@ -161,4 +161,10 @@ pub(crate) fn add_signed_mul_same_len(
     memory: &mut Memory,
 ) -> SignedWord {
     let n = a.len();
-    debug_assert!(b.len() == n && c.len() == 2 * n)
+    debug_assert!(b.len() == n && c.len() == 2 * n);
+
+    if n <= MAX_LEN_SIMPLE {
+        simple::add_signed_mul_same_len(c, sign, a, b, memory)
+    } else if n <= MAX_LEN_KARATSUBA {
+        karatsuba::add_signed_mul_same_len(c, sign, a, b, memory)
+    } else
