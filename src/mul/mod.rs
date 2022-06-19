@@ -167,4 +167,7 @@ pub(crate) fn add_signed_mul_same_len(
         simple::add_signed_mul_same_len(c, sign, a, b, memory)
     } else if n <= MAX_LEN_KARATSUBA {
         karatsuba::add_signed_mul_same_len(c, sign, a, b, memory)
-    } else
+    } else {
+        toom_3::add_signed_mul_same_len(c, sign, a, b, memory)
+    }
+}
