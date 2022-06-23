@@ -281,3 +281,119 @@ macro_rules! impl_mul_ibig_primitive {
                 self.mul_assign_primitive(rhs)
             }
         }
+
+        helper_macros::forward_binop_assign_arg_by_value!(impl MulAssign<$t> for IBig, mul_assign);
+    };
+}
+
+impl_mul_ibig_primitive!(u8);
+impl_mul_ibig_primitive!(u16);
+impl_mul_ibig_primitive!(u32);
+impl_mul_ibig_primitive!(u64);
+impl_mul_ibig_primitive!(u128);
+impl_mul_ibig_primitive!(usize);
+impl_mul_ibig_primitive!(i8);
+impl_mul_ibig_primitive!(i16);
+impl_mul_ibig_primitive!(i32);
+impl_mul_ibig_primitive!(i64);
+impl_mul_ibig_primitive!(i128);
+impl_mul_ibig_primitive!(isize);
+
+impl UBig {
+    /// Multiply two `Word`s.
+    #[inline]
+    fn mul_word(a: Word, b: Word) -> UBig {
+        UBig::from(extend_word(a) * extend_word(b))
+    }
+
+    /// Multiply a large number by a `Word`.
+    fn mul_large_word(mut buffer: Buffer, a: Word) -> UBig {
+        match a {
+            0 => UBig::from_word(0),
+            1 => buffer.into(),
+            _ => {
+                let carry = mul::mul_word_in_place(&mut buffer, a);
+                if carry != 0 {
+                    buffer.push_may_reallocate(carry);
+                }
+                buffer.into()
+            }
+        }
+    }
+
+    /// Multiply two large numbers.
+    fn mul_large(lhs: &[Word], rhs: &[Word]) -> UBig {
+        debug_assert!(lhs.len() >= 2 && rhs.len() >= 2);
+
+        // This may be 1 too large.
+        const_assert!(Buffer::MAX_CAPACITY - UBig::MAX_LEN >= 1);
+        let res_len = lhs.len() + rhs.len();
+        let mut buffer = Buffer::allocate(res_len);
+        buffer.push_zeros(res_len);
+
+        let mut allocation = MemoryAllocation::new(mul::memory_requirement_exact(
+            res_len,
+            lhs.len().min(rhs.len()),
+        ));
+        let mut memory = allocation.memory();
+        let overflow = mul::add_signed_mul(&mut buffer, Positive, lhs, rhs, &mut memory);
+        assert!(overflow == 0);
+        buffer.into()
+    }
+
+    #[inline]
+    fn mul_unsigned<T: PrimitiveUnsigned>(self, rhs: T) -> UBig {
+        self * UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn mul_ref_unsigned<T: PrimitiveUnsigned>(&self, rhs: T) -> UBig {
+        self * UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn mul_assign_unsigned<T: PrimitiveUnsigned>(&mut self, rhs: T) {
+        *self *= UBig::from_unsigned(rhs)
+    }
+
+    #[inline]
+    fn mul_signed<T: PrimitiveSigned>(self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self) * IBig::from_signed(rhs))
+    }
+
+    #[inline]
+    fn mul_ref_signed<T: PrimitiveSigned>(&self, rhs: T) -> UBig {
+        UBig::from_ibig_panic_on_overflow(IBig::from(self) * IBig::from_signed(rhs))
+    }
+
+    #[inline]
+    fn mul_assign_signed<T: PrimitiveSigned>(&mut self, rhs: T) {
+        *self = mem::take(self).mul_signed(rhs)
+    }
+}
+
+impl IBig {
+    #[inline]
+    fn mul_primitive<T>(self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self * IBig::from(rhs)
+    }
+
+    #[inline]
+    fn mul_ref_primitive<T>(&self, rhs: T) -> IBig
+    where
+        IBig: From<T>,
+    {
+        self * IBig::from(rhs)
+    }
+
+    #[inline]
+    fn mul_assign_primitive<T>(&mut self, rhs: T)
+    where
+        IBig: From<T>,
+    {
+        *self *= IBig::from(rhs)
+    }
+}
