@@ -107,3 +107,17 @@ impl num_traits::Signed for IBig {
 }
 
 impl num_traits::Num for UBig {
+    type FromStrRadixErr = ParseError;
+
+    fn from_str_radix(s: &str, radix: u32) -> Result<Self, ParseError> {
+        Self::from_str_radix(s, radix)
+    }
+}
+
+impl num_traits::Num for IBig {
+    type FromStrRadixErr = ParseError;
+
+    fn from_str_radix(s: &str, radix: u32) -> Result<Self, ParseError> {
+        Self::from_str_radix(s, radix)
+    }
+}
