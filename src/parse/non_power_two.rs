@@ -113,3 +113,6 @@ fn parse_large_divide_conquer(
                     parse_large_divide_conquer(bytes_lo, radix, chunk_bytes, radix_powers)?;
                 Ok(res_hi * radix_power + res_lo)
             }
+        }
+    }
+}
