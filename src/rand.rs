@@ -28,4 +28,12 @@ impl UBig {
     where
         R: Rng + ?Sized,
     {
-        debug_assert!(*range !=
+        debug_assert!(*range != UBig::from_word(0));
+
+        match range.repr() {
+            Small(word) => UBig::from_word(rng.gen_range(0..*word)),
+            Large(buffer) => UBig::uniform_large(buffer, rng),
+        }
+    }
+
+    /// Random UBig in ra
