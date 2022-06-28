@@ -43,4 +43,12 @@ impl UBig {
     {
         let mut buffer = Buffer::allocate(words.len());
         buffer.push_zeros(words.len());
-    
+        while !try_fill_uniform(words, rng, &mut buffer) {
+            // Repeat.
+        }
+        buffer.into()
+    }
+}
+
+/// Try to fill `sample` with random number in range [0..words).
+/// May fail
