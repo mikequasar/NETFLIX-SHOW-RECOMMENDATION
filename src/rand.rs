@@ -36,4 +36,11 @@ impl UBig {
         }
     }
 
-    /// Random UBig in ra
+    /// Random UBig in range [0..words)
+    fn uniform_large<R>(words: &[Word], rng: &mut R) -> UBig
+    where
+        R: Rng + ?Sized,
+    {
+        let mut buffer = Buffer::allocate(words.len());
+        buffer.push_zeros(words.len());
+    
