@@ -59,4 +59,8 @@ where
     R: Rng + ?Sized,
 {
     let n = words.len();
-    debug_ass
+    debug_assert!(n > 0 && result.len() == n);
+    let mut i = n - 1;
+    result[i] = rng.gen_range(0..=words[i]);
+    // With at least 50% probability this loop executes 0 times (and thus doesn't fail).
+    while result[i] 
