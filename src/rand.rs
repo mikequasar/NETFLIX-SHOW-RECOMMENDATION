@@ -63,4 +63,13 @@ where
     let mut i = n - 1;
     result[i] = rng.gen_range(0..=words[i]);
     // With at least 50% probability this loop executes 0 times (and thus doesn't fail).
-    while result[i] 
+    while result[i] == words[i] {
+        if i == 0 {
+            // result == words
+            return false;
+        }
+        i -= 1;
+        result[i] = rng.gen();
+        if result[i] > words[i] {
+            return false;
+     
