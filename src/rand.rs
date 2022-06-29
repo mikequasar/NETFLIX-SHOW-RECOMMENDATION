@@ -51,4 +51,12 @@ impl UBig {
 }
 
 /// Try to fill `sample` with random number in range [0..words).
-/// May fail
+/// May fail randomly.
+///
+/// Returns true on success.
+fn try_fill_uniform<R>(words: &[Word], rng: &mut R, result: &mut [Word]) -> bool
+where
+    R: Rng + ?Sized,
+{
+    let n = words.len();
+    debug_ass
