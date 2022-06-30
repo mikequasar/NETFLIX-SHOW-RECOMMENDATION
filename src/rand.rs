@@ -85,4 +85,10 @@ where
 /// ```
 /// use ibig::ubig;
 /// use rand::{distributions::uniform::Uniform, thread_rng, Rng};
-/// let a = thread_rng().gen_range(ubig!(3)
+/// let a = thread_rng().gen_range(ubig!(3)..ubig!(10));
+/// let b = thread_rng().sample(Uniform::new(ubig!(0), &a));
+/// assert!(a >= ubig!(3) && a < ubig!(10));
+/// assert!(b >= ubig!(0) && b < a);
+/// ```
+pub struct UniformUBig {
+    range: UBi
