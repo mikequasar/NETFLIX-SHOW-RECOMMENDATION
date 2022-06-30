@@ -91,4 +91,15 @@ where
 /// assert!(b >= ubig!(0) && b < a);
 /// ```
 pub struct UniformUBig {
-    range: UBi
+    range: UBig,
+    offset: UBig,
+}
+
+impl UniformSampler for UniformUBig {
+    type X = UBig;
+
+    #[inline]
+    fn new<B1, B2>(low: B1, high: B2) -> UniformUBig
+    where
+        B1: SampleBorrow<UBig>,
+        B2: Sa
