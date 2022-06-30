@@ -72,4 +72,17 @@ where
         result[i] = rng.gen();
         if result[i] > words[i] {
             return false;
-     
+        }
+    }
+    rng.fill(&mut result[..i]);
+    true
+}
+
+/// Uniform [UBig] distribution.
+///
+/// # Example
+///
+/// ```
+/// use ibig::ubig;
+/// use rand::{distributions::uniform::Uniform, thread_rng, Rng};
+/// let a = thread_rng().gen_range(ubig!(3)
