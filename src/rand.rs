@@ -102,4 +102,12 @@ impl UniformSampler for UniformUBig {
     fn new<B1, B2>(low: B1, high: B2) -> UniformUBig
     where
         B1: SampleBorrow<UBig>,
-        B2: Sa
+        B2: SampleBorrow<UBig>,
+    {
+        let range = high.borrow() - low.borrow();
+        if range == UBig::from_word(0) {
+            panic!("Empty range");
+        }
+        UniformUBig {
+            range,
+            of
