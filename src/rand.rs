@@ -110,4 +110,14 @@ impl UniformSampler for UniformUBig {
         }
         UniformUBig {
             range,
-            of
+            offset: low.borrow().clone(),
+        }
+    }
+
+    #[inline]
+    fn new_inclusive<B1, B2>(low: B1, high: B2) -> UniformUBig
+    where
+        B1: SampleBorrow<UBig>,
+        B2: SampleBorrow<UBig>,
+    {
+    
