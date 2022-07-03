@@ -120,4 +120,12 @@ impl UniformSampler for UniformUBig {
         B1: SampleBorrow<UBig>,
         B2: SampleBorrow<UBig>,
     {
-    
+        let range = high.borrow() - low.borrow() + UBig::from_word(1);
+        UniformUBig {
+            range,
+            offset: low.borrow().clone(),
+        }
+    }
+
+    #[inline]
+    fn sa
