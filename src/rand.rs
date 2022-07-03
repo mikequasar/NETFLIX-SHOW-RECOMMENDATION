@@ -145,4 +145,16 @@ impl UniformSampler for UniformUBig {
 /// use rand::{distributions::uniform::Uniform, thread_rng, Rng};
 /// let a = thread_rng().gen_range(ibig!(3)..ibig!(10));
 /// let b = thread_rng().sample(Uniform::new(ibig!(-5), &a));
-/// assert!(a >=
+/// assert!(a >= ibig!(3) && a < ibig!(10));
+/// assert!(b >= ibig!(-5) && b < a);
+/// ```
+pub struct UniformIBig {
+    range: UBig,
+    offset: IBig,
+}
+
+impl UniformSampler for UniformIBig {
+    type X = IBig;
+
+    #[inline]
+    fn
