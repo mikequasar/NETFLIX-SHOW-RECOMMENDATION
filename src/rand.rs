@@ -128,4 +128,17 @@ impl UniformSampler for UniformUBig {
     }
 
     #[inline]
-    fn sa
+    fn sample<R>(&self, rng: &mut R) -> UBig
+    where
+        R: Rng + ?Sized,
+    {
+        UBig::uniform(&self.range, rng) + &self.offset
+    }
+}
+
+/// Uniform [IBig] distribution.
+///
+/// # Example
+///
+/// ```
+/// us
