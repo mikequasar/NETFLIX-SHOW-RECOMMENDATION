@@ -164,3 +164,13 @@ impl UniformSampler for UniformIBig {
     {
         let range = high.borrow() - low.borrow();
         if range <= IBig::from(0u8) {
+            panic!("Empty range");
+        }
+        UniformIBig {
+            range: range.unsigned_abs(),
+            offset: low.borrow().clone(),
+        }
+    }
+
+    #[inline]
+    fn new_inclusive<B1, B2>(low: B1, high: B2) -> Un
