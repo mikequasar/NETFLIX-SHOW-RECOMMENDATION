@@ -157,4 +157,10 @@ impl UniformSampler for UniformIBig {
     type X = IBig;
 
     #[inline]
-    fn
+    fn new<B1, B2>(low: B1, high: B2) -> UniformIBig
+    where
+        B1: SampleBorrow<IBig>,
+        B2: SampleBorrow<IBig>,
+    {
+        let range = high.borrow() - low.borrow();
+        if range <= IBig::from(0u8) {
