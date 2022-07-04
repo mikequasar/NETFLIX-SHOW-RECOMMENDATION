@@ -173,4 +173,12 @@ impl UniformSampler for UniformIBig {
     }
 
     #[inline]
-    fn new_inclusive<B1, B2>(low: B1, high: B2) -> Un
+    fn new_inclusive<B1, B2>(low: B1, high: B2) -> UniformIBig
+    where
+        B1: SampleBorrow<IBig>,
+        B2: SampleBorrow<IBig>,
+    {
+        let range = high.borrow() - low.borrow() + IBig::from(1u8);
+        if range <= IBig::from(0u8) {
+            panic!("Empty range");
+        }
