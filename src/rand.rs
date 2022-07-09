@@ -182,3 +182,14 @@ impl UniformSampler for UniformIBig {
         if range <= IBig::from(0u8) {
             panic!("Empty range");
         }
+        UniformIBig {
+            range: range.unsigned_abs(),
+            offset: low.borrow().clone(),
+        }
+    }
+
+    #[inline]
+    fn sample<R>(&self, rng: &mut R) -> IBig
+    where
+        R: Rng + ?Sized,
+   
