@@ -192,4 +192,7 @@ impl UniformSampler for UniformIBig {
     fn sample<R>(&self, rng: &mut R) -> IBig
     where
         R: Rng + ?Sized,
-   
+    {
+        IBig::from(UBig::uniform(&self.range, rng)) + &self.offset
+    }
+}
