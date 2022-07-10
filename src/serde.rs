@@ -17,4 +17,14 @@ impl Serialize for UBig {
         let mut seq = serializer.serialize_seq(Some(chunks.len()))?;
         for chunk in chunks {
             let mut word_u64: u64 = 0;
-            for (i, wor
+            for (i, word) in chunk.iter().enumerate() {
+                word_u64 |= u64::from(*word) << (i * WORD_BITS_USIZE);
+            }
+            seq.serialize_element(&word_u64)?;
+        }
+        seq.end()
+    }
+}
+
+impl<'de> Deserialize<'de> for UBig {
+  
