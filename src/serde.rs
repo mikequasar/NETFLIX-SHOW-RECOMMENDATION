@@ -7,4 +7,9 @@ use serde::{
 };
 use static_assertions::const_assert;
 
-const_assert!(64 % WORD_BITS_USIZE =
+const_assert!(64 % WORD_BITS_USIZE == 0);
+const WORDS_PER_U64: usize = 64 / WORD_BITS_USIZE;
+
+impl Serialize for UBig {
+    #[allow(clippy::useless_conversion)]
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error>
