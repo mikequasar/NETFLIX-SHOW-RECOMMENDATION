@@ -12,4 +12,9 @@ const WORDS_PER_U64: usize = 64 / WORD_BITS_USIZE;
 
 impl Serialize for UBig {
     #[allow(clippy::useless_conversion)]
-    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        let chunks = self.as_words().chunks(WORDS_PER_U64);
+        let mut seq = serializer.serialize_seq(Some(chunks.len()))?;
+        for chunk in chunks {
+            let mut word_u64: u64 = 0;
+            for (i, wor
