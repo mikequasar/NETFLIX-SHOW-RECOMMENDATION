@@ -27,4 +27,12 @@ impl Serialize for UBig {
 }
 
 impl<'de> Deserialize<'de> for UBig {
-  
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        deserializer.deserialize_seq(UBigVisitor)
+    }
+}
+
+struct UBigVisitor;
+
+impl<'de> Visitor<'de> for UBigVisitor {
+    type V
