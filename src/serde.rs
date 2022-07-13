@@ -35,4 +35,10 @@ impl<'de> Deserialize<'de> for UBig {
 struct UBigVisitor;
 
 impl<'de> Visitor<'de> for UBigVisitor {
-    type V
+    type Value = UBig;
+
+    fn expecting(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "a sequence of 64-bit words")
+    }
+
+    fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<UBig
