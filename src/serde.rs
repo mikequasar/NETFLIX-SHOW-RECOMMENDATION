@@ -48,4 +48,9 @@ impl<'de> Visitor<'de> for UBigVisitor {
                 Ok(UBig::from_word(0))
             }
             Some(1) => {
-                
+                let word_64: u64 = seq.next_element()?.unwrap();
+                assert!(seq.next_element::<u64>()?.is_none());
+                Ok(UBig::from(word_64))
+            }
+            Some(num_words_64) => {
+                let mut buffer = Buffer::a
