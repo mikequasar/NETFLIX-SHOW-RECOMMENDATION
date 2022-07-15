@@ -41,4 +41,11 @@ impl<'de> Visitor<'de> for UBigVisitor {
         write!(f, "a sequence of 64-bit words")
     }
 
-    fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<UBig
+    fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<UBig, A::Error> {
+        match seq.size_hint() {
+            Some(0) => {
+                assert!(seq.next_element::<u64>()?.is_none());
+                Ok(UBig::from_word(0))
+            }
+            Some(1) => {
+                
