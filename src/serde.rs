@@ -53,4 +53,8 @@ impl<'de> Visitor<'de> for UBigVisitor {
                 Ok(UBig::from(word_64))
             }
             Some(num_words_64) => {
-                let mut buffer = Buffer::a
+                let mut buffer = Buffer::allocate(len_64_to_max_len(num_words_64));
+                for _ in 0..num_words_64 {
+                    let word_64: u64 = seq.next_element()?.unwrap();
+                    push_word_64(&mut buffer, word_64);
+   
