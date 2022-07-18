@@ -67,3 +67,13 @@ impl<'de> Visitor<'de> for UBigVisitor {
                     words_64.push(word_64);
                 }
                 let mut buffer = Buffer::allocate(len_64_to_max_len(words_64.len()));
+                for word_64 in words_64 {
+                    push_word_64(&mut buffer, word_64);
+                }
+                Ok(buffer.into())
+            }
+        }
+    }
+}
+
+fn push_word_64(buffer: &mut 
