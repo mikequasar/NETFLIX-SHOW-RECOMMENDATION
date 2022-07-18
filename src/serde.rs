@@ -63,4 +63,7 @@ impl<'de> Visitor<'de> for UBigVisitor {
             }
             None => {
                 let mut words_64 = Vec::new();
-                while
+                while let Some(word_64) = seq.next_element()? {
+                    words_64.push(word_64);
+                }
+                let mut buffer = Buffer::allocate(len_64_to_max_len(words_64.len()));
