@@ -57,4 +57,10 @@ impl<'de> Visitor<'de> for UBigVisitor {
                 for _ in 0..num_words_64 {
                     let word_64: u64 = seq.next_element()?.unwrap();
                     push_word_64(&mut buffer, word_64);
-   
+                }
+                assert!(seq.next_element::<u64>()?.is_none());
+                Ok(buffer.into())
+            }
+            None => {
+                let mut words_64 = Vec::new();
+                while
