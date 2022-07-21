@@ -83,4 +83,9 @@ fn push_word_64(buffer: &mut Buffer, word_64: u64) {
 }
 
 #[allow(clippy::absurd_extreme_comparisons)]
-fn len_64_to_max_len(len_64: usize) -> usize 
+fn len_64_to_max_len(len_64: usize) -> usize {
+    // Make sure we always have enough space for leading zero Words.
+    const_assert!(Buffer::MAX_CAPACITY - UBig::MAX_LEN >= WORDS_PER_U64 - 1);
+    #[allow(clippy::redundant_closure)]
+    len_64
+       
