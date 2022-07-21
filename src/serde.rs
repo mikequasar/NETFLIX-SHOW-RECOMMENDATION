@@ -76,4 +76,11 @@ impl<'de> Visitor<'de> for UBigVisitor {
     }
 }
 
-fn push_word_64(buffer: &mut 
+fn push_word_64(buffer: &mut Buffer, word_64: u64) {
+    for i in 0..WORDS_PER_U64 {
+        buffer.push((word_64 >> (i * WORD_BITS_USIZE)) as Word);
+    }
+}
+
+#[allow(clippy::absurd_extreme_comparisons)]
+fn len_64_to_max_len(len_64: usize) -> usize 
