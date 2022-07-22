@@ -88,4 +88,10 @@ fn len_64_to_max_len(len_64: usize) -> usize {
     const_assert!(Buffer::MAX_CAPACITY - UBig::MAX_LEN >= WORDS_PER_U64 - 1);
     #[allow(clippy::redundant_closure)]
     len_64
-       
+        .checked_mul(WORDS_PER_U64)
+        .unwrap_or_else(|| UBig::panic_number_too_large())
+}
+
+impl Serialize for IBig {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        (sel
