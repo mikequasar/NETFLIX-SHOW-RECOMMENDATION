@@ -11,4 +11,13 @@ use crate::{
 };
 use core::{
     mem,
-    ops::{Shl, ShlAss
+    ops::{Shl, ShlAssign, Shr, ShrAssign},
+};
+
+macro_rules! impl_shifts {
+    ($t:ty) => {
+        impl Shl<&usize> for $t {
+            type Output = $t;
+
+            #[inline]
+            fn shl(self, rhs: &usize) 
