@@ -100,4 +100,7 @@ impl Serialize for IBig {
 
 impl<'de> Deserialize<'de> for IBig {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let (s
+        let (sign, magnitude) = Deserialize::deserialize(deserializer)?;
+        Ok(IBig::from_sign_magnitude(sign, magnitude))
+    }
+}
