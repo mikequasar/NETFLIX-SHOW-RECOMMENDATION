@@ -94,4 +94,10 @@ fn len_64_to_max_len(len_64: usize) -> usize {
 
 impl Serialize for IBig {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        (sel
+        (self.sign(), self.magnitude()).serialize(serializer)
+    }
+}
+
+impl<'de> Deserialize<'de> for IBig {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let (s
