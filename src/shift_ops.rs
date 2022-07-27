@@ -48,4 +48,14 @@ macro_rules! impl_shifts {
             }
         }
 
-        impl Sh
+        impl Shr<&usize> for $t {
+            type Output = $t;
+
+            #[inline]
+            fn shr(self, rhs: &usize) -> $t {
+                self.shr(*rhs)
+            }
+        }
+
+        impl Shr<&usize> for &$t {
+           
