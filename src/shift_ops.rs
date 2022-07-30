@@ -93,4 +93,15 @@ impl Shl<usize> for UBig {
         match self.into_repr() {
             Small(0) => UBig::from_word(0),
             Small(word) => UBig::shl_word(word, rhs),
-            Large(buffer) => UBig
+            Large(buffer) => UBig::shl_large(buffer, rhs),
+        }
+    }
+}
+
+impl Shl<usize> for &UBig {
+    type Output = UBig;
+
+    #[inline]
+    fn shl(self, rhs: usize) -> UBig {
+        match self.repr() {
+            Small(0) => UBig::from_word(0)
