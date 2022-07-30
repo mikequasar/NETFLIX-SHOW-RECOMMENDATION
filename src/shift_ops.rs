@@ -68,4 +68,11 @@ macro_rules! impl_shifts {
 
         impl ShrAssign<usize> for $t {
             #[inline]
-            fn shr_assig
+            fn shr_assign(&mut self, rhs: usize) {
+                *self = mem::take(self).shr(rhs);
+            }
+        }
+
+        impl ShrAssign<&usize> for $t {
+            #[inline]
+            fn shr_assign(&mut sel
