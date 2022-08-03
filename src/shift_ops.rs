@@ -115,4 +115,12 @@ impl Shr<usize> for UBig {
     type Output = UBig;
 
     #[inline]
-    fn shr(sel
+    fn shr(self, rhs: usize) -> UBig {
+        match self.into_repr() {
+            Small(word) => UBig::shr_word(word, rhs),
+            Large(buffer) => UBig::shr_large(buffer, rhs),
+        }
+    }
+}
+
+impl Shr<usize
