@@ -130,4 +130,14 @@ impl Shr<usize> for &UBig {
     fn shr(self, rhs: usize) -> UBig {
         match self.repr() {
             Small(word) => UBig::shr_word(*word, rhs),
-            Large(buffer) => UBig::sh
+            Large(buffer) => UBig::shr_large_ref(buffer, rhs),
+        }
+    }
+}
+
+impl Shl<usize> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn shl(self, rhs: usize) -> IBig {
+        let (sign, mag) = self.into_sign_magnitude();
