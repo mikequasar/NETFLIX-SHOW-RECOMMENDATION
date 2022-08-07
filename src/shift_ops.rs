@@ -150,4 +150,14 @@ impl Shl<usize> for &IBig {
 
     #[inline]
     fn shl(self, rhs: usize) -> IBig {
-        let (sign, mag) = (self.sign(),
+        let (sign, mag) = (self.sign(), self.magnitude());
+        IBig::from_sign_magnitude(sign, mag.shl(rhs))
+    }
+}
+
+impl Shr<usize> for IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn shr(self, rhs: usize) -> IBig {
+        let (sign, 
