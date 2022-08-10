@@ -182,4 +182,16 @@ impl Shr<usize> for &IBig {
             Negative => {
                 let b = mag.are_low_bits_nonzero(rhs);
                 -IBig::from(mag.shr(rhs)) - IBig::from(b)
-         
+            }
+        }
+    }
+}
+
+impl UBig {
+    /// Shift left one non-zero `Word` by `rhs` bits.
+    #[inline]
+    fn shl_word(word: Word, rhs: usize) -> UBig {
+        debug_assert!(word != 0);
+
+        if rhs <= WORD_BITS_USIZE {
+            UB
