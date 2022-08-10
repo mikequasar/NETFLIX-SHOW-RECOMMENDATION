@@ -194,4 +194,11 @@ impl UBig {
         debug_assert!(word != 0);
 
         if rhs <= WORD_BITS_USIZE {
-            UB
+            UBig::from(extend_word(word) << rhs)
+        } else {
+            UBig::shl_word_slow(word, rhs)
+        }
+    }
+
+    /// Shift left one non-zero `Word` by `rhs` bits.
+    fn shl_word_slow(word: Word, rhs: usize) ->
