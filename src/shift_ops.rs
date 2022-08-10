@@ -165,4 +165,16 @@ impl Shr<usize> for IBig {
             Positive => IBig::from(mag.shr(rhs)),
             Negative => {
                 let b = mag.are_low_bits_nonzero(rhs);
-                -IBig::from(mag.
+                -IBig::from(mag.shr(rhs)) - IBig::from(b)
+            }
+        }
+    }
+}
+
+impl Shr<usize> for &IBig {
+    type Output = IBig;
+
+    #[inline]
+    fn shr(self, rhs: usize) -> IBig {
+        let (sign, mag) = (self.sign(), self.magnitude());
+  
