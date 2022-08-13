@@ -201,4 +201,8 @@ impl UBig {
     }
 
     /// Shift left one non-zero `Word` by `rhs` bits.
-    fn shl_word_slow(word: Word, rhs: usize) ->
+    fn shl_word_slow(word: Word, rhs: usize) -> UBig {
+        let shift_words = rhs / WORD_BITS_USIZE;
+        let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
+        let (lo, hi) = split_double_word(extend_word(word) << shift_bits);
+ 
