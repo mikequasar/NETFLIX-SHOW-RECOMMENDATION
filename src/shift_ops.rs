@@ -205,4 +205,11 @@ impl UBig {
         let shift_words = rhs / WORD_BITS_USIZE;
         let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
         let (lo, hi) = split_double_word(extend_word(word) << shift_bits);
- 
+        let mut buffer = Buffer::allocate(shift_words + 2);
+        buffer.push_zeros(shift_words);
+        buffer.push(lo);
+        buffer.push(hi);
+        buffer.into()
+    }
+
+    /// Shift left `buffer`
