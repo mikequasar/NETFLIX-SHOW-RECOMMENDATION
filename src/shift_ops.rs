@@ -222,4 +222,11 @@ impl UBig {
 
         let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
         let carry = shift::shl_in_place(&mut buffer, shift_bits);
-        buffer.
+        buffer.push(carry);
+        buffer.push_zeros_front(shift_words);
+        buffer.into()
+    }
+
+    /// Shift left large number of words by `rhs` bits.
+    fn shl_ref_large(words: &[Word], rhs: usize) -> UBig {
+        
