@@ -217,4 +217,9 @@ impl UBig {
         let shift_words = rhs / WORD_BITS_USIZE;
 
         if buffer.capacity() < buffer.len() + shift_words + 1 {
-   
+            return UBig::shl_ref_large(&buffer, rhs);
+        }
+
+        let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
+        let carry = shift::shl_in_place(&mut buffer, shift_bits);
+        buffer.
