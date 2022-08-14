@@ -212,4 +212,9 @@ impl UBig {
         buffer.into()
     }
 
-    /// Shift left `buffer`
+    /// Shift left `buffer` by `rhs` bits.
+    fn shl_large(mut buffer: Buffer, rhs: usize) -> UBig {
+        let shift_words = rhs / WORD_BITS_USIZE;
+
+        if buffer.capacity() < buffer.len() + shift_words + 1 {
+   
