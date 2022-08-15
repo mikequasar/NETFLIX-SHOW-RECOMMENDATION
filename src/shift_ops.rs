@@ -229,4 +229,8 @@ impl UBig {
 
     /// Shift left large number of words by `rhs` bits.
     fn shl_ref_large(words: &[Word], rhs: usize) -> UBig {
-        
+        let shift_words = rhs / WORD_BITS_USIZE;
+        let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
+
+        let mut buffer = Buffer::allocate(shift_words + words.len() + 1);
+        buffer.push_zeros(shift_words
