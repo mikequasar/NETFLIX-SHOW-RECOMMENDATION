@@ -233,4 +233,11 @@ impl UBig {
         let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
 
         let mut buffer = Buffer::allocate(shift_words + words.len() + 1);
-        buffer.push_zeros(shift_words
+        buffer.push_zeros(shift_words);
+        buffer.extend(words);
+        let carry = shift::shl_in_place(&mut buffer[shift_words..], shift_bits);
+        buffer.push(carry);
+        buffer.into()
+    }
+
+    /// Shift r
