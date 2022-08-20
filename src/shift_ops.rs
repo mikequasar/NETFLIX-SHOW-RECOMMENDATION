@@ -240,4 +240,12 @@ impl UBig {
         buffer.into()
     }
 
-    /// Shift r
+    /// Shift right one `Word` by `rhs` bits.
+    #[inline]
+    fn shr_word(word: Word, rhs: usize) -> UBig {
+        let word = if rhs < WORD_BITS_USIZE {
+            word >> rhs
+        } else {
+            0
+        };
+        UBig::fr
