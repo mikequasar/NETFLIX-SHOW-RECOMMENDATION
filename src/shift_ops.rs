@@ -248,4 +248,11 @@ impl UBig {
         } else {
             0
         };
-        UBig::fr
+        UBig::from_word(word)
+    }
+
+    /// Shift right `buffer` by `rhs` bits.
+    fn shr_large(mut buffer: Buffer, rhs: usize) -> UBig {
+        let shift_words = rhs / WORD_BITS_USIZE;
+        if shift_words >= buffer.len() {
+            
