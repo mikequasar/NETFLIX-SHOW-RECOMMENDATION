@@ -261,4 +261,9 @@ impl UBig {
         buffer.erase_front(shift_words);
         shift::shr_in_place(&mut buffer, shift_bits);
         buffer.into()
-  
+    }
+
+    /// Shift right large number of words by `rhs` bits.
+    fn shr_large_ref(words: &[Word], rhs: usize) -> UBig {
+        let shift_words = rhs / WORD_BITS_USIZE;
+        let shift_bits = (rhs % WORD_
