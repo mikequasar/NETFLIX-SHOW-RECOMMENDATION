@@ -255,4 +255,10 @@ impl UBig {
     fn shr_large(mut buffer: Buffer, rhs: usize) -> UBig {
         let shift_words = rhs / WORD_BITS_USIZE;
         if shift_words >= buffer.len() {
-            
+            return UBig::from_word(0);
+        }
+        let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
+        buffer.erase_front(shift_words);
+        shift::shr_in_place(&mut buffer, shift_bits);
+        buffer.into()
+  
