@@ -266,4 +266,11 @@ impl UBig {
     /// Shift right large number of words by `rhs` bits.
     fn shr_large_ref(words: &[Word], rhs: usize) -> UBig {
         let shift_words = rhs / WORD_BITS_USIZE;
-        let shift_bits = (rhs % WORD_
+        let shift_bits = (rhs % WORD_BITS_USIZE) as u32;
+
+        let words = &words[shift_words.min(words.len())..];
+
+        match words {
+            [] => UBig::from_word(0),
+            &[w] => UBig::from_word(w >> shift_bits),
+          
