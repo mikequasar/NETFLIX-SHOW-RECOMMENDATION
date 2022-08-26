@@ -273,4 +273,8 @@ impl UBig {
         match words {
             [] => UBig::from_word(0),
             &[w] => UBig::from_word(w >> shift_bits),
-          
+            &[lo, hi] => UBig::from(double_word(lo, hi) >> shift_bits),
+            _ => {
+                let mut buffer = Buffer::allocate(words.len());
+                buffer.extend(words);
+                shift::shr_in
