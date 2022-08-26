@@ -277,4 +277,9 @@ impl UBig {
             _ => {
                 let mut buffer = Buffer::allocate(words.len());
                 buffer.extend(words);
-                shift::shr_in
+                shift::shr_in_place(&mut buffer, shift_bits);
+                buffer.into()
+            }
+        }
+    }
+}
