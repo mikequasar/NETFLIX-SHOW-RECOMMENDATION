@@ -17,4 +17,17 @@ pub(crate) enum Repr {
     /// A number that does not fit in a single Word.
     ///
     /// The buffer has:
-    /// *
+    /// * length at least 2
+    /// * no leading zero
+    /// * compact capacity
+    Large(Buffer),
+}
+
+/// Unsigned big integer.
+///
+/// Arbitrarily large unsigned integer.
+///
+/// # Examples
+///
+/// ```
+/
