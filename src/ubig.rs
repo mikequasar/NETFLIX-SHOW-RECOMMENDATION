@@ -43,4 +43,12 @@ pub(crate) enum Repr {
 pub struct UBig(Repr);
 
 impl UBig {
-   
+    /// Construct from one word.
+    #[inline]
+    pub(crate) fn from_word(word: Word) -> UBig {
+        UBig(Small(word))
+    }
+
+    /// Get the representation of UBig.
+    #[inline]
+    pub(crate)
