@@ -51,4 +51,16 @@ impl UBig {
 
     /// Get the representation of UBig.
     #[inline]
-    pub(crate)
+    pub(crate) fn repr(&self) -> &Repr {
+        &self.0
+    }
+
+    /// Convert into representation.
+    #[inline]
+    pub(crate) fn into_repr(self) -> Repr {
+        self.0
+    }
+
+    /// Length in Words.
+    #[inline]
+    pub(crate) fn len(&self) ->
