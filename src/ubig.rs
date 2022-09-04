@@ -72,4 +72,13 @@ impl UBig {
 
     /// Representation in Words.
     #[inline]
-    pub(crate) fn as_words(&self) -> &[Word] 
+    pub(crate) fn as_words(&self) -> &[Word] {
+        match self.repr() {
+            Small(0) => &[],
+            Small(word) => slice::from_ref(word),
+            Large(buffer) => buffer,
+        }
+    }
+
+    /// Maximum length in `Word`s.
+  
