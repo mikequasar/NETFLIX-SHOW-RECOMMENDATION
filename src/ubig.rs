@@ -63,4 +63,13 @@ impl UBig {
 
     /// Length in Words.
     #[inline]
-    pub(crate) fn len(&self) ->
+    pub(crate) fn len(&self) -> usize {
+        match self.repr() {
+            Small(_) => 1,
+            Large(buffer) => buffer.len(),
+        }
+    }
+
+    /// Representation in Words.
+    #[inline]
+    pub(crate) fn as_words(&self) -> &[Word] 
