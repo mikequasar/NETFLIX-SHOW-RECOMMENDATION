@@ -85,4 +85,7 @@ impl UBig {
     /// Ensures that the number of bits fits in `usize`, which is useful for bit count
     /// operations, and for radix conversions (even base 2 can be represented).
     ///
-    /// This also guarant
+    /// This also guarantees that up to 16 * length will not overflow.
+    ///
+    /// We also make sure that any multiplication whose result fits in `MAX_LEN` can fit
+    /// within the largest possible number-
