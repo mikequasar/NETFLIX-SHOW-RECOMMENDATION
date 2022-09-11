@@ -88,4 +88,9 @@ impl UBig {
     /// This also guarantees that up to 16 * length will not overflow.
     ///
     /// We also make sure that any multiplication whose result fits in `MAX_LEN` can fit
-    /// within the largest possible number-
+    /// within the largest possible number-theoretic transform.
+    ///
+    /// Also make sure this is even, useful for checking whether a square will overflow.
+    pub(crate) const MAX_LEN: usize = math::min_usize(
+        usize::MAX / WORD_BITS_USIZE,
+        matc
