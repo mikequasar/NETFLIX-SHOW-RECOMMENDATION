@@ -93,4 +93,12 @@ impl UBig {
     /// Also make sure this is even, useful for checking whether a square will overflow.
     pub(crate) const MAX_LEN: usize = math::min_usize(
         usize::MAX / WORD_BITS_USIZE,
-        matc
+        match 1usize.checked_shl(ntt::MAX_ORDER) {
+            Some(ntt_len) => ntt_len,
+            None => usize::MAX,
+        },
+    ) & !1usize;
+
+    /// Maximum length in bits.
+    ///
+    /// [UBig]s up to
