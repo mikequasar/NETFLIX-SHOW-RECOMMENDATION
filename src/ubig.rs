@@ -81,4 +81,8 @@ impl UBig {
     }
 
     /// Maximum length in `Word`s.
-  
+    ///
+    /// Ensures that the number of bits fits in `usize`, which is useful for bit count
+    /// operations, and for radix conversions (even base 2 can be represented).
+    ///
+    /// This also guarant
