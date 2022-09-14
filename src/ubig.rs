@@ -105,4 +105,8 @@ impl UBig {
     /// will panic.
     ///
     /// This does not guarantee that there is sufficient memory to store numbers
-    /// up to this lengt
+    /// up to this length. Memory allocation may fail even for smaller numbers.
+    ///
+    /// The fact that this limit fits in `usize` guarantees that all bit
+    /// addressing operations can be performed using `usize`.
+   
