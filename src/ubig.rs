@@ -101,4 +101,8 @@ impl UBig {
 
     /// Maximum length in bits.
     ///
-    /// [UBig]s up to
+    /// [UBig]s up to this length are supported. Creating a longer number
+    /// will panic.
+    ///
+    /// This does not guarantee that there is sufficient memory to store numbers
+    /// up to this lengt
