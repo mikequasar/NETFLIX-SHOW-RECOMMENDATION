@@ -109,4 +109,8 @@ impl UBig {
     ///
     /// The fact that this limit fits in `usize` guarantees that all bit
     /// addressing operations can be performed using `usize`.
-   
+    ///
+    /// It is typically close to `usize::MAX`, but the exact value is platform-dependent.
+    pub const MAX_BIT_LEN: usize = UBig::MAX_LEN * WORD_BITS_USIZE;
+
+    pub(crate) fn panic_nu
