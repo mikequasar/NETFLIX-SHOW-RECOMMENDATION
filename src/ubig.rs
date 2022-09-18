@@ -113,4 +113,13 @@ impl UBig {
     /// It is typically close to `usize::MAX`, but the exact value is platform-dependent.
     pub const MAX_BIT_LEN: usize = UBig::MAX_LEN * WORD_BITS_USIZE;
 
-    pub(crate) fn panic_nu
+    pub(crate) fn panic_number_too_large() -> ! {
+        panic!("number too large, maximum is {} bits", UBig::MAX_BIT_LEN)
+    }
+}
+
+impl Clone for UBig {
+    #[inline]
+    fn clone(&self) -> UBig {
+        match self.repr() {
+      
