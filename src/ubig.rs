@@ -122,4 +122,12 @@ impl Clone for UBig {
     #[inline]
     fn clone(&self) -> UBig {
         match self.repr() {
-      
+            Small(x) => UBig(Small(*x)),
+            Large(buffer) => UBig(Large(buffer.clone())),
+        }
+    }
+
+    #[inline]
+    fn clone_from(&mut self, source: &UBig) {
+        if let Large(buffer) = &mut self.0 {
+  
