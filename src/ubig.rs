@@ -139,4 +139,7 @@ impl Clone for UBig {
     }
 }
 
-impl From<B
+impl From<Buffer> for UBig {
+    /// If the Buffer was allocated with `Buffer::allocate(n)`
+    /// and the normalized length is between `n - 2` and `n + 2`
+    /// (or even approximately between `0.9 * n` and `1
