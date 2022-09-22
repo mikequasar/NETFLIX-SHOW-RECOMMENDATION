@@ -142,4 +142,11 @@ impl Clone for UBig {
 impl From<Buffer> for UBig {
     /// If the Buffer was allocated with `Buffer::allocate(n)`
     /// and the normalized length is between `n - 2` and `n + 2`
-    /// (or even approximately between `0.9 * n` and `1
+    /// (or even approximately between `0.9 * n` and `1.125 * n`),
+    /// there will be no reallocation here.
+    fn from(mut buffer: Buffer) -> UBig {
+        buffer.pop_leading_zeros();
+
+        match buffer.len() {
+            0 => UBig::from_word(0),
+       
