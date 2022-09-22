@@ -130,4 +130,13 @@ impl Clone for UBig {
     #[inline]
     fn clone_from(&mut self, source: &UBig) {
         if let Large(buffer) = &mut self.0 {
-  
+            if let Large(source_buffer) = source.repr() {
+                buffer.resizing_clone_from(source_buffer);
+                return;
+            }
+        }
+        *self = source.clone();
+    }
+}
+
+impl From<B
