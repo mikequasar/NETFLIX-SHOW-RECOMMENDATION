@@ -149,4 +149,9 @@ impl From<Buffer> for UBig {
 
         match buffer.len() {
             0 => UBig::from_word(0),
-       
+            1 => UBig::from_word(buffer[0]),
+            _ if buffer.len() > UBig::MAX_LEN => UBig::panic_number_too_large(),
+            _ => {
+                buffer.shrink();
+                UBig(Large(buffer))
+     
