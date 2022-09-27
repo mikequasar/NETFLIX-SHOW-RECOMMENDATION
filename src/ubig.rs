@@ -154,4 +154,17 @@ impl From<Buffer> for UBig {
             _ => {
                 buffer.shrink();
                 UBig(Large(buffer))
-     
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Current capacity in Words.
+    fn capacity(x: &UBig) -> usize {
+        match x.repr() {
+            Small(_) => 1,
+         
