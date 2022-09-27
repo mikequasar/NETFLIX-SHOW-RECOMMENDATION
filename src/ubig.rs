@@ -167,4 +167,12 @@ mod tests {
     fn capacity(x: &UBig) -> usize {
         match x.repr() {
             Small(_) => 1,
-         
+            Large(large) => large.capacity(),
+        }
+    }
+
+    #[test]
+    fn test_buffer_to_ubig() {
+        let buf = Buffer::allocate(5);
+        let num: UBig = buf.into();
+        assert_eq!(num, UBig::fr
