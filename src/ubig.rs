@@ -183,4 +183,13 @@ mod tests {
         assert_eq!(num, UBig::from_word(7));
 
         let mut buf = Buffer::allocate(100);
-        buf.pu
+        buf.push(7);
+        buf.push(0);
+        buf.push(0);
+        let num: UBig = buf.into();
+        assert_eq!(num, UBig::from_word(7));
+
+        let mut buf = Buffer::allocate(5);
+        buf.push(1);
+        buf.push(2);
+        buf.push(3
