@@ -175,4 +175,12 @@ mod tests {
     fn test_buffer_to_ubig() {
         let buf = Buffer::allocate(5);
         let num: UBig = buf.into();
-        assert_eq!(num, UBig::fr
+        assert_eq!(num, UBig::from_word(0));
+
+        let mut buf = Buffer::allocate(5);
+        buf.push(7);
+        let num: UBig = buf.into();
+        assert_eq!(num, UBig::from_word(7));
+
+        let mut buf = Buffer::allocate(100);
+        buf.pu
