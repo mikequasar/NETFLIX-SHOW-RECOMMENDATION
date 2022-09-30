@@ -192,4 +192,13 @@ mod tests {
         let mut buf = Buffer::allocate(5);
         buf.push(1);
         buf.push(2);
-        buf.push(3
+        buf.push(3);
+        buf.push(4);
+        let num: UBig = buf.into();
+        assert_eq!(capacity(&num), 7);
+
+        let mut buf = Buffer::allocate(100);
+        buf.push(1);
+        buf.push(2);
+        buf.push(3);
+        b
