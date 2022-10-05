@@ -230,4 +230,9 @@ mod tests {
         a.clone_from(&b);
         assert_eq!(a, b);
 
-        let mut a = gen_
+        let mut a = gen_ubig(9);
+        let prev_cap = capacity(&a);
+        a.clone_from(&num);
+        // The buffer should be reused, 9 is close enough to 10.
+        assert_eq!(capacity(&a), prev_cap);
+        assert_ne!(capacity(&a), c
