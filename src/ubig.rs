@@ -235,4 +235,10 @@ mod tests {
         a.clone_from(&num);
         // The buffer should be reused, 9 is close enough to 10.
         assert_eq!(capacity(&a), prev_cap);
-        assert_ne!(capacity(&a), c
+        assert_ne!(capacity(&a), capacity(&num));
+
+        let mut a = gen_ubig(2);
+        let prev_cap = capacity(&a);
+        a.clone_from(&num);
+        // The buffer should now be reallocated, it's too small.
+       
