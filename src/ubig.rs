@@ -221,4 +221,13 @@ mod tests {
     fn test_clone_from() {
         let num: UBig = gen_ubig(10);
 
-        let mut a = UBig::fr
+        let mut a = UBig::from_word(3);
+        a.clone_from(&num);
+        assert_eq!(a, num);
+        let b = UBig::from_word(7);
+        a.clone_from(&b);
+        assert_eq!(a, b);
+        a.clone_from(&b);
+        assert_eq!(a, b);
+
+        let mut a = gen_
