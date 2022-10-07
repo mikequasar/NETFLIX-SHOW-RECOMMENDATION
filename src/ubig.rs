@@ -241,4 +241,10 @@ mod tests {
         let prev_cap = capacity(&a);
         a.clone_from(&num);
         // The buffer should now be reallocated, it's too small.
-       
+        assert_ne!(capacity(&a), prev_cap);
+        assert_eq!(capacity(&a), capacity(&num));
+
+        let mut a = gen_ubig(100);
+        let prev_cap = capacity(&a);
+        a.clone_from(&num);
+        // The 
