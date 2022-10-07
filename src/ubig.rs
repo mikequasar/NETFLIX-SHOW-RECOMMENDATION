@@ -253,4 +253,10 @@ mod tests {
     }
 
     fn gen_ubig(num_words: u16) -> UBig {
-        let m
+        let mut buf = Buffer::allocate(num_words.into());
+        for i in 0..num_words {
+            buf.push(i.into());
+        }
+        buf.into()
+    }
+}
