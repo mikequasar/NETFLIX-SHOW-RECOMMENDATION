@@ -247,4 +247,10 @@ mod tests {
         let mut a = gen_ubig(100);
         let prev_cap = capacity(&a);
         a.clone_from(&num);
-        // The 
+        // The buffer should now be reallocated, it's too large.
+        assert_ne!(capacity(&a), prev_cap);
+        assert_eq!(capacity(&a), capacity(&num));
+    }
+
+    fn gen_ubig(num_words: u16) -> UBig {
+        let m
