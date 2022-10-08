@@ -218,3 +218,45 @@ fn test_add_sub_ibig_primitive() {
     let mut x = ibig!(-3);
     x += 3u8;
     x += &3u8;
+    assert_eq!(x, ibig!(3));
+
+    assert_eq!(ibig!(7) - 5u16, ibig!(2));
+    assert_eq!(ibig!(7) - &5u16, ibig!(2));
+    assert_eq!(&ibig!(7) - 5u16, ibig!(2));
+    assert_eq!(&ibig!(7) - &5u16, ibig!(2));
+    assert_eq!(5u16 - ibig!(7), ibig!(-2));
+    assert_eq!(5u16 - &ibig!(7), ibig!(-2));
+    assert_eq!(&5u16 - ibig!(7), ibig!(-2));
+    assert_eq!(&5u16 - &ibig!(7), ibig!(-2));
+
+    let mut x = ibig!(10);
+    x -= 7u8;
+    x -= &7u8;
+    assert_eq!(x, ibig!(-4));
+
+    assert_eq!(ibig!(3) + (-1), ibig!(2));
+    assert_eq!(ibig!(3) + &(-1), ibig!(2));
+    assert_eq!(&ibig!(3) + (-1), ibig!(2));
+    assert_eq!(&ibig!(3) + &(-1), ibig!(2));
+    assert_eq!(-1 + ibig!(3), ibig!(2));
+    assert_eq!(-1 + &ibig!(3), ibig!(2));
+    assert_eq!(&-1 + ibig!(3), ibig!(2));
+    assert_eq!(&-1 + &ibig!(3), ibig!(2));
+    let mut x = ibig!(3);
+    x += -10;
+    x += &20;
+    assert_eq!(x, ibig!(13));
+
+    assert_eq!(ibig!(3) - -1, ibig!(4));
+    assert_eq!(ibig!(3) - &-1, ibig!(4));
+    assert_eq!(&ibig!(3) - -1, ibig!(4));
+    assert_eq!(&ibig!(3) - &-1, ibig!(4));
+    assert_eq!(3 - ibig!(4), ibig!(-1));
+    assert_eq!(3 - &ibig!(4), ibig!(-1));
+    assert_eq!(&3 - ibig!(4), ibig!(-1));
+    assert_eq!(&3 - &ibig!(4), ibig!(-1));
+    let mut x = ibig!(3);
+    x -= -1;
+    x -= &10;
+    assert_eq!(x, ibig!(-6));
+}
