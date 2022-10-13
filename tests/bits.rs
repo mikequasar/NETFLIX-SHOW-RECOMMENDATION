@@ -565,3 +565,75 @@ fn test_ubig_xor_signed_overflow() {
 
 #[test]
 #[allow(clippy::identity_op, clippy::op_ref)]
+fn test_bit_ops_ibig_primitive() {
+    assert_eq!(ibig!(0xf0f) & 0xffu8, 0xfu8);
+    assert_eq!(ibig!(0xf0f) & &0xffu8, 0xfu8);
+    assert_eq!(&ibig!(0xf0f) & 0xffu8, 0xfu8);
+    assert_eq!(&ibig!(0xf0f) & &0xffu8, 0xfu8);
+
+    assert_eq!(0xffu8 & ibig!(0xf0f), 0xfu8);
+    assert_eq!(0xffu8 & &ibig!(0xf0f), 0xfu8);
+    assert_eq!(&0xffu8 & ibig!(0xf0f), 0xfu8);
+    assert_eq!(&0xffu8 & &ibig!(0xf0f), 0xfu8);
+
+    assert_eq!(ibig!(0xf0f) & 0xff, ibig!(0xf));
+    assert_eq!(ibig!(0xf0f) & &0xff, ibig!(0xf));
+    assert_eq!(&ibig!(0xf0f) & 0xff, ibig!(0xf));
+    assert_eq!(&ibig!(0xf0f) & &0xff, ibig!(0xf));
+    assert_eq!(ibig!(-1) & 0xffu8, 0xffu8);
+    assert_eq!(ibig!(-1) & -1, ibig!(-1));
+
+    let mut x = ibig!(0xf0f);
+    x &= 0xff;
+    assert_eq!(x, ibig!(0xf));
+
+    let mut x = ibig!(0xf0f);
+    x &= &0xff;
+    assert_eq!(x, ibig!(0xf));
+
+    assert_eq!(ibig!(0xf0f) | 0xff, ibig!(0xfff));
+    assert_eq!(ibig!(0xf0f) | &0xff, ibig!(0xfff));
+    assert_eq!((&ibig!(0xf0f)) | 0xff, ibig!(0xfff));
+    assert_eq!((&ibig!(0xf0f)) | &0xff, ibig!(0xfff));
+
+    assert_eq!(0xff | ibig!(0xf0f), ibig!(0xfff));
+    assert_eq!(0xff | &ibig!(0xf0f), ibig!(0xfff));
+    assert_eq!(&0xff | ibig!(0xf0f), ibig!(0xfff));
+    assert_eq!(&0xff | &ibig!(0xf0f), ibig!(0xfff));
+
+    assert_eq!(ibig!(17) | -1, ibig!(-1));
+
+    let mut x = ibig!(0xf0f);
+    x |= 0xff;
+    assert_eq!(x, ibig!(0xfff));
+
+    let mut x = ibig!(0xf0f);
+    x |= &0xff;
+    assert_eq!(x, ibig!(0xfff));
+
+    assert_eq!(ibig!(0xf0f) ^ 0xff, ibig!(0xff0));
+    assert_eq!(ibig!(0xf0f) ^ &0xff, ibig!(0xff0));
+    assert_eq!(&ibig!(0xf0f) ^ 0xff, ibig!(0xff0));
+    assert_eq!(&ibig!(0xf0f) ^ &0xff, ibig!(0xff0));
+
+    assert_eq!(0xffu8 ^ ibig!(0xf0f), ibig!(0xff0));
+    assert_eq!(0xffu8 ^ &ibig!(0xf0f), ibig!(0xff0));
+    assert_eq!(&0xffu8 ^ ibig!(0xf0f), ibig!(0xff0));
+    assert_eq!(&0xffu8 ^ &ibig!(0xf0f), ibig!(0xff0));
+
+    assert_eq!(ibig!(-1) ^ -1, ibig!(0));
+
+    let mut x = ibig!(0xf0f);
+    x ^= 0xff;
+    assert_eq!(x, ibig!(0xff0));
+
+    let mut x = ibig!(0xf0f);
+    x ^= &0xff;
+    assert_eq!(x, ibig!(0xff0));
+
+    assert_eq!(ibig!(0xf0f).and_not(0xff), ibig!(0xf00));
+    assert_eq!(ibig!(0xf0f).and_not(&0xff), ibig!(0xf00));
+    assert_eq!((&ibig!(0xf0f)).and_not(0xff), ibig!(0xf00));
+    assert_eq!((&ibig!(0xf0f)).and_not(&0xff), ibig!(0xf00));
+    assert_eq!(ibig!(-13).and_not(-1), ibig!(0));
+}
