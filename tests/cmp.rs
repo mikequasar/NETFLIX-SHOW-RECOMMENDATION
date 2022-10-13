@@ -3,4 +3,9 @@ use ibig::{ibig, ubig};
 
 #[test]
 fn test_cmp() {
-    assert_eq!(ubig!(500).cmp(&ubig!(500)), Ordering::Equa
+    assert_eq!(ubig!(500).cmp(&ubig!(500)), Ordering::Equal);
+    assert!(ubig!(100) < ubig!(500));
+    assert!(ubig!(500) > ubig!(100));
+    assert!(ubig!(0x10000000000000000) > ubig!(100));
+    assert!(ubig!(100) < ubig!(_0x100000000000000000000000000000000));
+    ass
