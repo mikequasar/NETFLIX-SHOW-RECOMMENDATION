@@ -25,4 +25,9 @@ fn test_cmp() {
     assert!(ibig!(5) < ibig!(10));
     assert!(ibig!(10) > ibig!(5));
     assert!(ibig!(-5) < ibig!(10));
-    ass
+    assert!(ibig!(-15) < ibig!(10));
+    assert!(ibig!(10) > ibig!(-5));
+    assert!(ibig!(10) > ibig!(-15));
+    assert!(ibig!(-10) < ibig!(-5));
+    assert!(ibig!(-5) > ibig!(-10));
+}
