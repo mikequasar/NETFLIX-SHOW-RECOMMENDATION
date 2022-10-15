@@ -20,4 +20,9 @@ fn test_cmp() {
         Ordering::Equal
     );
 
-    assert_eq!(ibig!(500).
+    assert_eq!(ibig!(500).cmp(&ibig!(500)), Ordering::Equal);
+    assert_eq!(ibig!(-500).cmp(&ibig!(-500)), Ordering::Equal);
+    assert!(ibig!(5) < ibig!(10));
+    assert!(ibig!(10) > ibig!(5));
+    assert!(ibig!(-5) < ibig!(10));
+    ass
