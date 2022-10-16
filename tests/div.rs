@@ -88,3 +88,206 @@ fn test_div_rem_ubig() {
             (ubig!(1) << 5000) - ubig!(1),
             (ubig!(1) << 14000) + (ubig!(1) << 9000) + (ubig!(1) << 4000),
             (ubig!(1) << 4000) - ubig!(1)
+        ),
+    ];
+
+    for (a, b, q, r) in &test_cases {
+        let qr = (q.clone(), r.clone());
+
+        assert_eq!(a / b, *q);
+        assert_eq!(a.clone() / b, *q);
+        assert_eq!(a / b.clone(), *q);
+        assert_eq!(a.clone() / b.clone(), *q);
+
+        let mut x = a.clone();
+        x /= b;
+        assert_eq!(x, *q);
+
+        let mut x = a.clone();
+        x /= b.clone();
+        assert_eq!(x, *q);
+
+        assert_eq!(a % b, *r);
+        assert_eq!(a.clone() % b, *r);
+        assert_eq!(a % b.clone(), *r);
+        assert_eq!(a.clone() % b.clone(), *r);
+
+        let mut x = a.clone();
+        x %= b;
+        assert_eq!(x, *r);
+
+        let mut x = a.clone();
+        x %= b.clone();
+        assert_eq!(x, *r);
+
+        assert_eq!(a.div_rem(b), qr);
+        assert_eq!(a.clone().div_rem(b), qr);
+        assert_eq!(a.div_rem(b.clone()), qr);
+        assert_eq!(a.clone().div_rem(b.clone()), qr);
+
+        assert_eq!(a.div_euclid(b), *q);
+        assert_eq!(a.clone().div_euclid(b), *q);
+        assert_eq!(a.div_euclid(b.clone()), *q);
+        assert_eq!(a.clone().div_euclid(b.clone()), *q);
+
+        assert_eq!(a.rem_euclid(b), *r);
+        assert_eq!(a.clone().rem_euclid(b), *r);
+        assert_eq!(a.rem_euclid(b.clone()), *r);
+        assert_eq!(a.clone().rem_euclid(b.clone()), *r);
+
+        assert_eq!(a.div_rem_euclid(b), qr);
+        assert_eq!(a.clone().div_rem_euclid(b), qr);
+        assert_eq!(a.div_rem_euclid(b.clone()), qr);
+        assert_eq!(a.clone().div_rem_euclid(b.clone()), qr);
+    }
+}
+
+#[test]
+#[should_panic]
+fn test_divide_by_0_ubig() {
+    let _ = ubig!(5) / ubig!(0);
+}
+
+#[test]
+fn test_div_rem_ibig() {
+    for a in -20i8..=20i8 {
+        for b in -20i8..=20i8 {
+            if b == 0 {
+                continue;
+            }
+
+            let a_big: IBig = a.into();
+            let b_big: IBig = b.into();
+            let q: IBig = (a / b).into();
+            let r: IBig = (a % b).into();
+            let qr = (q.clone(), r.clone());
+
+            assert_eq!(a_big.clone() / b_big.clone(), q);
+            assert_eq!(&a_big / b_big.clone(), q);
+            assert_eq!(a_big.clone() / &b_big, q);
+            assert_eq!(&a_big / &b_big, q);
+
+            let mut x = a_big.clone();
+            x /= b_big.clone();
+            assert_eq!(x, q);
+
+            let mut x = a_big.clone();
+            x /= &b_big;
+            assert_eq!(x, q);
+
+            assert_eq!(a_big.clone() % b_big.clone(), r);
+            assert_eq!(&a_big % b_big.clone(), r);
+            assert_eq!(a_big.clone() % &b_big, r);
+            assert_eq!(&a_big % &b_big, r);
+
+            let mut x = a_big.clone();
+            x %= b_big.clone();
+            assert_eq!(x, r);
+
+            let mut x = a_big.clone();
+            x %= &b_big;
+            assert_eq!(x, r);
+
+            assert_eq!(a_big.clone().div_rem(b_big.clone()), qr);
+            assert_eq!((&a_big).div_rem(b_big.clone()), qr);
+            assert_eq!(a_big.clone().div_rem(&b_big), qr);
+            assert_eq!((&a_big).div_rem(&b_big), qr);
+        }
+    }
+}
+
+#[test]
+fn test_div_rem_euclid_ibig() {
+    for a in -20i8..=20i8 {
+        for b in -20i8..=20i8 {
+            if b == 0 {
+                continue;
+            }
+
+            let a_big: IBig = a.into();
+            let b_big: IBig = b.into();
+            let q: IBig = a.div_euclid(b).into();
+            let r: IBig = a.rem_euclid(b).into();
+            let qr = (q.clone(), r.clone());
+
+            assert_eq!(a_big.clone().div_euclid(b_big.clone()), q);
+            assert_eq!((&a_big).div_euclid(b_big.clone()), q);
+            assert_eq!(a_big.clone().div_euclid(&b_big), q);
+            assert_eq!((&a_big).div_euclid(&b_big), q);
+
+            assert_eq!(a_big.clone().rem_euclid(b_big.clone()), r);
+            assert_eq!((&a_big).rem_euclid(b_big.clone()), r);
+            assert_eq!(a_big.clone().rem_euclid(&b_big), r);
+            assert_eq!((&a_big).rem_euclid(&b_big), r);
+
+            assert_eq!(a_big.clone().div_rem_euclid(b_big.clone()), qr);
+            assert_eq!((&a_big).div_rem_euclid(b_big.clone()), qr);
+            assert_eq!(a_big.clone().div_rem_euclid(&b_big), qr);
+            assert_eq!((&a_big).div_rem_euclid(&b_big), qr);
+        }
+    }
+}
+
+#[test]
+#[should_panic]
+fn test_divide_by_0_ibig() {
+    let _ = ibig!(5) / ibig!(0);
+}
+
+#[test]
+#[allow(clippy::op_ref)]
+fn test_div_rem_ubig_unsigned() {
+    assert_eq!(ubig!(23) / 10u8, ubig!(2));
+    assert_eq!(ubig!(23) / &10u8, ubig!(2));
+    assert_eq!(&ubig!(23) / 10u8, ubig!(2));
+    assert_eq!(&ubig!(23) / &10u8, ubig!(2));
+    let mut x = ubig!(23);
+    x /= 10u8;
+    assert_eq!(x, ubig!(2));
+    let mut x = ubig!(23);
+    x /= &10u8;
+    assert_eq!(x, ubig!(2));
+
+    assert_eq!(ubig!(23) % 10u8, 3u8);
+    assert_eq!(ubig!(23) % &10u8, 3u8);
+    assert_eq!(&ubig!(23) % 10u8, 3u8);
+    assert_eq!(&ubig!(23) % &10u8, 3u8);
+    let mut x = ubig!(23);
+    x %= 10u8;
+    assert_eq!(x, ubig!(3));
+    let mut x = ubig!(23);
+    x %= &10u8;
+    assert_eq!(x, ubig!(3));
+
+    assert_eq!(ubig!(23).div_rem(10u8), (ubig!(2), 3u8));
+    assert_eq!(ubig!(23).div_rem(&10u8), (ubig!(2), 3u8));
+    assert_eq!((&ubig!(23)).div_rem(10u8), (ubig!(2), 3u8));
+    assert_eq!((&ubig!(23)).div_rem(&10u8), (ubig!(2), 3u8));
+}
+
+#[test]
+fn test_div_rem_euclid_ubig_unsigned() {
+    assert_eq!(ubig!(23).div_euclid(10u8), ubig!(2));
+    assert_eq!(ubig!(23).div_euclid(&10u8), ubig!(2));
+    assert_eq!((&ubig!(23)).div_euclid(10u8), ubig!(2));
+    assert_eq!((&ubig!(23)).div_euclid(&10u8), ubig!(2));
+
+    assert_eq!(ubig!(23).rem_euclid(10u8), 3u8);
+    assert_eq!(ubig!(23).rem_euclid(&10u8), 3u8);
+    assert_eq!((&ubig!(23)).rem_euclid(10u8), 3u8);
+    assert_eq!((&ubig!(23)).rem_euclid(&10u8), 3u8);
+
+    assert_eq!(ubig!(23).div_rem_euclid(10u8), (ubig!(2), 3u8));
+    assert_eq!(ubig!(23).div_rem_euclid(&10u8), (ubig!(2), 3u8));
+    assert_eq!((&ubig!(23)).div_rem_euclid(10u8), (ubig!(2), 3u8));
+    assert_eq!((&ubig!(23)).div_rem_euclid(&10u8), (ubig!(2), 3u8));
+}
+
+#[test]
+#[allow(clippy::op_ref)]
+fn test_div_rem_ubig_signed() {
+    assert_eq!(ubig!(23) / 10, ubig!(2));
+    assert_eq!(ubig!(23) / &10, ubig!(2));
+    assert_eq!(&ubig!(23) / 10, ubig!(2));
+    assert_eq!(&ubig!(23) / &10, ubig!(2));
+    let mut x = ubig!(23);
