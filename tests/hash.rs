@@ -17,4 +17,10 @@ where
 fn test_hash() {
     let h = hash(&(ubig!(1) << 1000));
     for i in 0..=1000 {
-        let h2 
+        let h2 = hash(&(ubig!(1) << i << (1000 - i)));
+        assert_eq!(h2, h);
+    }
+
+    let h3 = hash(&(ubig!(2) << 1000));
+    assert!(h3 != h);
+}
