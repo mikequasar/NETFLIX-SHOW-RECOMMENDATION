@@ -16,4 +16,7 @@ fn test_ubig_format() {
     assert_eq!(format!("{:+#010b}", ubig!(100)), "+0b1100100");
     assert_eq!(format!("{:+#01b}", ubig!(100)), "+0b1100100");
     assert_eq!(format!("{:o}", ubig!(100)), "144");
-    assert_eq!(f
+    assert_eq!(format!("{:#o}", ubig!(100)), "0o144");
+    assert_eq!(format!("{:x}", ubig!(3000)), "bb8");
+    assert_eq!(format!("{:#x}", ubig!(3000)), "0xbb8");
+    assert_eq!(format!("{:X}", ubig!(3000)), "B
