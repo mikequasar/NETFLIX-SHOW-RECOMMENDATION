@@ -19,4 +19,10 @@ fn test_ubig_format() {
     assert_eq!(format!("{:#o}", ubig!(100)), "0o144");
     assert_eq!(format!("{:x}", ubig!(3000)), "bb8");
     assert_eq!(format!("{:#x}", ubig!(3000)), "0xbb8");
-    assert_eq!(format!("{:X}", ubig!(3000)), "B
+    assert_eq!(format!("{:X}", ubig!(3000)), "BB8");
+    assert_eq!(format!("{:#X}", ubig!(3000)), "0xBB8");
+    assert_eq!(format!("{:#10X}", ubig!(3000)), "     0xBB8");
+
+    assert_eq!(format!("{}", ubig!(123)), "123");
+    assert_eq!(format!("{:?}", ubig!(123)), "123");
+    assert_eq
