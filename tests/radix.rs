@@ -34,4 +34,11 @@ fn test_ubig_format() {
     ]);
     assert_eq!(
         format!("{:x}", a),
-        "5ee0123456789abcdef0123456789abcdef0123456789a
+        "5ee0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    );
+    assert_eq!(
+        format!("{:X}", a),
+        "5EE0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
+    );
+    assert_eq!(
+   
