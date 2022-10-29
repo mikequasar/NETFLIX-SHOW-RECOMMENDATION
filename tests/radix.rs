@@ -41,4 +41,9 @@ fn test_ubig_format() {
         "5EE0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
     );
     assert_eq!(
-   
+        format!("{:^100X}", a),
+        "        5EE0123456789ABCDEF\
+        0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF         "
+    );
+    assert_eq!(
+        format!("{:o}",
