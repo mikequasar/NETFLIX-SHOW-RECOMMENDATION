@@ -65,4 +65,7 @@ fn test_ubig_format() {
 #[test]
 fn test_ubig_in_radix() {
     assert_eq!(format!("{}", ubig!(0).in_radix(2)), "0");
-    assert_eq!(format!("{}", ub
+    assert_eq!(format!("{}", ubig!(100).in_radix(4)), "1210");
+    assert_eq!(format!("{}", ubig!(3000).in_radix(16)), "bb8");
+    assert_eq!(format!("{:+010}", ubig!(3000).in_radix(16)), "+000000bb8");
+    assert_eq!(format!("{:+#010}", ubig!(3000)
