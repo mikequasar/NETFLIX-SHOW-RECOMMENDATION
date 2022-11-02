@@ -58,4 +58,11 @@ fn test_ubig_format() {
     assert_eq!(
         format!("{:>120}", a),
         "                    32424378138036567091203300829444432818122896389983\
- 
+        04588119616982843278155375835513236887964094287343"
+    );
+}
+
+#[test]
+fn test_ubig_in_radix() {
+    assert_eq!(format!("{}", ubig!(0).in_radix(2)), "0");
+    assert_eq!(format!("{}", ub
