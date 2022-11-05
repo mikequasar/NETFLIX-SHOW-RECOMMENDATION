@@ -82,4 +82,10 @@ fn test_ubig_in_radix() {
     );
 
     let a = UBig::from_le_bytes(&[0xff; 50]);
-    asser
+    assert_eq!(
+        a.in_radix(32).to_string(),
+        "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+    );
+
+    assert_eq!(ubig!(123456789).to_string(), "123456789");
+    ass
