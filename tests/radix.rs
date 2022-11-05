@@ -73,4 +73,13 @@ fn test_ubig_in_radix() {
     assert_eq!(format!("{:#010}", ubig!(1294).in_radix(36)), "00000000ZY");
 
     assert_eq!(
-        ubig!(0xffffffff).in_radix(3).to_str
+        ubig!(0xffffffff).in_radix(3).to_string(),
+        "102002022201221111210"
+    );
+    assert_eq!(
+        ubig!(0xffffffffffffffff).in_radix(3).to_string(),
+        "11112220022122120101211020120210210211220"
+    );
+
+    let a = UBig::from_le_bytes(&[0xff; 50]);
+    asser
