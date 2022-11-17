@@ -104,4 +104,8 @@ fn test_ubig_in_radix() {
 fn test_ibig_format() {
     assert_eq!(format!("{:b}", ibig!(0)), "0");
     assert_eq!(format!("{:b}", ibig!(100)), "1100100");
-    assert_eq!(format!("{:b}", ibig!(-100)), "-110
+    assert_eq!(format!("{:b}", ibig!(-100)), "-1100100");
+    assert_eq!(format!("{:#b}", ibig!(100)), "0b1100100");
+    assert_eq!(format!("{:#b}", ibig!(-100)), "-0b1100100");
+    assert_eq!(format!("{:+b}", ibig!(100)), "+1100100");
+    assert_e
