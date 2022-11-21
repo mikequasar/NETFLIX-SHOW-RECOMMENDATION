@@ -129,4 +129,8 @@ fn test_ibig_format() {
     assert_eq!(format!("{:+#01b}", ibig!(-100)), "-0b1100100");
     assert_eq!(format!("{:o}", ibig!(100)), "144");
     assert_eq!(format!("{:o}", ibig!(-100)), "-144");
-    assert_eq!(format!
+    assert_eq!(format!("{:#o}", ibig!(100)), "0o144");
+    assert_eq!(format!("{:#o}", ibig!(-100)), "-0o144");
+    assert_eq!(format!("{:x}", ibig!(3000)), "bb8");
+    assert_eq!(format!("{:x}", ibig!(-3000)), "-bb8");
+    assert_eq!(format!(
