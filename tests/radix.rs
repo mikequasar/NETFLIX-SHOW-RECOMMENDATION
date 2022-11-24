@@ -137,4 +137,9 @@ fn test_ibig_format() {
     assert_eq!(format!("{:#x}", ibig!(-3000)), "-0xbb8");
     assert_eq!(format!("{:X}", ibig!(3000)), "BB8");
     assert_eq!(format!("{:X}", ibig!(-3000)), "-BB8");
-    assert_eq!(format!("{:#X}
+    assert_eq!(format!("{:#X}", ibig!(3000)), "0xBB8");
+    assert_eq!(format!("{:#X}", ibig!(-3000)), "-0xBB8");
+    assert_eq!(format!("{:#10X}", ibig!(3000)), "     0xBB8");
+    assert_eq!(format!("{:#10X}", ibig!(-3000)), "    -0xBB8");
+
+    assert_
