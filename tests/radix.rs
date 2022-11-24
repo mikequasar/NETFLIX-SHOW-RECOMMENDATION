@@ -142,4 +142,11 @@ fn test_ibig_format() {
     assert_eq!(format!("{:#10X}", ibig!(3000)), "     0xBB8");
     assert_eq!(format!("{:#10X}", ibig!(-3000)), "    -0xBB8");
 
-    assert_
+    assert_eq!(format!("{}", ibig!(-123)), "-123");
+    assert_eq!(format!("{:?}", ibig!(-123)), "-123");
+    assert_eq!(format!("{:=>10}", ibig!(-123)), "======-123");
+}
+
+#[test]
+fn test_ibig_in_radix() {
+    assert_eq!(
