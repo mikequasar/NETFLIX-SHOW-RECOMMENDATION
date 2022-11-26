@@ -158,4 +158,8 @@ fn test_ibig_in_radix() {
     assert_eq!(format!("{:+010}", ibig!(-3000).in_radix(16)), "-000000bb8");
     assert_eq!(format!("{:#010}", ibig!(3000).in_radix(16)), "0000000BB8");
     assert_eq!(format!("{:#010}", ibig!(-3000).in_radix(16)), "-000000BB8");
-    assert_eq!(format!("{:#010}", ibig!(-300
+    assert_eq!(format!("{:#010}", ibig!(-3000).in_radix(10)), "-000003000");
+
+    assert_eq!(ibig!(0).in_radix(16).to_string(), "0");
+    assert_eq!(ibig!(100).in_radix(4).to_string(), "1210");
+    assert_eq!(ibig!(-100).in_radix(4)
