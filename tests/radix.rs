@@ -149,4 +149,7 @@ fn test_ibig_format() {
 
 #[test]
 fn test_ibig_in_radix() {
-    assert_eq!(
+    assert_eq!(format!("{}", ibig!(0).in_radix(2)), "0");
+    assert_eq!(format!("{}", ibig!(100).in_radix(4)), "1210");
+    assert_eq!(format!("{}", ibig!(-100).in_radix(4)), "-1210");
+    assert_eq!(format!("{}", ibig
