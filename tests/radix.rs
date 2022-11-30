@@ -166,4 +166,12 @@ fn test_ibig_in_radix() {
     assert_eq!(ibig!(3000).in_radix(16).to_string(), "bb8");
     assert_eq!(ibig!(-3000).in_radix(16).to_string(), "-bb8");
     assert_eq!(ibig!(3000).in_radix(32).to_string(), "2to");
-    assert_eq!(ibig!(-3000).in
+    assert_eq!(ibig!(-3000).in_radix(32).to_string(), "-2to");
+    assert_eq!(ibig!(-1234).to_string(), "-1234");
+}
+
+#[test]
+fn test_ubig_from_str_radix() {
+    assert_eq!(
+        UBig::from_str_radix("", 2).unwrap_err(),
+        P
