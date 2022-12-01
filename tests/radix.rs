@@ -174,4 +174,12 @@ fn test_ibig_in_radix() {
 fn test_ubig_from_str_radix() {
     assert_eq!(
         UBig::from_str_radix("", 2).unwrap_err(),
-        P
+        ParseError::NoDigits
+    );
+    assert_eq!(
+        UBig::from_str_radix("+", 2).unwrap_err(),
+        ParseError::NoDigits
+    );
+    assert_eq!(
+        UBig::from_str_radix("012", 2).unwrap_err(),
+       
