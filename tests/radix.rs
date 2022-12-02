@@ -182,4 +182,11 @@ fn test_ubig_from_str_radix() {
     );
     assert_eq!(
         UBig::from_str_radix("012", 2).unwrap_err(),
-       
+        ParseError::InvalidDigit
+    );
+    assert_eq!(
+        UBig::from_str_radix("ffffffffffffffffffffffffffffffffffffffffffffffg", 16).unwrap_err(),
+        ParseError::InvalidDigit
+    );
+    assert_eq!(
+      
