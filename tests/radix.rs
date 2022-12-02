@@ -199,4 +199,7 @@ fn test_ubig_from_str_radix() {
         UBig::from_str_radix("1010110", 2).unwrap(),
         ubig!(0b1010110)
     );
-   
+    assert_eq!(UBig::from_str_radix("f1Ee", 16).unwrap(), ubig!(0xf1ee));
+    assert_eq!(UBig::from_str_radix("Pp", 32).unwrap(), ubig!(825));
+
+    assert_eq!(UBig::from_str_radix("12345", 10), Ok(ubig!(12345)))
