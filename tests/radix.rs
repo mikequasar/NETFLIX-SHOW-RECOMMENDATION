@@ -189,4 +189,8 @@ fn test_ubig_from_str_radix() {
         ParseError::InvalidDigit
     );
     assert_eq!(
-      
+        UBig::from_str_radix("-0", 2).unwrap_err(),
+        ParseError::InvalidDigit
+    );
+    assert_eq!(UBig::from_str_radix("+0", 2).unwrap(), ubig!(0));
+    assert_eq!(UBig::from_str_radi
