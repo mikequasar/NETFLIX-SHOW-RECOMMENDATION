@@ -193,4 +193,10 @@ fn test_ubig_from_str_radix() {
         ParseError::InvalidDigit
     );
     assert_eq!(UBig::from_str_radix("+0", 2).unwrap(), ubig!(0));
-    assert_eq!(UBig::from_str_radi
+    assert_eq!(UBig::from_str_radix("0", 2).unwrap(), ubig!(0));
+    assert_eq!(UBig::from_str_radix("0000000000000", 2).unwrap(), ubig!(0));
+    assert_eq!(
+        UBig::from_str_radix("1010110", 2).unwrap(),
+        ubig!(0b1010110)
+    );
+   
