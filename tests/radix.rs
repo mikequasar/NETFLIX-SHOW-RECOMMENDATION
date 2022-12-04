@@ -214,4 +214,16 @@ fn test_ubig_from_str_radix() {
             16));
 
     {
-        let x: UBig = "1234".parse().unwrap(
+        let x: UBig = "1234".parse().unwrap();
+        assert_eq!(x, ubig!(1234));
+    }
+    {
+        let x: UBig = "0000000000000000001234".parse().unwrap();
+        assert_eq!(x, ubig!(1234));
+    }
+}
+
+#[test]
+fn test_ibig_from_str_radix() {
+    assert_eq!(
+   
