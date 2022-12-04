@@ -226,4 +226,12 @@ fn test_ubig_from_str_radix() {
 #[test]
 fn test_ibig_from_str_radix() {
     assert_eq!(
+        IBig::from_str_radix("", 2).unwrap_err(),
+        ParseError::NoDigits
+    );
+    assert_eq!(
+        IBig::from_str_radix("+", 2).unwrap_err(),
+        ParseError::NoDigits
+    );
+    assert_eq!(
    
