@@ -242,4 +242,9 @@ fn test_ibig_from_str_radix() {
         ParseError::InvalidDigit
     );
     assert_eq!(
-      
+        IBig::from_str_radix("-012", 2).unwrap_err(),
+        ParseError::InvalidDigit
+    );
+    assert_eq!(IBig::from_str_radix("0", 2).unwrap(), ibig!(0));
+    assert_eq!(IBig::from_str_radix("+0", 2).unwrap(), ibig!(0));
+    a
