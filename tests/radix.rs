@@ -247,4 +247,10 @@ fn test_ibig_from_str_radix() {
     );
     assert_eq!(IBig::from_str_radix("0", 2).unwrap(), ibig!(0));
     assert_eq!(IBig::from_str_radix("+0", 2).unwrap(), ibig!(0));
-    a
+    assert_eq!(IBig::from_str_radix("-0", 2).unwrap(), ibig!(0));
+    assert_eq!(
+        IBig::from_str_radix("1010110", 2).unwrap(),
+        ibig!(0b1010110)
+    );
+    assert_eq!(
+        IBig::from_str_radix("-1010110", 2).unwrap
