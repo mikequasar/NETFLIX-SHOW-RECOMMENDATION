@@ -253,4 +253,16 @@ fn test_ibig_from_str_radix() {
         ibig!(0b1010110)
     );
     assert_eq!(
-        IBig::from_str_radix("-1010110", 2).unwrap
+        IBig::from_str_radix("-1010110", 2).unwrap(),
+        ibig!(-0b1010110)
+    );
+    {
+        let x: IBig = "-1234".parse().unwrap();
+        assert_eq!(x, ibig!(-1234));
+    }
+}
+
+#[test]
+fn test_radix_round_trip() {
+    assert_eq!(
+        UBig:
