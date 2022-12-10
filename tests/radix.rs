@@ -265,4 +265,11 @@ fn test_ibig_from_str_radix() {
 #[test]
 fn test_radix_round_trip() {
     assert_eq!(
-        UBig:
+        UBig::from_str_radix("abCCcaacacbbcbabcbacbacbabcabcbabcabbc1000", 16)
+            .unwrap()
+            .in_radix(16)
+            .to_string(),
+        "abcccaacacbbcbabcbacbacbabcabcbabcabbc1000"
+    );
+    assert_eq!(
+        U
