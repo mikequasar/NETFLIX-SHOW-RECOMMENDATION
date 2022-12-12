@@ -279,4 +279,11 @@ fn test_radix_round_trip() {
         .unwrap()
         .in_radix(16)
         .to_string(),
-        "a70a75394a70b95dde5c
+        "a70a75394a70b95dde5ce5cee77397bb9dcecd2e72e72e"
+    );
+
+    let x: UBig = "1287912837409187345908734509873240897234".parse().unwrap();
+    assert_eq!(x.to_string(), "1287912837409187345908734509873240897234");
+
+    // 1000..000, 999.999
+    
