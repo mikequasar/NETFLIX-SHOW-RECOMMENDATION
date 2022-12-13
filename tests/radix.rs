@@ -299,4 +299,12 @@ fn test_radix_round_trip() {
         let x: UBig = ubig!(1) << (64 * i);
         let y: UBig = x.to_string().parse().unwrap();
         assert_eq!(x, y);
-        let y: 
+        let y: UBig = (&x - ubig!(1)).to_string().parse().unwrap();
+        assert_eq!(&x - ubig!(1), y);
+    }
+
+    assert_eq!(
+        IBig::from_str_radix("-abCCcaacacbbcbabcbacbacbabcabcbabcabbc1000", 16)
+            .unwrap()
+            .in_radix(16)
+   
