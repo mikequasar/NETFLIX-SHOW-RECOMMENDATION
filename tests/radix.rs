@@ -291,4 +291,12 @@ fn test_radix_round_trip() {
         let y: UBig = x.to_string().parse().unwrap();
         assert_eq!(x, y);
         let y: UBig = (&x - ubig!(1)).to_string().parse().unwrap();
-        assert_eq!
+        assert_eq!(&x - ubig!(1), y);
+    }
+
+    // hex 1000...000, fff...fff
+    for i in 0..100 {
+        let x: UBig = ubig!(1) << (64 * i);
+        let y: UBig = x.to_string().parse().unwrap();
+        assert_eq!(x, y);
+        let y: 
