@@ -286,4 +286,9 @@ fn test_radix_round_trip() {
     assert_eq!(x.to_string(), "1287912837409187345908734509873240897234");
 
     // 1000..000, 999.999
-    
+    for i in 0..1000 {
+        let x = ubig!(10).pow(i);
+        let y: UBig = x.to_string().parse().unwrap();
+        assert_eq!(x, y);
+        let y: UBig = (&x - ubig!(1)).to_string().parse().unwrap();
+        assert_eq!
