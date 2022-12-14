@@ -307,4 +307,11 @@ fn test_radix_round_trip() {
         IBig::from_str_radix("-abCCcaacacbbcbabcbacbacbabcabcbabcabbc1000", 16)
             .unwrap()
             .in_radix(16)
-   
+            .to_string(),
+        "-abcccaacacbbcbabcbacbacbabcabcbabcabbc1000"
+    );
+}
+
+#[test]
+fn test_from_str_radix_with_radix_prefix() {
+    assert_eq!(UBig::from_str_with_radix_prefix("17").unwrap(), ubig!(17));
