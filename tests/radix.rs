@@ -315,3 +315,10 @@ fn test_radix_round_trip() {
 #[test]
 fn test_from_str_radix_with_radix_prefix() {
     assert_eq!(UBig::from_str_with_radix_prefix("17").unwrap(), ubig!(17));
+    assert_eq!(UBig::from_str_with_radix_prefix("+17").unwrap(), ubig!(17));
+    assert_eq!(
+        UBig::from_str_with_radix_prefix("0b101").unwrap(),
+        ubig!(0b101)
+    );
+    assert_eq!(
+        UBi
