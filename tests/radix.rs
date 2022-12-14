@@ -321,4 +321,12 @@ fn test_from_str_radix_with_radix_prefix() {
         ubig!(0b101)
     );
     assert_eq!(
-        UBi
+        UBig::from_str_with_radix_prefix("+0b101").unwrap(),
+        ubig!(0b101)
+    );
+    assert_eq!(
+        UBig::from_str_with_radix_prefix("0o177").unwrap(),
+        ubig!(0o177)
+    );
+    assert_eq!(
+        UBig::f
