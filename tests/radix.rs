@@ -346,4 +346,12 @@ fn test_from_str_radix_with_radix_prefix() {
     assert_eq!(IBig::from_str_with_radix_prefix("-17").unwrap(), ibig!(-17));
     assert_eq!(
         IBig::from_str_with_radix_prefix("0b101").unwrap(),
-        ibig!(0
+        ibig!(0b101)
+    );
+    assert_eq!(
+        IBig::from_str_with_radix_prefix("+0b101").unwrap(),
+        ibig!(0b101)
+    );
+    assert_eq!(
+        IBig::from_str_with_radix_prefix("-0b101").unwrap(),
+        ibig!(-0b
