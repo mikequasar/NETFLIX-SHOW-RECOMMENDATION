@@ -337,4 +337,9 @@ fn test_from_str_radix_with_radix_prefix() {
         ubig!(0x1ee)
     );
     assert_eq!(
-        UBig::from_str_with_r
+        UBig::from_str_with_radix_prefix("+0x1eE").unwrap(),
+        ubig!(0x1ee)
+    );
+
+    assert_eq!(IBig::from_str_with_radix_prefix("17").unwrap(), ibig!(17));
+    assert_eq!(IBig::from_str_with_radix_prefix("+
