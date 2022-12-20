@@ -365,4 +365,12 @@ fn test_from_str_radix_with_radix_prefix() {
         ibig!(0o177)
     );
     assert_eq!(
- 
+        IBig::from_str_with_radix_prefix("-0o177").unwrap(),
+        ibig!(-0o177)
+    );
+    assert_eq!(
+        IBig::from_str_with_radix_prefix("0x1eE").unwrap(),
+        ibig!(0x1ee)
+    );
+    assert_eq!(
+        IBig::
