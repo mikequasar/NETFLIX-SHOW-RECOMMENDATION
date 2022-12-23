@@ -399,4 +399,11 @@ fn test_from_str_radix_with_radix_prefix() {
         ParseError::NoDigits
     );
     assert_eq!(
-        IBig::fr
+        IBig::from_str_with_radix_prefix("+").unwrap_err(),
+        ParseError::NoDigits
+    );
+    assert_eq!(
+        IBig::from_str_with_radix_prefix("-").unwrap_err(),
+        ParseError::NoDigits
+    );
+    a
