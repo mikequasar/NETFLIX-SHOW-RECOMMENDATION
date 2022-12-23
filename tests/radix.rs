@@ -382,4 +382,12 @@ fn test_from_str_radix_with_radix_prefix() {
     );
 
     assert_eq!(
-        UBig::from_str_with_radix_prefix("").un
+        UBig::from_str_with_radix_prefix("").unwrap_err(),
+        ParseError::NoDigits
+    );
+    assert_eq!(
+        UBig::from_str_with_radix_prefix("+").unwrap_err(),
+        ParseError::NoDigits
+    );
+    assert_eq!(
+        UBig::from_str_wit
