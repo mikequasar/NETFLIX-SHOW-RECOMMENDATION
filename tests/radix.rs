@@ -390,4 +390,13 @@ fn test_from_str_radix_with_radix_prefix() {
         ParseError::NoDigits
     );
     assert_eq!(
-        UBig::from_str_wit
+        UBig::from_str_with_radix_prefix("0b102").unwrap_err(),
+        ParseError::InvalidDigit
+    );
+
+    assert_eq!(
+        IBig::from_str_with_radix_prefix("").unwrap_err(),
+        ParseError::NoDigits
+    );
+    assert_eq!(
+        IBig::fr
