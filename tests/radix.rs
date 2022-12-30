@@ -406,4 +406,13 @@ fn test_from_str_radix_with_radix_prefix() {
         IBig::from_str_with_radix_prefix("-").unwrap_err(),
         ParseError::NoDigits
     );
-    a
+    assert_eq!(
+        IBig::from_str_with_radix_prefix("0x1fg").unwrap_err(),
+        ParseError::InvalidDigit
+    );
+}
+
+#[test]
+fn test_display_errors() {
+    assert_eq!(ParseError::NoDigits.to_string(), "no digits");
+  
