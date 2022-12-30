@@ -415,4 +415,11 @@ fn test_from_str_radix_with_radix_prefix() {
 #[test]
 fn test_display_errors() {
     assert_eq!(ParseError::NoDigits.to_string(), "no digits");
-  
+    assert_eq!(ParseError::InvalidDigit.to_string(), "invalid digit");
+}
+
+#[test]
+fn test_macros() {
+    assert_eq!(ubig!(17), UBig::from(17u32));
+    assert_eq!(ubig!(0b101), UBig::from(0b101u32));
+    assert_eq!(ubig!(0o177), UBig:
