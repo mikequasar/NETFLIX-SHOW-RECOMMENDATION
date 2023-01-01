@@ -430,4 +430,10 @@ fn test_macros() {
         ),
         "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     );
-    as
+    assert_eq!(ubig!(100 base 32), UBig::from(1024u32));
+    assert_eq!(
+        format!("{}", ubig!(ppppppppppppppppppp base 32).in_radix(32)),
+        "ppppppppppppppppppp"
+    );
+
+    assert_eq!(ibi
