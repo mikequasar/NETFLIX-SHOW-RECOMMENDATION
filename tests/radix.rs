@@ -422,4 +422,12 @@ fn test_display_errors() {
 fn test_macros() {
     assert_eq!(ubig!(17), UBig::from(17u32));
     assert_eq!(ubig!(0b101), UBig::from(0b101u32));
-    assert_eq!(ubig!(0o177), UBig:
+    assert_eq!(ubig!(0o177), UBig::from(0o177u32));
+    assert_eq!(
+        format!(
+            "{:x}",
+            ubig!(_0x1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+        ),
+        "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    );
+    as
