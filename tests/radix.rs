@@ -436,4 +436,8 @@ fn test_macros() {
         "ppppppppppppppppppp"
     );
 
-    assert_eq!(ibi
+    assert_eq!(ibig!(17), IBig::from(17i32));
+    assert_eq!(ibig!(-17), IBig::from(-17i32));
+    assert_eq!(ibig!(0b101), IBig::from(0b101i32));
+    assert_eq!(ibig!(-0b101), IBig::from(-0b101i32));
+    assert_eq!(ibig!
