@@ -440,4 +440,8 @@ fn test_macros() {
     assert_eq!(ibig!(-17), IBig::from(-17i32));
     assert_eq!(ibig!(0b101), IBig::from(0b101i32));
     assert_eq!(ibig!(-0b101), IBig::from(-0b101i32));
-    assert_eq!(ibig!
+    assert_eq!(ibig!(0o177), IBig::from(0o177i32));
+    assert_eq!(ibig!(-0o177), IBig::from(-0o177i32));
+    assert_eq!(ibig!(0x1ff), IBig::from(0x1ffi32));
+    assert_eq!(ibig!(-0x1ff), IBig::from(-0x1ffi32));
+    asser
