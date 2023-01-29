@@ -444,4 +444,11 @@ fn test_macros() {
     assert_eq!(ibig!(-0o177), IBig::from(-0o177i32));
     assert_eq!(ibig!(0x1ff), IBig::from(0x1ffi32));
     assert_eq!(ibig!(-0x1ff), IBig::from(-0x1ffi32));
-    asser
+    assert_eq!(
+        format!(
+            "{:x}",
+            ibig!(-_0x1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+        ),
+        "-1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    );
+    assert_eq!(ibig!(100 base 32),
