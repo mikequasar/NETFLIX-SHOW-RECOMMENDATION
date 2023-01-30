@@ -451,4 +451,10 @@ fn test_macros() {
         ),
         "-1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     );
-    assert_eq!(ibig!(100 base 32),
+    assert_eq!(ibig!(100 base 32), IBig::from(1024i32));
+    assert_eq!(ibig!(-100 base 32), IBig::from(-1024i32));
+    assert_eq!(
+        format!("{}", ibig!(ppppppppppppppppppp base 32).in_radix(32)),
+        "ppppppppppppppppppp"
+    );
+    ass
