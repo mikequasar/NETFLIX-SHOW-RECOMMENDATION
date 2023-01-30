@@ -457,4 +457,8 @@ fn test_macros() {
         format!("{}", ibig!(ppppppppppppppppppp base 32).in_radix(32)),
         "ppppppppppppppppppp"
     );
-    ass
+    assert_eq!(
+        format!("{}", ibig!(-ppppppppppppppppppp base 32).in_radix(32)),
+        "-ppppppppppppppppppp"
+    );
+}
