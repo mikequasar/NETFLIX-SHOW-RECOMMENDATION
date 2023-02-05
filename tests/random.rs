@@ -17,4 +17,8 @@ fn test_uniform_ubig() {
     let x = (&mut rng).sample_iter(&distr).take(1000).max().unwrap();
     assert_eq!(x, ubig!(7));
 
-    let distr = Uniform::from(ubig!(0b100) << 128..ubig!(0b1000) <
+    let distr = Uniform::from(ubig!(0b100) << 128..ubig!(0b1000) << 128);
+    let x = (&mut rng).sample_iter(&distr).take(1000).min().unwrap();
+    assert!(x >= ubig!(0b100) << 128 && x < ubig!(0b101) << 128);
+    let x = (&mut rng).sample_iter(&distr).take(1000).max().unwrap();
+   
