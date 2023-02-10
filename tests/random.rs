@@ -21,4 +21,12 @@ fn test_uniform_ubig() {
     let x = (&mut rng).sample_iter(&distr).take(1000).min().unwrap();
     assert!(x >= ubig!(0b100) << 128 && x < ubig!(0b101) << 128);
     let x = (&mut rng).sample_iter(&distr).take(1000).max().unwrap();
-   
+    assert!(x >= ubig!(0b111) << 128 && x < ubig!(0b1000) << 128);
+}
+
+#[test]
+fn test_uniform_ibig() {
+    let mut rng = StdRng::seed_from_u64(1);
+
+    let distr = Uniform::from(ibig!(-7)..ibig!(3));
+    let x = (&mut rng).sa
