@@ -41,3 +41,12 @@ fn test_uniform_ibig() {
     assert_eq!(x, ibig!(3));
 }
 
+#[test]
+fn test_random_arithmetic() {
+    let mut rng = StdRng::seed_from_u64(3);
+    let p = ubig!(1000000007);
+
+    // 10^2 bits: 10^5 cases
+    // 10^6 bits: 10 cases
+    for log_num_bits in 2..=6 {
+        
