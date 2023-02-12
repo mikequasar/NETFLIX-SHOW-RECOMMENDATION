@@ -34,4 +34,10 @@ fn test_uniform_ibig() {
     let x = (&mut rng).sample_iter(&distr).take(1000).max().unwrap();
     assert_eq!(x, ibig!(2));
 
-    let distr = Uniform::f
+    let distr = Uniform::from(ibig!(-7)..=ibig!(3));
+    let x = (&mut rng).sample_iter(&distr).take(1000).min().unwrap();
+    assert_eq!(x, ibig!(-7));
+    let x = (&mut rng).sample_iter(&distr).take(1000).max().unwrap();
+    assert_eq!(x, ibig!(3));
+}
+
