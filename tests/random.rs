@@ -58,4 +58,7 @@ fn test_random_arithmetic() {
         for _ in 0..num_cases {
             let len_a = (&mut rng).gen_range(10..num_bits);
             let len_b = (&mut rng).gen_range(10..num_bits);
-            let a = (&mut
+            let a = (&mut rng).gen_range(ubig!(100)..ubig!(1) << len_a);
+            let b = (&mut rng).gen_range(ubig!(100)..ubig!(1) << len_b);
+            let c = (&mut rng).sample(Uniform::new(ubig!(0), &a));
+            let ra
