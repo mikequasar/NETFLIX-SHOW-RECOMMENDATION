@@ -70,4 +70,9 @@ fn test_random_arithmetic() {
             assert_eq!(quot, b);
             assert_eq!(rem, c);
             assert_eq!(
-                UBig::from_str_radix(&a.in_radix(radix).to_string(), radix).unw
+                UBig::from_str_radix(&a.in_radix(radix).to_string(), radix).unwrap(),
+                a
+            )
+        }
+    }
+}
